@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OPALÉRA — My Account</title>
+<meta name="theme-color" content="#0b0a10">
+<link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect x="7" y="7" width="10" height="10" transform="rotate(45 12 12)" fill="none" stroke="%23d8b45a" stroke-width="1.4"/><rect x="9.5" y="9.5" width="5" height="5" transform="rotate(45 12 12)" fill="%23d8b45a"/></svg>'>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/product-style.css">
+<style>
+  main{max-width:1020px}
+  .eyebrow{font-family:var(--font-label);font-size:.66rem;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);margin-bottom:.6rem}
+  h1.acct{font-size:clamp(2rem,4.5vw,3rem);font-weight:500;letter-spacing:.06em;margin-bottom:.4rem}
+  .sub{color:var(--muted);font-style:italic;line-height:1.7;margin-bottom:2rem}
+  .panel{border:1px solid var(--line);background:rgba(23,21,34,.85);padding:2rem;margin-bottom:1.8rem}
+  .panel h2{font-size:1.35rem;font-weight:500;letter-spacing:.08em;margin-bottom:1.1rem;color:var(--champagne)}
+  .who{font-family:var(--font-label);font-size:.8rem;letter-spacing:.1em;color:#d5cfe0;line-height:2.1}
+  .who b{color:var(--gold-light);font-weight:500}
+  .ord{border:1px solid rgba(255,255,255,.08);padding:1.1rem 1.3rem;margin-bottom:.9rem}
+  .ord .oh{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;align-items:baseline}
+  .ord .ref{font-family:var(--font-label);font-size:.72rem;letter-spacing:.16em;color:var(--gold-light)}
+  .ord .st{font-family:var(--font-label);font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;border:1px solid var(--emerald);color:var(--emerald);padding:.2rem .55rem}
+  .ord .oi{font-size:.86rem;color:var(--muted);font-style:italic;line-height:1.8;margin:.4rem 0 .6rem}
+  .ord .ot{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}
+  .ord .tot{font-family:var(--font-display);font-size:1.15rem;color:var(--gold-light)}
+  .ord a{font-family:var(--font-label);font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);text-decoration:none}
+  .ord a:hover{color:var(--gold-light)}
+  .empty{color:var(--muted);font-style:italic;padding:1rem 0}
+  .empty a{color:var(--gold-light)}
+  .signout{margin-top:.6rem}
+  .gate{text-align:center;padding:3rem 1rem}
+  .gate .btn{margin-top:1.4rem}
+  .strip{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:1rem}
+</style>
+</head>
+<body>
+<div class="aurora" aria-hidden="true"><span class="a1"></span><span class="a2"></span></div>
+<div class="wrap">
+
+<nav>
+  <a class="brand" href="jewellery_Html.html">
+    <span class="mark" aria-hidden="true"><i></i></span>
+    <span><b>OPALÉRA</b><small>The House of Every Gem</small></span>
+  </a>
+  <a class="crumb" href="jewellery_Html.html#tab=all" style="text-decoration:none">← The Collection</a>
+</nav>
+
+<main>
+  <div class="eyebrow">The Maison &amp; You</div>
+  <h1 class="acct">My Account</h1>
+  <p class="sub">Your profile, your orders and the pieces you've saved — kept safely on the maison's server, so they follow you to any device.</p>
+
+  <div id="gate" class="panel gate" hidden>
+    <p class="sub" style="margin:0">Sign in from any page to view your account — your bag, wishlist and orders will be waiting.</p>
+    <a class="btn solid" href="payment.html">Sign In at Checkout</a>
+  </div>
+
+  <div id="acctWrap" hidden>
+    <div class="panel">
+      <h2>Profile</h2>
+      <div class="who" id="who"></div>
+      <button class="btn ghost signout" id="signOut">Sign Out</button>
+    </div>
+
+    <div class="panel">
+      <h2>My Orders</h2>
+      <div id="orders"></div>
+    </div>
+
+    <div class="panel">
+      <h2>My Wishlist</h2>
+      <div class="strip" id="wl"></div>
+      <div class="empty" id="wlEmpty" hidden>Nothing saved yet — tap the heart on any piece you adore.</div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  OPALÉRA · The House of Every Gem<br>
+  <a href="jewellery_Html.html">Collection</a> · <a href="size-guide.html">Size Guide</a> · <a href="contact.html">Contact</a> · <a href="delivery.html">Delivery</a> · <a href="returns.html">Returns</a> · <a href="terms.html">Terms</a> · <a href="privacy.html">Privacy</a>
+</footer>
+</div>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script src="/opalera-backend/js/opalera-data.js"></script>
+<script>
+const { findProduct, fmt, esc, store, webSrc, pageOf, api, authApi } = OPALERA;
+const $ = id => document.getElementById(id);
+
+(async function(){
+  /* the account gate asks the maison's server who is signed in */
+  const u = await authApi.me();
+  if(!u || !u.email){ $("gate").hidden = false; return; }
+
+  $("acctWrap").hidden = false;
+  $("who").innerHTML = `Name · <b>${esc(u.fn)} ${esc(u.ln)}</b><br>Email · <b>${esc(u.email)}</b><br>Standing · <b>${u.role==="manager" ? "Maison Manager" : "Registered Patron"}</b>`;
+  $("signOut").addEventListener("click", async ()=>{
+    await authApi.logout();
+    store.set("opalera.bag", []); store.set("opalera.wishlist", []);
+    location.href = "jewellery_Html.html";
+  });
+
+  /* real order history from the server (falls back to this browser's copy) */
+  let orders = [];
+  try{
+    orders = (await api("/orders")).orders
+      .map(o=>({ ...o, placed: o.placedAt, user: o.email }));
+  }catch(e){
+    orders = store.get("opalera.orders", []).filter(o=>o.user===u.email).slice().reverse();
+  }
+  const ol = $("orders");
+  if(!orders.length){
+    ol.innerHTML = `<div class="empty">No orders yet — <a href="jewellery_Html.html#tab=all">the vault awaits</a>.</div>`;
+  }
+  orders.forEach(o=>{
+    const d = new Date(o.placed);
+    const names = o.items.map(it=>{
+      const p = findProduct(it.pid);
+      return `${p ? p.name : "Piece"}${(it.qty||1)>1 ? " ×"+it.qty : ""}${it.custom ? " (customised)" : ""}`;
+    }).join(" · ");
+    const status = o.status === "reserved" ? "Reserved · pay at counter" : "Paid · awaiting dispatch";
+    const div = document.createElement("div");
+    div.className = "ord";
+    div.innerHTML = `
+      <div class="oh"><span class="ref">${esc(o.ref)}</span><span class="st">${status}</span></div>
+      <div class="oi">${esc(d.toLocaleDateString("en-ZA",{year:"numeric",month:"long",day:"numeric"}))} — ${esc(names)}${o.address ? "<br>To: "+esc([o.address.city,o.address.province].filter(Boolean).join(", ")) : ""}</div>
+      <div class="ot"><span class="tot">${fmt(o.total)}</span><a href="invoice.html#ref=${esc(o.ref)}">View invoice →</a></div>`;
+    ol.appendChild(div);
+  });
+
+  /* wishlist from the account on the server (falls back to this browser) */
+  let wishIds = store.get("opalera.wishlist", []);
+  try{ wishIds = (await api("/wishlist")).pids; store.set("opalera.wishlist", wishIds); }catch(e){}
+  const wl = wishIds.map(findProduct).filter(Boolean);
+  if(!wl.length) $("wlEmpty").hidden = false;
+  $("wl").innerHTML = wl.map(x=>`
+    <a class="mini" href="${pageOf(x)}">
+      <div class="mimg"><img src="${x.custom ? esc(x.img) : webSrc(x)}" alt="" loading="lazy"
+        onerror="if(!this.dataset.f){this.dataset.f=1;this.src='${esc(x.img)}'}else{this.style.opacity=.15}"></div>
+      <div class="mb"><div class="mn">${esc(x.name)}</div><div class="mp">${fmt(x.price)}</div></div>
+    </a>`).join("");
+})();
+</script>
+</body>
+</html>

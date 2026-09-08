@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OPALÉRA — Contact & FAQ</title>
+<meta name="description" content="Reach the OPALÉRA maison — contact details, enquiry form and frequently asked questions.">
+<meta name="theme-color" content="#0b0a10">
+<link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect x="7" y="7" width="10" height="10" transform="rotate(45 12 12)" fill="none" stroke="%23d8b45a" stroke-width="1.4"/><rect x="9.5" y="9.5" width="5" height="5" transform="rotate(45 12 12)" fill="%23d8b45a"/></svg>'>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/product-style.css">
+<style>
+  main{max-width:900px}
+  .eyebrow{font-family:var(--font-label);font-size:.66rem;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);margin-bottom:.6rem}
+  h1.page{font-size:clamp(2rem,4.5vw,3rem);font-weight:500;letter-spacing:.06em;margin-bottom:.4rem}
+  .sub{color:var(--muted);font-style:italic;line-height:1.7;margin-bottom:2rem}
+  .panel{border:1px solid var(--line);background:rgba(23,21,34,.85);padding:2rem;margin-bottom:1.8rem}
+  .panel h2{font-size:1.35rem;font-weight:500;letter-spacing:.08em;margin-bottom:1.1rem;color:var(--champagne)}
+  .cinfo{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.4rem;font-size:.92rem;line-height:1.9;color:#d5cfe0}
+  .cinfo .lab{font-family:var(--font-label);font-size:.58rem;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);margin-bottom:.3rem}
+  .cfield{margin-bottom:1.05rem}
+  .cfield label{display:block;font-family:var(--font-label);font-size:.62rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:.4rem}
+  .cfield input,.cfield textarea{width:100%;font-family:var(--font-body);font-size:.9rem;background:var(--bg);border:1px solid var(--line);color:var(--ink);padding:.75rem 1rem}
+  .cfield textarea{min-height:110px;resize:vertical;font-style:italic}
+  @media(pointer:coarse){.cfield input,.cfield textarea{font-size:16px}}
+  .cmsg{min-height:1.3em;font-size:.86rem;font-style:italic;color:var(--emerald);margin:.2rem 0 1rem}
+  details.faq{border-bottom:1px solid rgba(255,255,255,.08)}
+  details.faq summary{cursor:pointer;list-style:none;padding:1.05rem 0;font-family:var(--font-display);font-size:1.08rem;letter-spacing:.03em;display:flex;justify-content:space-between;gap:1rem;align-items:center}
+  details.faq summary::after{content:"+";color:var(--gold);font-size:1.2rem}
+  details.faq[open] summary::after{content:"–"}
+  details.faq p{font-size:.92rem;color:var(--muted);line-height:1.9;padding-bottom:1.1rem}
+</style>
+</head>
+<body>
+<div class="aurora" aria-hidden="true"><span class="a1"></span><span class="a2"></span></div>
+<div class="wrap">
+<nav>
+  <a class="brand" href="jewellery_Html.html">
+    <span class="mark" aria-hidden="true"><i></i></span>
+    <span><b>OPALÉRA</b><small>The House of Every Gem</small></span>
+  </a>
+  <a class="crumb" href="jewellery_Html.html#tab=all" style="text-decoration:none">← The Collection</a>
+</nav>
+
+<main>
+  <div class="eyebrow">We're Listening</div>
+  <h1 class="page">Contact the Maison</h1>
+  <p class="sub">A question about a piece, an order, or an engraving — the atelier answers within one working day.</p>
+
+  <div class="panel">
+    <h2>Reach Us</h2>
+    <div class="cinfo">
+      <div><div class="lab">Email</div>atelier@opalera.example<br><em style="color:var(--muted);font-size:.8rem">(demo address)</em></div>
+      <div><div class="lab">Phone / WhatsApp</div>+27 (0)11 000 0000<br>Mon–Fri, 09:00–17:00 SAST</div>
+      <div><div class="lab">The Atelier</div>12 Gemstone Lane<br>Johannesburg, Gauteng</div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>Send an Enquiry</h2>
+    <form id="cForm" novalidate>
+      <div class="cfield"><label for="cName">Your name</label><input id="cName" type="text" required></div>
+      <div class="cfield"><label for="cEmail">Email</label><input id="cEmail" type="email" required></div>
+      <div class="cfield"><label for="cMsg">Message</label><textarea id="cMsg" maxlength="600" required></textarea></div>
+      <div class="cmsg" id="cOk" role="status" aria-live="polite"></div>
+      <button class="btn solid" type="submit">Send to the Atelier</button>
+    </form>
+  </div>
+
+  <div class="panel">
+    <h2>Frequently Asked</h2>
+    <details class="faq"><summary>How long does delivery take?</summary><p>Insured, tracked delivery is free on every order: 2–3 working days to main centres and 3–5 working days elsewhere in South Africa. You'll receive the tracking reference with your invoice.</p></details>
+    <details class="faq"><summary>Are the stones genuine?</summary><p>Every piece is verified in the atelier before dispatch and travels with its own certificate of authenticity. If any stone ever proves misrepresented, the maison refunds you in full.</p></details>
+    <details class="faq"><summary>Can I return a piece?</summary><p>Yes — you have 30 days to live with a piece. If it doesn't feel like yours, we arrange collection and refund you in full. Inscribed pieces can be exchanged unless the inscription itself is the issue on our side. See the <a href="returns.html" style="color:var(--gold-light)">returns policy</a>.</p></details>
+    <details class="faq"><summary>Can I change or engrave a piece?</summary><p>Most pieces can be customised in <a href="jewellery_Html.html#tab=studio" style="color:var(--gold-light)">the Studio</a> — pattern, removable elements, an added pendant on necklaces, and a hand-engraved inscription of up to 30 characters. Signature pieces accept inscription only, and the stone is never changed.</p></details>
+    <details class="faq"><summary>Which payment methods do you accept?</summary><p>Card and Instant EFT at our online checkout. Prices include 15% VAT, and instalment options are shown on each piece.</p></details>
+    <details class="faq"><summary>How do I know my ring or chain size?</summary><p>Our <a href="size-guide.html" style="color:var(--gold-light)">size &amp; care guide</a> shows chain lengths on the body and how to measure at home in under a minute.</p></details>
+  </div>
+</main>
+
+<footer>
+  OPALÉRA · The House of Every Gem<br>
+  <a href="jewellery_Html.html">Collection</a> · <a href="account.html">My Account</a> · <a href="size-guide.html">Size Guide</a> · <a href="delivery.html">Delivery</a> · <a href="returns.html">Returns</a> · <a href="terms.html">Terms</a> · <a href="privacy.html">Privacy</a>
+</footer>
+</div>
+<div id="toast" role="status" aria-live="polite"></div>
+<script>
+document.getElementById("cForm").addEventListener("submit", e=>{
+  e.preventDefault();
+  const n = document.getElementById("cName").value.trim();
+  if(!n || !document.getElementById("cEmail").value.trim() || !document.getElementById("cMsg").value.trim()){
+    document.getElementById("cOk").textContent = "Please complete all three fields.";
+    document.getElementById("cOk").style.color = "var(--rose)";
+    return;
+  }
+  document.getElementById("cOk").style.color = "var(--emerald)";
+  document.getElementById("cOk").textContent = `Merci, ${n} — your enquiry is noted. (Demo: the back-end team connects real delivery.)`;
+  e.target.reset();
+});
+</script>
+</body>
+</html>

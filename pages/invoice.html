@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OPALÉRA — Invoice</title>
+<meta name="theme-color" content="#0b0a10">
+<link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect x="7" y="7" width="10" height="10" transform="rotate(45 12 12)" fill="none" stroke="%23d8b45a" stroke-width="1.4"/><rect x="9.5" y="9.5" width="5" height="5" transform="rotate(45 12 12)" fill="%23d8b45a"/></svg>'>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --gold:#b08c34;--gold-deep:#8a6a1f;--ink:#1d1a26;--muted:#6d6680;--line:#d9d2c2;--soft:#faf7f0;
+    --font-display:'Cormorant Garamond',Georgia,serif;--font-label:'Jost',Arial,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#e9e5dc;color:var(--ink);font-family:Georgia,serif;min-height:100vh;padding:2.5rem 4vw}
+  .toolbar{max-width:760px;margin:0 auto 1.2rem;display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+  .btn{font-family:var(--font-label);font-size:.7rem;letter-spacing:.24em;text-transform:uppercase;padding:.85rem 1.6rem;
+    border:1px solid var(--gold);background:var(--gold);color:#fff;cursor:pointer;text-decoration:none;transition:.3s}
+  .btn.ghost{background:transparent;color:var(--gold-deep)}
+  .btn:hover{opacity:.85}
+  .sheet{max-width:760px;margin:0 auto;background:#fff;border:1px solid var(--line);padding:3rem 3.2rem;box-shadow:0 14px 40px rgba(29,26,38,.12)}
+  .head{display:flex;justify-content:space-between;align-items:flex-start;gap:1.5rem;border-bottom:2px solid var(--gold);padding-bottom:1.6rem;margin-bottom:1.6rem;flex-wrap:wrap}
+  .brand{display:flex;align-items:center;gap:.9rem}
+  .mark{width:38px;height:38px;border:1.6px solid var(--gold);transform:rotate(45deg);display:grid;place-items:center}
+  .mark i{width:15px;height:15px;background:var(--gold);display:block}
+  .brand b{font-family:var(--font-display);font-size:1.6rem;letter-spacing:.35em;font-weight:500}
+  .brand small{display:block;font-family:var(--font-label);font-size:.55rem;letter-spacing:.3em;color:var(--gold-deep);text-transform:uppercase}
+  .inv h1{font-family:var(--font-display);font-size:2rem;font-weight:500;letter-spacing:.14em;text-align:right}
+  .inv .no{font-family:var(--font-label);font-size:.68rem;letter-spacing:.16em;color:var(--muted);text-align:right;line-height:1.9}
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.8rem}
+  @media(max-width:560px){.cols{grid-template-columns:1fr}}
+  .lab{font-family:var(--font-label);font-size:.58rem;letter-spacing:.26em;text-transform:uppercase;color:var(--gold-deep);margin-bottom:.4rem}
+  .cols p{font-size:.92rem;line-height:1.8}
+  table{width:100%;border-collapse:collapse;margin-bottom:1.4rem}
+  th{font-family:var(--font-label);font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:#fff;background:var(--ink);padding:.65rem .8rem;text-align:left}
+  th:last-child,td:last-child{text-align:right}
+  td{font-size:.92rem;padding:.7rem .8rem;border-bottom:1px solid var(--line);vertical-align:top}
+  td .cust{font-size:.78rem;color:var(--muted);font-style:italic;line-height:1.7;margin-top:.25rem}
+  .tots{margin-left:auto;max-width:300px}
+  .tots div{display:flex;justify-content:space-between;font-family:var(--font-label);font-size:.78rem;letter-spacing:.06em;color:var(--muted);padding:.3rem 0}
+  .tots .grand{font-family:var(--font-display);font-size:1.35rem;color:var(--ink);border-top:2px solid var(--gold);margin-top:.5rem;padding-top:.7rem}
+  .note{margin-top:1.8rem;border-top:1px solid var(--line);padding-top:1.2rem;font-size:.82rem;color:var(--muted);font-style:italic;line-height:1.8}
+  .missing{max-width:760px;margin:3rem auto;text-align:center;font-style:italic;color:var(--muted)}
+  .missing a{color:var(--gold-deep)}
+  @media print{
+    body{background:#fff;padding:0}
+    .toolbar{display:none}
+    .sheet{box-shadow:none;border:none;max-width:none;padding:1.5rem}
+  }
+</style>
+</head>
+<body>
+<div class="toolbar">
+  <a class="btn ghost" href="account.html">← My Orders</a>
+  <button class="btn" onclick="window.print()">Print / Save as PDF</button>
+</div>
+
+<div class="sheet" id="sheet" hidden>
+  <div class="head">
+    <div class="brand">
+      <span class="mark" aria-hidden="true"><i></i></span>
+      <span><b>OPALÉRA</b><small>The House of Every Gem</small></span>
+    </div>
+    <div class="inv">
+      <h1>TAX INVOICE</h1>
+      <div class="no" id="invMeta"></div>
+    </div>
+  </div>
+
+  <div class="cols">
+    <div>
+      <div class="lab">From</div>
+      <p>OPALÉRA (Pty) Ltd — student demonstration<br>The Atelier, 12 Gemstone Lane<br>Johannesburg, Gauteng<br>VAT No · 4000000000 (demo)</p>
+    </div>
+    <div>
+      <div class="lab">Billed &amp; delivered to</div>
+      <p id="invTo"></p>
+    </div>
+  </div>
+
+  <table>
+    <thead><tr><th>Piece</th><th style="text-align:center">Qty</th><th>Unit price</th><th>Amount</th></tr></thead>
+    <tbody id="invLines"></tbody>
+  </table>
+
+  <div class="tots" id="invTots"></div>
+
+  <p class="note" id="invNote">Prices include VAT at 15%. This invoice reflects a real order recorded on the maison's server — the invoice number is the order reference. Card capture in this student demonstration is simulated, so no actual charge was made. Thank you for choosing the maison.</p>
+</div>
+
+<div class="missing" id="missing" hidden>
+  No matching order was found in this browser. <a href="account.html">View your orders</a> or <a href="jewellery_Html.html">return to the collection</a>.
+</div>
+
+<script src="/opalera-backend/js/opalera-data.js"></script>
+<script>
+const { findProduct, fmt, esc, store, api } = OPALERA;
+(async function(){
+const m = location.hash.match(/ref=([A-Z0-9-]+)/i);
+
+/* the account's real orders live on the maison's server; the localStorage
+   copy is the fallback (offline, or an order placed before sign-in) */
+let serverOrders = [];
+try{ serverOrders = (await api("/orders")).orders
+       .map(o=>({ user:o.email, items:o.items, itemsTotal:o.itemsTotal, promo:o.promo,
+                  discount:o.discount, vat:o.vat, total:o.total, gift:o.gift,
+                  address:o.address, method:o.method, placed:o.placedAt, ref:o.ref })); }
+catch(e){ /* signed out or offline — use the local copy below */ }
+const localOrders = store.get("opalera.orders", []);
+const all = serverOrders.concat(localOrders.filter(l=>!serverOrders.some(s=>s.ref===l.ref)))
+  .sort((a,b)=>new Date(a.placed)-new Date(b.placed));
+const order = m ? all.find(o=>o.ref===m[1]) : all[all.length-1];
+
+if(!order){
+  document.getElementById("missing").hidden = false;
+}else{
+  document.getElementById("sheet").hidden = false;
+  const d = new Date(order.placed);
+  document.getElementById("invMeta").innerHTML =
+    `Invoice № ${esc(order.ref)}<br>Date · ${d.toLocaleDateString("en-ZA",{year:"numeric",month:"long",day:"numeric"})}<br>Method · ${order.method==="card"?"Card":"Instant EFT"}`;
+  const a = order.address || {};
+  document.getElementById("invTo").innerHTML =
+    [a.name, a.street, [a.city, a.postal].filter(Boolean).join(" "), a.province, a.phone, order.user]
+      .filter(Boolean).map(esc).join("<br>");
+  const lines = document.getElementById("invLines");
+  order.items.forEach(it=>{
+    const p = findProduct(it.pid);
+    const qty = it.qty || 1;
+    const cust = [];
+    if(it.custom){
+      const c = it.custom;
+      if(c.pattern) cust.push("Pattern: "+c.pattern);
+      if(c.removed && c.removed.length) cust.push("Removed: "+c.removed.join(", "));
+      if(c.pendantId && findProduct(c.pendantId)) cust.push("Added pendant: "+findProduct(c.pendantId).name);
+      if(c.inscription) cust.push("Inscription: “"+c.inscription+"”");
+    }
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td>${esc(p ? p.name : "Piece")}${cust.length?`<div class="cust">${cust.map(esc).join("<br>")}</div>`:""}</td>
+      <td style="text-align:center">${qty}</td><td>${fmt(it.price)}</td><td>${fmt(it.price*qty)}</td>`;
+    lines.appendChild(tr);
+  });
+  if(order.gift){
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td>Gift wrapping${order.gift.message?`<div class="cust">Card: “${esc(order.gift.message)}”</div>`:""}</td>
+      <td style="text-align:center">1</td><td>${fmt(0)}</td><td>${fmt(0)}</td>`;
+    lines.appendChild(tr);
+  }
+  const t = document.getElementById("invTots");
+  const rows = [["Items", fmt(order.itemsTotal ?? order.total)]];
+  if(order.discount) rows.push([`Discount (${esc(order.promo)})`, "− " + fmt(order.discount)]);
+  rows.push(["VAT included (15%)", fmt(order.vat ?? Math.round(order.total*0.15/1.15))]);
+  rows.push(["Delivery", "Free"]);
+  t.innerHTML = rows.map(r=>`<div><span>${r[0]}</span><span>${r[1]}</span></div>`).join("") +
+    `<div class="grand"><span>Total paid</span><span>${fmt(order.total)}</span></div>`;
+  document.title = `OPALÉRA — Invoice ${order.ref}`;
+}
+})();
+</script>
+</body>
+</html>

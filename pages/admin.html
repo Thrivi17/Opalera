@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OPALÉRA Console — Manager</title>
+<meta name="description" content="OPALÉRA back-office console — inventory, orders, sales reports and engagement.">
+<meta name="theme-color" content="#f4f5f7">
+<link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect x="7" y="7" width="10" height="10" transform="rotate(45 12 12)" fill="%231d2733"/></svg>'>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f4f5f7;--card:#ffffff;--ink:#1d2733;--mut:#66707d;--line:#dde2e8;
+    --accent:#1d2733;--gold:#b08c34;--good:#188a5e;--bad:#c2453f;--warn:#b07a1e;
+    --nec:#2f5fb3;--ear:#b0642f;--pen:#7a3fa0;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--paper);color:var(--ink);font-family:'Jost',system-ui,sans-serif;min-height:100vh}
+  a{color:inherit}
+  header{background:var(--accent);color:#fff;padding:.9rem 3vw;display:flex;align-items:center;justify-content:space-between;gap:1rem;position:sticky;top:0;z-index:20}
+  .hbrand{display:flex;align-items:center;gap:.7rem;font-weight:600;letter-spacing:.18em;font-size:.9rem}
+  .hbrand .mk{width:14px;height:14px;background:var(--gold);transform:rotate(45deg)}
+  .hbrand small{font-weight:300;letter-spacing:.1em;color:#aeb8c4;text-transform:uppercase;font-size:.62rem}
+  .hright{display:flex;align-items:center;gap:1rem;font-size:.78rem;color:#aeb8c4}
+  .hright a,.hright button{background:none;border:1px solid #3a4b5e;color:#dfe6ee;font-family:inherit;font-size:.7rem;letter-spacing:.1em;padding:.45rem .9rem;cursor:pointer;text-decoration:none;transition:.2s}
+  .hright a:hover,.hright button:hover{border-color:var(--gold);color:#fff}
+
+  main{max-width:1240px;margin:0 auto;padding:1.6rem 3vw 4rem}
+  .tabsbar{display:flex;gap:.4rem;border-bottom:2px solid var(--line);margin-bottom:1.6rem;flex-wrap:wrap}
+  .tabbtn{background:none;border:none;font-family:inherit;font-size:.8rem;font-weight:500;letter-spacing:.06em;color:var(--mut);padding:.8rem 1.1rem;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;transition:.2s}
+  .tabbtn.active{color:var(--ink);border-bottom-color:var(--gold)}
+  .view{display:none}
+  .view.active{display:block}
+  h2.vt{font-size:1.15rem;font-weight:600;letter-spacing:.04em;margin-bottom:.3rem}
+  .vsub{font-size:.8rem;color:var(--mut);margin-bottom:1.4rem}
+  .samplenote{display:inline-block;font-size:.64rem;letter-spacing:.08em;text-transform:uppercase;color:var(--warn);border:1px solid currentColor;padding:.2rem .55rem;border-radius:3px;margin-left:.5rem;vertical-align:middle}
+
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1rem;margin-bottom:1.6rem}
+  .kpi{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:1.1rem 1.3rem}
+  .kpi .kl{font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
+  .kpi .kv{font-size:1.7rem;font-weight:600;margin-top:.25rem}
+  .kpi .kd{font-size:.72rem;margin-top:.2rem}
+  .kpi .up{color:var(--good)} .kpi .down{color:var(--bad)}
+
+  .grid2{display:grid;grid-template-columns:2fr 1fr;gap:1rem;margin-bottom:1rem}
+  @media(max-width:900px){.grid2{grid-template-columns:1fr}}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:1.2rem 1.4rem;margin-bottom:1rem}
+  .panel h3{font-size:.82rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);margin-bottom:.9rem}
+  canvas{width:100%;height:auto;display:block}
+  .legend{display:flex;gap:1.1rem;flex-wrap:wrap;font-size:.7rem;color:var(--mut);margin-top:.6rem}
+  .legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:.35rem;vertical-align:-1px}
+
+  table{width:100%;border-collapse:collapse;font-size:.8rem}
+  th{font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);text-align:left;padding:.55rem .7rem;border-bottom:2px solid var(--line)}
+  td{padding:.55rem .7rem;border-bottom:1px solid var(--line);vertical-align:middle}
+  tr:hover td{background:#f8f9fb}
+  .num{text-align:right} th.num{text-align:right}
+  .pctbar{background:#edf0f3;border-radius:4px;height:10px;min-width:90px;overflow:hidden}
+  .pctbar i{display:block;height:100%;background:linear-gradient(90deg,#188a5e,#4fbe8f)}
+  .stockin{width:64px;font-family:inherit;font-size:.8rem;padding:.3rem .4rem;border:1px solid var(--line);border-radius:4px;text-align:right}
+  .mini-btn{background:none;border:1px solid var(--line);border-radius:4px;font-family:inherit;font-size:.66rem;letter-spacing:.06em;padding:.3rem .7rem;cursor:pointer;transition:.2s;color:var(--ink)}
+  .mini-btn:hover{border-color:var(--ink)}
+  .mini-btn.danger{color:var(--bad)} .mini-btn.danger:hover{border-color:var(--bad)}
+  .mini-btn.good{color:var(--good)} .mini-btn.good:hover{border-color:var(--good)}
+  .chip{font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;padding:.18rem .5rem;border-radius:3px}
+  .chip.live{background:#e3f4ec;color:var(--good)}
+  .chip.hidden{background:#faeaea;color:var(--bad)}
+  .chip.low{background:#faf2e0;color:var(--warn)}
+  .chip.out{background:#faeaea;color:var(--bad)}
+  .chip.nec{background:#e7eefb;color:var(--nec)} .chip.ear{background:#faeee4;color:var(--ear)} .chip.pen{background:#f2e9f8;color:var(--pen)}
+
+  .addform{display:grid;grid-template-columns:2fr 1fr 1fr;gap:.8rem}
+  @media(max-width:760px){.addform{grid-template-columns:1fr}}
+  .af label{display:block;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);margin-bottom:.3rem}
+  .af input,.af select,.af textarea{width:100%;font-family:inherit;font-size:.82rem;padding:.55rem .7rem;border:1px solid var(--line);border-radius:4px;background:#fff;color:var(--ink)}
+  .af textarea{min-height:38px;resize:vertical}
+  .formmsg{font-size:.76rem;color:var(--good);min-height:1.2em;margin-top:.5rem}
+  .btn{background:var(--accent);color:#fff;border:none;border-radius:4px;font-family:inherit;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;padding:.75rem 1.5rem;cursor:pointer;transition:.2s}
+  .btn:hover{background:#31445a}
+
+  /* login gate */
+  .gate{max-width:400px;margin:7vh auto;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:2.2rem 2.4rem;box-shadow:0 10px 34px rgba(29,39,51,.08)}
+  .gate h1{font-size:1.25rem;font-weight:600;letter-spacing:.04em;margin-bottom:.3rem}
+  .gate p{font-size:.78rem;color:var(--mut);margin-bottom:1.4rem;line-height:1.6}
+  .gate .af{margin-bottom:1rem}
+  .gmsg{font-size:.76rem;color:var(--bad);min-height:1.2em;margin:.2rem 0 .8rem}
+  .democreds{margin-top:1.2rem;border-top:1px dashed var(--line);padding-top:1rem;font-size:.7rem;color:var(--mut);line-height:1.8}
+  .democreds code{background:#eef1f4;padding:.1rem .4rem;border-radius:3px;font-size:.72rem}
+  .hidden{display:none!important}
+</style>
+</head>
+<body>
+<header>
+  <div class="hbrand"><span class="mk" aria-hidden="true"></span> OPALÉRA CONSOLE <small>· back office</small></div>
+  <div class="hright">
+    <span id="whoami"></span>
+    <a href="jewellery_Html.html" target="_blank" rel="noopener">View storefront ↗</a>
+    <button id="signOut" class="hidden">Sign out</button>
+  </div>
+</header>
+
+<!-- manager login -->
+<div class="gate" id="gate">
+  <h1>Manager sign-in</h1>
+  <p>This console controls the maison's stock, pieces, orders and reports. Customer accounts cannot enter.</p>
+  <form id="gForm" novalidate>
+    <div class="af"><label for="gEmail">Email</label><input id="gEmail" type="email" autocomplete="username"></div>
+    <div class="af"><label for="gPass">Password</label><input id="gPass" type="password" autocomplete="current-password"></div>
+    <div class="gmsg" id="gMsg" role="status" aria-live="polite"></div>
+    <button class="btn" type="submit" style="width:100%">Enter the Console</button>
+    <button class="authlink" type="button" id="gForgot" style="display:block;width:100%;margin-top:.9rem;background:none;border:none;cursor:pointer;font-family:var(--font-label);font-size:.64rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)">Forgot password? Restore the demo manager account</button>
+  </form>
+  <div class="democreds">Demo manager account:<br>email <code>manager@opalera.co.za</code> · password <code>Opalera2026</code></div>
+</div>
+
+<main id="console" class="hidden">
+  <div class="tabsbar" role="tablist">
+    <button class="tabbtn active" data-v="dash">Dashboard</button>
+    <button class="tabbtn" data-v="engage">Engagement</button>
+    <button class="tabbtn" data-v="inv">Inventory</button>
+    <button class="tabbtn" data-v="ord">Orders</button>
+  </div>
+
+  <!-- ============ DASHBOARD ============ -->
+  <section class="view active" id="v-dash">
+    <h2 class="vt">Trading overview <span class="samplenote">includes sample history — live orders merge on top</span></h2>
+    <p class="vsub">Is the business improving? Units and revenue by month, where they sell, and what carries the growth.</p>
+    <div class="kpis" id="kpis"></div>
+    <div class="grid2">
+      <div class="panel">
+        <h3>Pieces sold per month</h3>
+        <canvas id="chMonthly" height="240"></canvas>
+        <div class="legend"><span><i style="background:#31445a"></i>Units</span><span><i style="background:#b08c34"></i>Revenue (R, scaled)</span></div>
+      </div>
+      <div class="panel">
+        <h3>Sales by collection</h3>
+        <canvas id="chPie" height="240"></canvas>
+        <div class="legend" id="pieLegend"></div>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>Units by province</h3>
+      <canvas id="chProv" height="180"></canvas>
+    </div>
+  </section>
+
+  <!-- ============ ENGAGEMENT ============ -->
+  <section class="view" id="v-engage">
+    <h2 class="vt">Patron engagement <span class="samplenote">seeded baseline + live votes</span></h2>
+    <p class="vsub">Thumbs from the storefront, ranked — the share of patrons who recommend each piece.</p>
+    <div class="grid2">
+      <div class="panel">
+        <h3>Most recommended pieces</h3>
+        <table>
+          <thead><tr><th>Piece</th><th>Collection</th><th class="num">👍</th><th class="num">👎</th><th style="width:130px">Recommend %</th></tr></thead>
+          <tbody id="likeRows"></tbody>
+        </table>
+      </div>
+      <div class="panel">
+        <h3>Recommendation share by collection</h3>
+        <canvas id="chLikePie" height="240"></canvas>
+        <div class="legend" id="likePieLegend"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ INVENTORY ============ -->
+  <section class="view" id="v-inv">
+    <h2 class="vt">Inventory &amp; pieces</h2>
+    <p class="vsub">Adjust stock, retire pieces from the storefront, or introduce new ones — changes appear on the customer site immediately.</p>
+    <div class="panel">
+      <h3>Add a new piece</h3>
+      <form id="addForm" class="addform" novalidate>
+        <div class="af"><label for="npName">Name</label><input id="npName" type="text" placeholder="Aurora Pearl Necklace"></div>
+        <div class="af"><label for="npCat">Collection</label>
+          <select id="npCat"><option value="necklace">Necklace</option><option value="earrings">Earrings</option><option value="pendant">Pendant</option></select></div>
+        <div class="af"><label for="npPrice">Price (R, VAT incl.)</label><input id="npPrice" type="number" min="1" placeholder="2999"></div>
+        <div class="af" style="grid-column:1/-1"><label for="npImg">Image URL (optional)</label><input id="npImg" type="url" placeholder="https://…jpg"></div>
+        <div class="af" style="grid-column:1/-1"><label for="npDesc">Description</label><textarea id="npDesc" maxlength="300"></textarea></div>
+        <div style="grid-column:1/-1;display:flex;gap:1rem;align-items:center">
+          <button class="btn" type="submit">Add Piece</button>
+          <span class="formmsg" id="addMsg" role="status" aria-live="polite"></span>
+        </div>
+      </form>
+    </div>
+    <div class="panel">
+      <h3>All pieces (<span id="invCount"></span>)</h3>
+      <div style="overflow-x:auto"><table>
+        <thead><tr><th>#</th><th>Piece</th><th>Collection</th><th class="num">Price</th><th class="num">Stock</th><th>Status</th><th>Actions</th></tr></thead>
+        <tbody id="invRows"></tbody>
+      </table></div>
+    </div>
+  </section>
+
+  <!-- ============ ORDERS ============ -->
+  <section class="view" id="v-ord">
+    <h2 class="vt">Orders</h2>
+    <p class="vsub">Every order placed through the storefront in this browser, newest first.</p>
+    <div class="panel" style="overflow-x:auto">
+      <table>
+        <thead><tr><th>Reference</th><th>Date</th><th>Customer</th><th>Destination</th><th class="num">Items</th><th class="num">VAT</th><th class="num">Total</th><th>Method</th><th></th></tr></thead>
+        <tbody id="ordRows"></tbody>
+      </table>
+      <p class="vsub" id="ordEmpty" style="margin:.9rem 0 0" hidden>No live orders yet — place one on the storefront to see it here.</p>
+    </div>
+  </section>
+</main>
+
+<script src="/opalera-backend/js/opalera-data.js"></script>
+<script>
+const { products, findProduct, allProducts, customProducts, hiddenIds, setHidden, addCustomProduct,
+        stockOf, setStock, votesOf, fmt, esc, store, hashPw,
+        salesHistory, MONTHS } = OPALERA;
+const $ = id => document.getElementById(id);
+
+/* The console has its own manager sign-in, separate from the storefront's
+   customer accounts (which live on the server). We resolve the manager
+   from the console's own local session so that being signed in as a
+   customer elsewhere never blocks — or grants — manager access. */
+function managerUser(){
+  const em = store.get("opalera.adminSession", null);
+  if(!em) return null;
+  const u = store.get("opalera.users", {})[em];
+  return (u && u.role === "manager") ? { email: em, ...u } : null;
+}
+
+/* ---------- seed the demo manager account ---------- */
+async function seedManager(){
+  const users = store.get("opalera.users", {});
+  if(!users["manager@opalera.co.za"]){
+    users["manager@opalera.co.za"] = { fn:"Ompha", ln:"Manager", role:"manager", h: await hashPw("Opalera2026") };
+    store.set("opalera.users", users);
+  }else if(!users["manager@opalera.co.za"].role){
+    users["manager@opalera.co.za"].role = "manager";
+    store.set("opalera.users", users);
+  }
+}
+
+/* ---------- gate ---------- */
+function refreshGate(){
+  const u = managerUser();
+  const ok = !!u;
+  $("gate").classList.toggle("hidden", ok);
+  $("console").classList.toggle("hidden", !ok);
+  $("signOut").classList.toggle("hidden", !ok);
+  $("whoami").textContent = ok ? `${u.fn} ${u.ln} · manager` : "";
+  if(ok) renderAll();
+}
+$("gForm").addEventListener("submit", async e=>{
+  e.preventDefault();
+  await seedManager();
+  const em = $("gEmail").value.trim().toLowerCase(), pw = $("gPass").value;
+  const users = store.get("opalera.users", {});
+  if(!users[em]){ $("gMsg").textContent = "No such account."; return; }
+  if(users[em].h !== await hashPw(pw)){ $("gMsg").textContent = "Password does not match."; return; }
+  if(users[em].role !== "manager"){ $("gMsg").textContent = "This account is a customer — the console is for managers only."; return; }
+  store.set("opalera.adminSession", em);
+  $("gMsg").textContent = "";
+  refreshGate();
+});
+$("signOut").addEventListener("click", ()=>{ store.set("opalera.adminSession", null); refreshGate(); });
+/* forgotten manager password: the console uses the local demo account, so
+   "reset" restores it to the default credentials shown below the form */
+$("gForgot").addEventListener("click", async ()=>{
+  const users = store.get("opalera.users", {});
+  users["manager@opalera.co.za"] = { fn:"Ompha", ln:"Manager", role:"manager", h: await hashPw("Opalera2026") };
+  store.set("opalera.users", users);
+  store.set("opalera.adminSession", null);
+  $("gMsg").style.color = "var(--emerald, #3db280)";
+  $("gMsg").textContent = "Manager account restored — sign in with the demo credentials shown below.";
+  $("gEmail").value = "manager@opalera.co.za"; $("gPass").value = ""; $("gPass").focus();
+});
+seedManager().then(refreshGate);
+
+/* ---------- tabs ---------- */
+document.querySelectorAll(".tabbtn").forEach(b=>b.addEventListener("click", ()=>{
+  document.querySelectorAll(".tabbtn").forEach(x=>x.classList.toggle("active", x===b));
+  document.querySelectorAll(".view").forEach(v=>v.classList.toggle("active", v.id === "v-"+b.dataset.v));
+}));
+
+/* ---------- data: sample history + live orders merged ---------- */
+function mergedMonths(){
+  const rows = salesHistory().map(r=>({ ...r, provinces: r.provinces.map(p=>({...p})) }));
+  const idx = Object.fromEntries(rows.map((r,i)=>[r.month,i]));
+  store.get("opalera.orders", []).forEach(o=>{
+    const month = (o.placed||"").slice(0,7);
+    let row = rows[idx[month]];
+    if(!row){ row = { month, units:0, revenue:0, necklaces:0, earrings:0, pendants:0,
+                      provinces: [], sample:false }; rows.push(row); idx[month]=rows.length-1; }
+    const units = o.items.reduce((s,it)=>s+(it.qty||1),0);
+    row.units += units;
+    row.revenue += o.total || 0;
+    o.items.forEach(it=>{
+      const p = findProduct(it.pid);
+      if(!p) return;
+      const q = it.qty||1;
+      if(p.category==="necklace") row.necklaces += q;
+      else if(p.category==="earrings") row.earrings += q;
+      else row.pendants += q;
+    });
+    if(o.address && o.address.province){
+      const pr = row.provinces.find(x=>x.province===o.address.province);
+      if(pr) pr.units += units; else row.provinces.push({province:o.address.province, units});
+    }
+  });
+  rows.sort((a,b)=>a.month.localeCompare(b.month));
+  return rows;
+}
+const CATCOL = { necklaces:"#2f5fb3", earrings:"#b0642f", pendants:"#7a3fa0" };
+
+/* ---------- canvas helpers (crisp on hi-dpi) ---------- */
+function ctx2d(id, h){
+  const c = $(id), dpr = window.devicePixelRatio || 1;
+  const w = c.parentElement.clientWidth - 4;
+  c.width = w*dpr; c.height = h*dpr; c.style.height = h+"px";
+  const x = c.getContext("2d");
+  x.scale(dpr,dpr);
+  x.font = "10px Jost, sans-serif";
+  return [x, w, h];
+}
+
+function drawMonthly(rows){
+  const [x,w,h] = ctx2d("chMonthly", 240);
+  const pad = {l:30, r:8, t:12, b:34};
+  const iw = w-pad.l-pad.r, ih = h-pad.t-pad.b;
+  const maxU = Math.max(...rows.map(r=>r.units)) * 1.15;
+  const maxR = Math.max(...rows.map(r=>r.revenue)) * 1.15;
+  const bw = iw/rows.length;
+  x.strokeStyle = "#dde2e8";
+  for(let g=0; g<=4; g++){
+    const gy = pad.t + ih - ih*g/4;
+    x.beginPath(); x.moveTo(pad.l, gy); x.lineTo(w-pad.r, gy); x.stroke();
+    x.fillStyle = "#9aa4af";
+    x.fillText(String(Math.round(maxU*g/4)), 4, gy+3);
+  }
+  rows.forEach((r,i)=>{
+    const bh = ih * r.units/maxU;
+    const bx = pad.l + i*bw;
+    x.fillStyle = r.sample===false ? "#b08c34" : "#31445a";
+    x.fillRect(bx + bw*0.18, pad.t+ih-bh, bw*0.64, bh);
+    if(i%3===0 || i===rows.length-1){
+      x.save(); x.translate(bx+bw/2, h-4); x.rotate(-0.6);
+      x.fillStyle = "#66707d"; x.textAlign = "right";
+      x.fillText(r.month, 0, 0); x.restore();
+    }
+  });
+  x.strokeStyle = "#b08c34"; x.lineWidth = 1.6; x.beginPath();
+  rows.forEach((r,i)=>{
+    const px = pad.l + i*bw + bw/2;
+    const py = pad.t + ih - ih*r.revenue/maxR;
+    i ? x.lineTo(px,py) : x.moveTo(px,py);
+  });
+  x.stroke();
+  x.lineWidth = 1;
+}
+
+function drawPie(id, legendId, parts){
+  const [x,w,h] = ctx2d(id, 240);
+  const total = parts.reduce((s,p)=>s+p.v,0) || 1;
+  const cx = w/2, cy = h/2 - 6, R = Math.max(0, Math.min(w,h)/2 - 26);
+  /* on a very narrow canvas the radius can collapse to 0 — skip the arc
+     (which would throw) and just render the legend below */
+  let a = -Math.PI/2;
+  if(R > 0)
+  parts.forEach(p=>{
+    const a2 = a + p.v/total*2*Math.PI;
+    x.beginPath(); x.moveTo(cx,cy); x.arc(cx,cy,R,a,a2); x.closePath();
+    x.fillStyle = p.c; x.fill();
+    const mid = (a+a2)/2, lx = cx + Math.cos(mid)*R*0.62, ly = cy + Math.sin(mid)*R*0.62;
+    x.fillStyle = "#fff"; x.textAlign = "center"; x.font = "600 11px Jost, sans-serif";
+    if(p.v/total > 0.07) x.fillText(Math.round(p.v/total*100)+"%", lx, ly+3);
+    a = a2;
+  });
+  $(legendId).innerHTML = parts.map(p=>`<span><i style="background:${p.c}"></i>${esc(p.n)} · ${p.v.toLocaleString("en-ZA")}</span>`).join("");
+}
+
+function drawProv(rows){
+  const totals = {};
+  rows.forEach(r=>r.provinces.forEach(p=>{ totals[p.province]=(totals[p.province]||0)+p.units; }));
+  const entries = Object.entries(totals).sort((a,b)=>b[1]-a[1]);
+  const [x,w] = ctx2d("chProv", 180);
+  const max = Math.max(...entries.map(e=>e[1])) || 1;
+  const rh = 160/entries.length;
+  entries.forEach(([prov,v],i)=>{
+    const y = 8 + i*rh;
+    x.fillStyle = "#66707d"; x.textAlign = "left"; x.font = "10px Jost, sans-serif";
+    x.fillText(prov, 0, y+rh*0.55);
+    const bx = 110, bwMax = w-170;
+    x.fillStyle = "#31445a";
+    x.fillRect(bx, y+rh*0.18, bwMax*v/max, rh*0.55);
+    x.fillStyle = "#1d2733"; x.textAlign = "left";
+    x.fillText(String(v), bx + bwMax*v/max + 6, y+rh*0.55);
+  });
+}
+
+/* ---------- dashboard ---------- */
+function renderDash(){
+  const rows = mergedMonths();
+  const totalUnits = rows.reduce((s,r)=>s+r.units,0);
+  const totalRev = rows.reduce((s,r)=>s+r.revenue,0);
+  const liveOrders = store.get("opalera.orders", []).length;
+  const last3 = rows.slice(-3).reduce((s,r)=>s+r.units,0)/3;
+  const prev3 = rows.slice(-6,-3).reduce((s,r)=>s+r.units,0)/3 || 1;
+  const delta = Math.round((last3-prev3)/prev3*100);
+  const catalogue = allProducts().length;
+  const lowStock = allProducts().filter(p=>stockOf(p.id)<=3).length;
+  $("kpis").innerHTML = `
+    <div class="kpi"><div class="kl">Pieces sold (all time)</div><div class="kv">${totalUnits.toLocaleString("en-ZA")}</div>
+      <div class="kd ${delta>=0?"up":"down"}">${delta>=0?"▲":"▼"} ${Math.abs(delta)}% last 3 months vs prior — ${delta>=0?"the business is improving":"sales are declining"}</div></div>
+    <div class="kpi"><div class="kl">Revenue (all time)</div><div class="kv">${fmt(totalRev)}</div><div class="kd" style="color:var(--mut)">incl. sample history</div></div>
+    <div class="kpi"><div class="kl">Live orders (this browser)</div><div class="kv">${liveOrders}</div><div class="kd" style="color:var(--mut)">placed via the storefront</div></div>
+    <div class="kpi"><div class="kl">Catalogue</div><div class="kv">${catalogue}</div><div class="kd ${lowStock?"down":"up"}">${lowStock} piece${lowStock===1?"":"s"} low on stock</div></div>`;
+  drawMonthly(rows);
+  drawPie("chPie", "pieLegend", [
+    {n:"Necklaces", v:rows.reduce((s,r)=>s+r.necklaces,0), c:CATCOL.necklaces},
+    {n:"Earrings", v:rows.reduce((s,r)=>s+r.earrings,0), c:CATCOL.earrings},
+    {n:"Pendants", v:rows.reduce((s,r)=>s+r.pendants,0), c:CATCOL.pendants},
+  ]);
+  drawProv(rows);
+}
+
+/* ---------- engagement ---------- */
+function renderEngage(){
+  const ranked = products.map(p=>({p, v:votesOf(p.id)})).sort((a,b)=>b.v.pct-a.v.pct || (b.v.up-a.v.up));
+  $("likeRows").innerHTML = ranked.slice(0,12).map(({p,v})=>`
+    <tr><td>${esc(p.name)}</td>
+    <td><span class="chip ${p.category.slice(0,3)}">${p.category}</span></td>
+    <td class="num">${v.up}</td><td class="num">${v.down}</td>
+    <td><div class="pctbar" title="${v.pct}%"><i style="width:${v.pct}%"></i></div> <span style="font-size:.7rem">${v.pct}%</span></td></tr>`).join("");
+  const byCat = { necklace:{up:0,down:0}, earrings:{up:0,down:0}, pendant:{up:0,down:0} };
+  products.forEach(p=>{ const v = votesOf(p.id); byCat[p.category].up += v.up; byCat[p.category].down += v.down; });
+  drawPie("chLikePie", "likePieLegend", [
+    {n:"Necklaces 👍", v:byCat.necklace.up, c:CATCOL.necklaces},
+    {n:"Earrings 👍", v:byCat.earrings.up, c:CATCOL.earrings},
+    {n:"Pendants 👍", v:byCat.pendant.up, c:CATCOL.pendants},
+  ]);
+}
+
+/* ---------- inventory ---------- */
+function renderInv(){
+  const hid = hiddenIds();
+  const list = [...products, ...customProducts()];
+  $("invCount").textContent = `${list.length - hid.size} live · ${hid.size} retired`;
+  $("invRows").innerHTML = "";
+  list.forEach(p=>{
+    const stock = stockOf(p.id);
+    const hidden = hid.has(p.id);
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${p.id}</td>
+      <td>${esc(p.name)}${p.custom ? ' <span class="chip live">new</span>' : ""}</td>
+      <td><span class="chip ${p.category.slice(0,3)}">${p.category}</span></td>
+      <td class="num">${fmt(p.price)}</td>
+      <td class="num"><input class="stockin" type="number" min="0" value="${stock}" aria-label="Stock for ${esc(p.name)}"></td>
+      <td>${hidden ? '<span class="chip hidden">retired</span>' : stock<=0 ? '<span class="chip out">out of stock</span>' : stock<=3 ? '<span class="chip low">low stock</span>' : '<span class="chip live">live</span>'}</td>
+      <td><button class="mini-btn ${hidden?"good":"danger"}">${hidden ? "Restore" : "Retire"}</button></td>`;
+    tr.querySelector(".stockin").addEventListener("change", e=>{
+      setStock(p.id, +e.target.value); renderInv(); renderDash();
+    });
+    tr.querySelector(".mini-btn").addEventListener("click", ()=>{
+      setHidden(p.id, !hidden); renderInv();
+    });
+    $("invRows").appendChild(tr);
+  });
+}
+$("addForm").addEventListener("submit", e=>{
+  e.preventDefault();
+  const name = $("npName").value.trim(), price = +$("npPrice").value;
+  if(!name || !(price>0)){ $("addMsg").textContent = "A name and a positive price are required."; $("addMsg").style.color="var(--bad)"; return; }
+  const id = addCustomProduct({ name, category:$("npCat").value, price,
+    img:$("npImg").value.trim(), desc:$("npDesc").value.trim() });
+  setStock(id, 5);
+  $("addMsg").style.color = "var(--good)";
+  $("addMsg").textContent = `Added as piece #${id} with stock 5 — live on the storefront (customers see it after a refresh).`;
+  e.target.reset();
+  renderInv(); renderDash();
+});
+
+/* ---------- orders ---------- */
+function renderOrders(){
+  const orders = store.get("opalera.orders", []).slice().reverse();
+  $("ordEmpty").hidden = !!orders.length;
+  $("ordRows").innerHTML = orders.map(o=>{
+    const d = new Date(o.placed);
+    const items = o.items.reduce((s,it)=>s+(it.qty||1),0);
+    return `<tr><td>${esc(o.ref)}</td>
+      <td>${d.toLocaleDateString("en-ZA")}</td>
+      <td>${esc(o.user||"—")}</td>
+      <td>${o.address ? esc([o.address.city,o.address.province].filter(Boolean).join(", ")) : "—"}</td>
+      <td class="num">${items}</td>
+      <td class="num">${fmt(o.vat||0)}</td>
+      <td class="num"><b>${fmt(o.total)}</b></td>
+      <td>${o.method==="card"?"Card":"EFT"}</td>
+      <td><a href="invoice.html#ref=${esc(o.ref)}" target="_blank" rel="noopener" style="font-size:.7rem">invoice ↗</a></td></tr>`;
+  }).join("");
+}
+
+function renderAll(){ renderDash(); renderEngage(); renderInv(); renderOrders(); }
+window.addEventListener("resize", ()=>{ if(!$("console").classList.contains("hidden")) renderDash(); });
+window.addEventListener("storage", ()=>{ if(!$("console").classList.contains("hidden")) renderAll(); });
+</script>
+</body>
+</html>

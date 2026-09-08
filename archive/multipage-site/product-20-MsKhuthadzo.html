@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Beautiful Gold Necklace — OPALÉRA</title>
+<meta name="description" content="Nothing but gold, drawn into a clean, confident line. The most affordable necklace in the archive and the one that proves elegance owes nothing to excess.">
+<meta name="theme-color" content="#0b0a10">
+<meta property="og:title" content="Beautiful Gold Necklace — OPALÉRA">
+<meta property="og:description" content="Nothing but gold, drawn into a clean, confident line. The most affordable necklace in the archive and the one that proves elegance owes nothing to excess.">
+<meta property="og:type" content="product">
+<meta property="og:image" content="https://images.pexels.com/photos/9280250/pexels-photo-9280250.jpeg?auto=compress&cs=tinysrgb&w=1200">
+<link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect x="7" y="7" width="10" height="10" transform="rotate(45 12 12)" fill="none" stroke="%23d8b45a" stroke-width="1.4"/><rect x="9.5" y="9.5" width="5" height="5" transform="rotate(45 12 12)" fill="%23d8b45a"/></svg>'>
+<link rel="preconnect" href="https://images.pexels.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="archive/multipage-site/product-style.css">
+<script type="application/ld+json" id="jsonld">{"@context":"https://schema.org","@type":"Product","name":"Beautiful Gold Necklace","description":"Nothing but gold, drawn into a clean, confident line. The most affordable necklace in the archive and the one that proves elegance owes nothing to excess.","image":"https://images.pexels.com/photos/9280250/pexels-photo-9280250.jpeg?auto=compress&cs=tinysrgb&w=1200","brand":{"@type":"Brand","name":"OPALÉRA"},"offers":{"@type":"Offer","priceCurrency":"ZAR","price":1039,"availability":"https://schema.org/InStock"},"aggregateRating":{"@type":"AggregateRating","ratingValue":4.4,"reviewCount":37}}</script>
+</head>
+<body>
+<div class="aurora" aria-hidden="true"><span class="a1"></span><span class="a2"></span><span class="a3"></span></div>
+<div class="wrap">
+
+<nav>
+  <a class="brand" href="jewellery_Html.html">
+    <span class="mark" aria-hidden="true"><i></i></span>
+    <span><b>OPALÉRA</b><small>The House of Every Gem</small></span>
+  </a>
+  <div class="navicons">
+    <button class="navbtn" id="acctBtn">Sign in</button>
+    <a class="navbtn" href="jewellery_Html.html#tab=wishlist" aria-label="View wishlist">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5 4.7 13a4.9 4.9 0 0 1 0-7 4.6 4.6 0 0 1 6.6 0l.7.7.7-.7a4.6 4.6 0 0 1 6.6 0 4.9 4.9 0 0 1 0 7Z"/></svg>
+      <span class="badge" id="wishCount"></span>
+    </a>
+    <a class="navbtn" href="payment.html" aria-label="Go to payment">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1.2 12H6.2L5 8Zm3.5 0V6.5a3.5 3.5 0 0 1 7 0V8"/></svg>
+      <span class="badge" id="bagCount"></span>
+    </a>
+  </div>
+</nav>
+
+<main>
+  <p class="crumb"><a href="jewellery_Html.html#tab=all">← The Collection</a></p>
+
+  <div class="layout">
+    <div>
+      <div class="stage" id="stage">
+        <img id="pImg" alt="" draggable="false">
+        <div class="mviews">
+          <div class="vlabel" id="vLabel" aria-live="polite"></div>
+          <div class="vdots" id="vDots" role="group" aria-label="Views of this piece — swipe the photo or use the dots"></div>
+        </div>
+      </div>
+      <div class="pn">
+        <a id="prevLink" href="#"></a>
+        <a id="nextLink" href="#" style="text-align:right"></a>
+      </div>
+    </div>
+
+    <div>
+      <div class="mcat" id="pCat"></div>
+      <h1 class="pname" id="pName"></h1>
+      <div class="stars" id="pStars"></div>
+      <div class="thumbs">
+        <button class="thumb up" id="thumbUp" aria-pressed="false" aria-label="Recommend this piece">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 11v9H4v-9h3Zm0 0 4-7c1.4 0 2.4 1.1 2.1 2.5L12.5 10H19a1.6 1.6 0 0 1 1.5 2l-2 7a1.7 1.7 0 0 1-1.6 1H7"/></svg>
+          <span id="thumbUpN"></span>
+        </button>
+        <button class="thumb down" id="thumbDown" aria-pressed="false" aria-label="Do not recommend this piece">
+          <svg viewBox="0 0 24 24" aria-hidden="true" style="transform:rotate(180deg)"><path d="M7 11v9H4v-9h3Zm0 0 4-7c1.4 0 2.4 1.1 2.1 2.5L12.5 10H19a1.6 1.6 0 0 1 1.5 2l-2 7a1.7 1.7 0 0 1-1.6 1H7"/></svg>
+          <span id="thumbDownN"></span>
+        </button>
+        <span class="thumbpct" id="thumbPct"></span>
+      </div>
+      <div class="price" id="pPrice"></div>
+      <div class="vatnote">Price includes 15% VAT</div>
+      <div class="stockrow" id="pStock"></div>
+      <span class="sigflag" id="pSig">✦ Signature piece · inscription only</span>
+      <div class="mvalue" id="pValue"></div>
+      <div class="trustchips">
+        <span>Certified authentic</span><span>30-day returns</span><span>Free insured delivery</span>
+      </div>
+
+      <div class="divider"></div>
+      <p class="lead" id="pDesc"></p>
+
+      <div class="divider"></div>
+      <div class="mlab">Craftsmanship</div>
+      <div class="spec" id="pSpec"></div>
+      <details class="cert">
+        <summary>Certificate of authenticity</summary>
+        <div class="certbody" id="pCert"></div>
+      </details>
+
+      <div class="mact">
+        <button class="btn solid" id="addBag">Add to Bag</button>
+        <a class="btn ghost" id="customLink" href="#">Customise</a>
+        <button class="heart" id="pHeart" aria-pressed="false" aria-label="Save to wishlist">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5 4.7 13a4.9 4.9 0 0 1 0-7 4.6 4.6 0 0 1 6.6 0l.7.7.7-.7a4.6 4.6 0 0 1 6.6 0 4.9 4.9 0 0 1 0 7Z"/></svg>
+        </button>
+      </div>
+
+      <div class="divider"></div>
+      <div class="mlab">Patron reviews</div>
+      <div class="revwrap" id="revList"></div>
+      <form id="revForm" novalidate>
+        <div class="mlab">Leave your review</div>
+        <div id="revStars" role="group" aria-label="Your rating out of five"></div>
+        <textarea id="revText" maxlength="240" placeholder="Share your experience with this piece (optional)…"></textarea>
+        <button class="btn ghost" type="submit" style="margin-top:.8rem">Submit Review</button>
+      </form>
+    </div>
+  </div>
+
+  <section class="strip-sec" id="relatedSec">
+    <h2>You May Also Adore</h2>
+    <div class="strip" id="relatedStrip"></div>
+  </section>
+  <section class="strip-sec" id="recentSec">
+    <h2>Recently Viewed</h2>
+    <div class="strip" id="recentStrip"></div>
+  </section>
+</main>
+
+<footer>
+  OPALÉRA · The House of Every Gem<br>
+  <a href="jewellery_Html.html">Collection</a> · <a href="account.html">My Account</a> · <a href="size-guide.html">Size Guide</a> · <a href="contact.html">Contact</a> · <a href="delivery.html">Delivery</a> · <a href="returns.html">Returns</a>
+</footer>
+</div>
+
+<div class="modal" id="authModal" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+  <div class="authsheet">
+    <button class="close" id="authClose" aria-label="Close sign in">✕</button>
+    <h3 id="authTitle">Welcome to the Maison</h3>
+    <p class="asub">Sign in to review pieces and place orders.</p>
+    <div class="authswitch">
+      <button class="tab active" id="tabLogin">Sign In</button>
+      <button class="tab" id="tabSignup">Create Account</button>
+    </div>
+    <form id="loginForm" novalidate>
+      <div class="afield"><label for="liEmail">Email</label><input id="liEmail" type="email" autocomplete="email" required></div>
+      <div class="afield"><label for="liPass">Password</label><input id="liPass" type="password" autocomplete="current-password" required minlength="6"></div>
+      <div class="amsg" id="liMsg" role="status" aria-live="polite"></div>
+      <button class="btn solid" type="submit" style="width:100%">Sign In</button>
+      <a class="authlink" href="jewellery_Html.html#forgot" style="text-decoration:none">Forgot your password?</a>
+    </form>
+    <form id="signupForm" hidden novalidate>
+      <div class="arow">
+        <div class="afield"><label for="suFirst">First name</label><input id="suFirst" type="text" autocomplete="given-name" required></div>
+        <div class="afield"><label for="suLast">Last name</label><input id="suLast" type="text" autocomplete="family-name" required></div>
+      </div>
+      <div class="afield"><label for="suEmail">Email</label><input id="suEmail" type="email" autocomplete="email" required></div>
+      <div class="afield"><label for="suPass">Password <small style="color:var(--muted)">(min. 6 characters)</small></label><input id="suPass" type="password" autocomplete="new-password" required minlength="6"></div>
+      <div class="amsg" id="suMsg" role="status" aria-live="polite"></div>
+      <button class="btn solid" type="submit" style="width:100%">Create Account</button>
+    </form>
+  </div>
+</div>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script src="opalera-backend/js/opalera-data.js"></script>
+<script>window.PRODUCT_ID = 20;</script>
+<script src="opalera-backend/js/product-page.js"></script>
+</body>
+</html>

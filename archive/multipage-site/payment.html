@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OPALÉRA — Payment</title>
+<meta name="description" content="OPALÉRA secure checkout — delivery details, payment and your order confirmation.">
+<meta name="theme-color" content="#0b0a10">
+<link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect x="7" y="7" width="10" height="10" transform="rotate(45 12 12)" fill="none" stroke="%23d8b45a" stroke-width="1.4"/><rect x="9.5" y="9.5" width="5" height="5" transform="rotate(45 12 12)" fill="%23d8b45a"/></svg>'>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="product-style.css">
+<style>
+  main{max-width:1120px}
+  .pagehead{margin-bottom:2rem}
+  .eyebrow{font-family:var(--font-label);font-size:.66rem;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);margin-bottom:.6rem}
+  h1.pay{font-size:clamp(2rem,4.5vw,3rem);font-weight:500;letter-spacing:.06em}
+  .sub{color:var(--muted);font-style:italic;margin-top:.5rem;line-height:1.7}
+  /* checkout journey */
+  .steps{display:flex;gap:1.6rem;flex-wrap:wrap;margin-top:1.4rem;font-family:var(--font-label);
+    font-size:.62rem;letter-spacing:.26em;text-transform:uppercase;color:var(--muted)}
+  .steps span{display:flex;align-items:center;gap:.55rem}
+  .steps i{font-style:normal;width:22px;height:22px;display:grid;place-items:center;border:1px solid var(--line);
+    font-size:.58rem;letter-spacing:0;color:var(--muted);transform:rotate(45deg)}
+  .steps i b{transform:rotate(-45deg);font-weight:400}
+  .steps span.on{color:var(--gold-light)}
+  .steps span.on i{border-color:var(--gold);color:var(--gold-light);background:rgba(216,180,90,.1);box-shadow:0 0 14px rgba(216,180,90,.25)}
+  .steps span.done{color:var(--emerald)}
+  .steps span.done i{border-color:var(--emerald);color:var(--emerald)}
+  .paylayout{display:grid;grid-template-columns:1fr 1fr;gap:2.4rem;align-items:start}
+  @media(max-width:860px){.paylayout{grid-template-columns:1fr}}
+  .panel{position:relative;border:1px solid var(--line);
+    background:linear-gradient(168deg,rgba(30,27,44,.92),rgba(21,19,32,.9) 55%,rgba(23,21,34,.94));
+    box-shadow:0 18px 44px rgba(5,4,10,.45);
+    padding:2rem;margin-bottom:1.6rem}
+  .panel::before{content:"";position:absolute;inset:0 0 auto 0;height:2px;
+    background:linear-gradient(90deg,transparent,var(--gold) 18%,var(--gold-light) 50%,var(--gold) 82%,transparent)}
+  .panel h2{font-size:1.4rem;font-weight:500;letter-spacing:.08em;margin-bottom:1.2rem;color:var(--champagne)}
+  .panel h2::after{content:"";display:block;width:42px;height:1px;background:var(--gold);margin-top:.55rem;opacity:.7}
+  .bag-row{border-bottom:1px solid rgba(255,255,255,.07);padding:1rem 0;display:flex;gap:1rem;align-items:flex-start}
+  .bag-row:first-of-type{border-top:1px solid rgba(255,255,255,.07)}
+  .bag-row .bimg{flex:0 0 auto;width:64px;height:64px;background:#211e2e;border:1px solid rgba(255,255,255,.08);overflow:hidden}
+  .bag-row .bimg img{width:100%;height:100%;object-fit:cover;
+    filter:brightness(1.03) saturate(1.12) contrast(1.05);image-rendering:-webkit-optimize-contrast}
+  .bag-row .bi{flex:1}
+  .bag-row .bn{font-family:var(--font-display);font-size:1.05rem;letter-spacing:.03em}
+  .bag-row .bc{font-size:.8rem;color:var(--muted);font-style:italic;line-height:1.7;margin-top:.25rem}
+  .bag-row .bp{font-family:var(--font-display);color:var(--gold-light);white-space:nowrap}
+  .qty{display:flex;align-items:center;gap:.4rem;margin-top:.5rem}
+  .qty button{width:26px;height:26px;background:none;border:1px solid var(--line);color:var(--champagne);cursor:pointer;transition:.2s}
+  .qty button:hover{border-color:var(--gold);color:var(--gold-light)}
+  .qty span{font-family:var(--font-label);font-size:.78rem;min-width:22px;text-align:center}
+  .bag-row .brm{background:none;border:1px solid var(--line);color:var(--muted);width:30px;height:30px;cursor:pointer;transition:.3s;flex:0 0 auto}
+  .bag-row .brm:hover{border-color:var(--rose);color:var(--rose)}
+  .bag-empty{color:var(--muted);font-style:italic;text-align:center;padding:2.4rem 0}
+  .totline{display:flex;justify-content:space-between;font-family:var(--font-label);font-size:.8rem;letter-spacing:.08em;color:var(--muted);padding:.32rem 0}
+  .totline.grand{font-family:var(--font-display);font-size:1.5rem;letter-spacing:.02em;color:var(--gold-light);
+    border-top:1px double var(--gold);margin-top:.6rem;padding-top:.9rem;
+    text-shadow:0 0 24px rgba(216,180,90,.35)}
+  .totline .neg{color:var(--emerald)}
+  .promo{display:flex;gap:.6rem;margin-top:1.1rem}
+  .promo input{flex:1;font-family:var(--font-label);font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;background:var(--bg);border:1px solid var(--line);color:var(--ink);padding:.7rem 1rem}
+  .promo button{white-space:nowrap;padding:.7rem 1.2rem}
+  .gift{margin-top:1.2rem;border-top:1px solid rgba(255,255,255,.07);padding-top:1.1rem}
+  .gift label.chk{display:flex;align-items:center;gap:.6rem;font-family:var(--font-label);font-size:.74rem;letter-spacing:.12em;color:var(--champagne);cursor:pointer}
+  .gift input[type=checkbox]{accent-color:var(--gold);width:16px;height:16px}
+  .gift textarea{display:none;width:100%;margin-top:.8rem;background:var(--bg);border:1px solid var(--line);color:var(--ink);font-family:var(--font-body);font-style:italic;font-size:.88rem;padding:.7rem 1rem;min-height:56px;resize:vertical}
+  .gift.on textarea{display:block}
+  .trust{display:flex;flex-wrap:wrap;gap:.45rem .9rem;margin-top:1.2rem;font-family:var(--font-label);font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+  .trust span::before{content:"✓ ";color:var(--emerald)}
+  .paymethods{display:flex;gap:.6rem;margin-bottom:1.6rem;flex-wrap:wrap}
+  .paymethod{flex:1;min-width:110px;text-align:center;font-family:var(--font-label);font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;border:1px solid var(--line);background:transparent;color:var(--muted);padding:.8rem .6rem;cursor:pointer;transition:.3s}
+  .paymethod:hover{border-color:var(--gold);color:var(--gold-light);transform:translateY(-2px)}
+  .paymethod.active{border-color:var(--gold);color:var(--gold-light);
+    background:linear-gradient(160deg,rgba(216,180,90,.16),rgba(216,180,90,.05));box-shadow:0 0 18px rgba(216,180,90,.18)}
+  .pfield{margin-bottom:1.05rem}
+  .pfield label{display:block;font-family:var(--font-label);font-size:.62rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:.4rem}
+  .pfield input,.pfield select{width:100%;font-family:var(--font-label);font-size:.85rem;background:rgba(11,10,16,.85);border:1px solid var(--line);color:var(--ink);padding:.75rem 1rem;transition:border-color .3s,box-shadow .3s}
+  .pfield input:focus,.pfield select:focus,.afield input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 1px var(--gold),0 0 20px rgba(216,180,90,.16)}
+  .pfield input::placeholder{color:#5d566e}
+  .pfield select option{background:var(--bg-2)}
+  @media(pointer:coarse){.pfield input,.pfield select{font-size:16px}}
+  .prow{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
+  @media(max-width:420px){.prow{grid-template-columns:1fr}}
+  .pmsg{min-height:1.3em;font-size:.86rem;font-style:italic;color:var(--rose);margin:.2rem 0 1rem}
+  .pmsg.ok{color:var(--emerald)}
+  .spin{display:inline-block;width:14px;height:14px;border:2px solid rgba(20,16,26,.35);border-top-color:#14101a;border-radius:50%;margin-right:.6rem;vertical-align:-2px;animation:payspin .7s linear infinite}
+  @keyframes payspin{to{transform:rotate(360deg)}}
+  .paynote{display:flex;align-items:center;gap:.5rem;font-family:var(--font-label);font-size:.6rem;letter-spacing:.14em;color:var(--muted);line-height:1.9;margin-top:1.3rem;text-transform:uppercase}
+  .paynote svg{width:13px;height:13px;stroke:var(--gold);fill:none;stroke-width:1.6;flex:0 0 auto}
+  .success{display:none;text-align:center;padding:1.6rem 0}
+  .success.show{display:block}
+  .success .pico{width:74px;height:74px;margin:0 auto 1.2rem;display:grid;place-items:center;
+    font-size:2rem;color:var(--emerald);border:1px solid var(--emerald);border-radius:50%;
+    box-shadow:0 0 34px rgba(61,178,128,.35), inset 0 0 18px rgba(61,178,128,.15)}
+  .success h3{font-size:1.6rem;font-weight:500;margin-bottom:.6rem;color:var(--champagne)}
+  .success p{color:var(--muted);font-style:italic;font-size:.92rem;line-height:1.7;margin-bottom:1.4rem}
+  .success .ordno{font-family:var(--font-label);font-size:.7rem;letter-spacing:.18em;color:var(--gold-light);margin-bottom:1.6rem}
+  .hidden{display:none!important}
+</style>
+</head>
+<body>
+<div class="aurora" aria-hidden="true"><span class="a1"></span><span class="a2"></span></div>
+<div class="wrap">
+
+<nav>
+  <a class="brand" href="jewellery_Html.html">
+    <span class="mark" aria-hidden="true"><i></i></span>
+    <span><b>OPALÉRA</b><small>The House of Every Gem</small></span>
+  </a>
+  <a class="crumb" href="jewellery_Html.html#tab=all" style="text-decoration:none">← Continue shopping</a>
+</nav>
+
+<main>
+  <div class="pagehead">
+    <div class="eyebrow">Secure Checkout</div>
+    <h1 class="pay">Payment</h1>
+    <p class="sub">Review your pieces, tell us where they're going, choose how to pay — and the atelier begins its work.</p>
+    <div class="steps" aria-label="Checkout progress">
+      <span class="done"><i><b>✓</b></i> Your Bag</span>
+      <span class="on"><i><b>2</b></i> Delivery &amp; Payment</span>
+      <span><i><b>3</b></i> Confirmation &amp; Invoice</span>
+    </div>
+  </div>
+
+  <div class="paylayout">
+    <div>
+      <!-- order summary -->
+      <div class="panel">
+        <h2>Your Order</h2>
+        <div id="bagItems"></div>
+        <div class="promo">
+          <input id="promoIn" placeholder="Promo code (try GEM10)" aria-label="Promo code">
+          <button class="btn ghost" id="promoBtn" type="button">Apply</button>
+        </div>
+        <div class="gift" id="giftBox">
+          <label class="chk"><input type="checkbox" id="giftChk"> Wrap this order as a gift (complimentary)</label>
+          <textarea id="giftMsg" maxlength="160" placeholder="A short message for the gift card (optional)…"></textarea>
+        </div>
+        <div style="margin-top:1.2rem">
+          <div class="totline"><span>Items</span><span id="tItems">R 0</span></div>
+          <div class="totline" id="tDiscRow" style="display:none"><span id="tDiscLab">Discount</span><span class="neg" id="tDisc"></span></div>
+          <div class="totline"><span>VAT included (15%)</span><span id="tVat">R 0</span></div>
+          <div class="totline"><span>Delivery (insured, tracked)</span><span>Free</span></div>
+          <div class="totline grand"><span>Total due</span><span id="tGrand">R 0</span></div>
+        </div>
+        <div class="trust"><span>Certified authentic</span><span>30-day returns</span><span>Free insured delivery</span></div>
+      </div>
+    </div>
+
+    <div>
+      <!-- auth gate -->
+      <div class="panel" id="authGate">
+        <h2>Sign in to Continue</h2>
+        <div class="authswitch">
+          <button class="tab active" id="tabLogin">Sign In</button>
+          <button class="tab" id="tabSignup">Create Account</button>
+        </div>
+        <form id="loginForm" novalidate>
+          <div class="afield"><label for="liEmail">Email</label><input id="liEmail" type="email" autocomplete="email" required></div>
+          <div class="afield"><label for="liPass">Password</label><input id="liPass" type="password" autocomplete="current-password" required minlength="6"></div>
+          <div class="pmsg" id="liMsg" role="status" aria-live="polite"></div>
+          <button class="btn solid" type="submit" style="width:100%">Sign In</button>
+          <button class="authlink" type="button" id="forgotLink">Forgot your password?</button>
+        </form>
+        <form id="resetForm" hidden novalidate>
+          <div class="afield"><label for="rsEmail">Email</label><input id="rsEmail" type="email" autocomplete="email" required></div>
+          <div id="resetStep2" hidden>
+            <p class="sub" id="rsNote" style="margin-bottom:1rem"></p>
+            <div class="afield"><label for="rsCode">Reset code</label><input id="rsCode" type="text" inputmode="numeric" maxlength="6" autocomplete="one-time-code" placeholder="6-digit code"></div>
+            <div class="afield"><label for="rsPass">New password <small style="color:var(--muted)">(min. 6 characters)</small></label><input id="rsPass" type="password" autocomplete="new-password" minlength="6"></div>
+          </div>
+          <div class="pmsg" id="rsMsg" role="status" aria-live="polite"></div>
+          <button class="btn solid" type="submit" style="width:100%" id="rsSubmit">Send Reset Code</button>
+          <button class="authlink" type="button" id="backToLogin">← Back to sign in</button>
+        </form>
+        <form id="signupForm" hidden novalidate>
+          <div class="prow">
+            <div class="afield"><label for="suFirst">First name</label><input id="suFirst" type="text" required></div>
+            <div class="afield"><label for="suLast">Last name</label><input id="suLast" type="text" required></div>
+          </div>
+          <div class="afield"><label for="suEmail">Email</label><input id="suEmail" type="email" required></div>
+          <div class="afield"><label for="suPass">Password <small style="color:var(--muted)">(min. 6 characters)</small></label><input id="suPass" type="password" required minlength="6"></div>
+          <div class="pmsg" id="suMsg" role="status" aria-live="polite"></div>
+          <button class="btn solid" type="submit" style="width:100%">Create Account &amp; Continue</button>
+        </form>
+      </div>
+
+      <!-- delivery + payment -->
+      <div id="payWrap" class="hidden">
+        <div class="panel">
+          <h2>Delivery Address</h2>
+          <div class="pfield"><label for="adName">Recipient full name</label><input id="adName" type="text" autocomplete="name"></div>
+          <div class="pfield"><label for="adStreet">Street address</label><input id="adStreet" type="text" autocomplete="street-address" placeholder="12 Rosebank Avenue"></div>
+          <div class="prow">
+            <div class="pfield"><label for="adCity">City / Town</label><input id="adCity" type="text" autocomplete="address-level2"></div>
+            <div class="pfield"><label for="adPostal">Postal code</label><input id="adPostal" type="text" inputmode="numeric" maxlength="4"></div>
+          </div>
+          <div class="prow">
+            <div class="pfield"><label for="adProvince">Province</label><select id="adProvince"></select></div>
+            <div class="pfield"><label for="adPhone">Phone</label><input id="adPhone" type="tel" autocomplete="tel" placeholder="071 234 5678"></div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h2>Payment <span id="payWho" style="font-size:.9rem;color:var(--muted);font-style:italic"></span></h2>
+          <div class="paymethods" role="group" aria-label="Choose a payment method">
+            <button type="button" class="paymethod active" data-method="card">Card</button>
+            <button type="button" class="paymethod" data-method="eft">Instant EFT</button>
+          </div>
+          <form id="payForm" novalidate>
+            <div id="cardFields">
+              <div class="pfield"><label for="pcName">Name on card</label><input id="pcName" type="text" autocomplete="cc-name" placeholder="As it appears on the card"></div>
+              <div class="pfield"><label for="pcNumber">Card number</label><input id="pcNumber" type="text" inputmode="numeric" autocomplete="cc-number" placeholder="0000 0000 0000 0000" maxlength="19"></div>
+              <div class="prow">
+                <div class="pfield"><label for="pcExp">Expiry</label><input id="pcExp" type="text" inputmode="numeric" autocomplete="cc-exp" placeholder="MM/YY" maxlength="5"></div>
+                <div class="pfield"><label for="pcCvv">CVV</label><input id="pcCvv" type="password" inputmode="numeric" autocomplete="cc-csc" placeholder="•••" maxlength="4"></div>
+              </div>
+            </div>
+            <div id="eftNote" class="sub" style="display:none;margin-bottom:1.1rem">You'll be shown your bank's secure login on the next step once the maison's back-end is connected.</div>
+            <div class="pmsg" id="payMsg" role="status" aria-live="polite"></div>
+            <button class="btn solid" type="submit" id="payBtn" style="width:100%">Pay &amp; Place Order</button>
+          </form>
+          <p class="paynote">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10" width="14" height="10" rx="1"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+            Card capture is simulated — no real charge is made and card details never leave this page. Your order itself is real and is saved to your account.
+          </p>
+        </div>
+      </div>
+
+      <div class="panel success" id="paySuccess">
+        <div class="pico" aria-hidden="true">✓</div>
+        <h3>Payment Confirmed</h3>
+        <p id="successText">Merci — your order has been placed and recorded.</p>
+        <div class="ordno" id="orderNo"></div>
+        <a class="btn solid" id="invoiceLink" href="invoice.html" style="width:100%;margin-bottom:.7rem">View &amp; Print Invoice</a>
+        <a class="btn ghost" href="jewellery_Html.html" style="width:100%">Continue Browsing</a>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  OPALÉRA · The House of Every Gem<br>
+  <a href="jewellery_Html.html">Collection</a> · <a href="account.html">My Account</a> · <a href="contact.html">Contact</a> · <a href="delivery.html">Delivery</a> · <a href="returns.html">Returns</a> · <a href="terms.html">Terms</a> · <a href="privacy.html">Privacy</a>
+</footer>
+</div>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script src="opalera-backend/js/opalera-data.js"></script>
+<script>
+const { byId, findProduct, fmt, esc, store, currentUser, webSrc,
+        VAT_RATE, PROMOS, PROVINCES, stockOf, setStock,
+        api, authApi, adoptAccount } = OPALERA;
+const $ = id => document.getElementById(id);
+let toastT;
+function toast(t){ const el=$("toast"); el.textContent=t; el.classList.add("show");
+  clearTimeout(toastT); toastT=setTimeout(()=>el.classList.remove("show"),2600); }
+
+PROVINCES.forEach(p=>{ const o=document.createElement("option"); o.textContent=p; $("adProvince").appendChild(o); });
+
+/* ---------- order summary (qty-aware) ---------- */
+let bag = store.get("opalera.bag", []);
+let promo = null;   /* {code, frac} */
+const lineTotal = it => it.price * (it.qty||1);
+const itemsTotal = () => bag.reduce((s,it)=>s+lineTotal(it),0);
+
+function customLines(it){
+  if(!it.custom) return "";
+  const c = it.custom, L=[];
+  if(c.pattern) L.push("Pattern: "+c.pattern);
+  if(c.removed && c.removed.length) L.push("Removed: "+c.removed.join(", "));
+  if(c.pendantId && findProduct(c.pendantId)) L.push("Added pendant: "+findProduct(c.pendantId).name);
+  if(c.inscription) L.push("Inscription: “"+c.inscription+"”");
+  return L.map(esc).join("<br>");
+}
+function totals(){
+  const items = itemsTotal();
+  const disc = promo ? Math.round(items * promo.frac) : 0;
+  const net = items - disc;
+  const vat = Math.round(net * VAT_RATE / (1 + VAT_RATE));   /* prices are VAT-inclusive */
+  return { items, disc, net, vat };
+}
+function renderTotals(){
+  const t = totals();
+  $("tItems").textContent = fmt(t.items);
+  $("tDiscRow").style.display = promo ? "flex" : "none";
+  if(promo){ $("tDiscLab").textContent = `Discount (${promo.code} −${Math.round(promo.frac*100)}%)`;
+             $("tDisc").textContent = "− " + fmt(t.disc); }
+  $("tVat").textContent = fmt(t.vat);
+  $("tGrand").textContent = fmt(t.net);
+}
+function renderBag(){
+  const el = $("bagItems"); el.innerHTML = "";
+  if(!bag.length){
+    el.innerHTML = `<div class="bag-empty">Your bag is empty — <a href="jewellery_Html.html#tab=all" style="color:var(--gold-light)">the vault awaits</a>.</div>`;
+  }
+  bag.forEach((it,i)=>{
+    const p = findProduct(it.pid);
+    const stock = stockOf(it.pid);
+    const row = document.createElement("div");
+    row.className = "bag-row";
+    row.innerHTML = `
+      ${p ? `<div class="bimg"><img src="${p.custom ? esc(p.img) : webSrc(p)}" alt="" loading="lazy"
+        onerror="if(!this.dataset.f){this.dataset.f=1;this.src='${esc(p.img)}'}else{this.style.opacity=.15}"></div>` : ""}
+      <div class="bi">
+        <div class="bn">${esc(p ? p.name : "Piece")}</div>
+        ${it.custom ? `<div class="bc">${customLines(it)}</div>` : ""}
+        ${it.custom ? "" : `<div class="qty" aria-label="Quantity">
+          <button type="button" data-d="-1" aria-label="One fewer">−</button>
+          <span>${it.qty||1}</span>
+          <button type="button" data-d="1" aria-label="One more">+</button>
+        </div>`}
+      </div>
+      <div class="bp">${fmt(lineTotal(it))}</div>
+      <button class="brm" aria-label="Remove from order">✕</button>`;
+    row.querySelectorAll(".qty button").forEach(b=>b.addEventListener("click", ()=>{
+      const d = +b.dataset.d, q = (it.qty||1) + d;
+      if(q < 1) return;
+      if(d > 0 && q > stock){ toast(`Only ${stock} of this piece in the vault.`); return; }
+      it.qty = q; store.set("opalera.bag", bag); renderBag();
+    }));
+    row.querySelector(".brm").addEventListener("click", ()=>{
+      bag.splice(i,1); store.set("opalera.bag", bag); renderBag();
+    });
+    el.appendChild(row);
+  });
+  renderTotals();
+}
+renderBag();
+$("promoBtn").addEventListener("click", ()=>{
+  const code = $("promoIn").value.trim().toUpperCase();
+  if(!code){ promo = null; renderTotals(); return; }
+  if(PROMOS[code]){ promo = { code, frac: PROMOS[code] }; toast(`Promo ${code} applied — enjoy.`); }
+  else { promo = null; toast("That code isn't in the maison's book."); }
+  renderTotals();
+});
+$("giftChk").addEventListener("change", ()=>$("giftBox").classList.toggle("on", $("giftChk").checked));
+
+/* stay in sync across tabs / bfcache */
+function resync(){ bag = store.get("opalera.bag", []); renderBag(); refreshGate(); }
+window.addEventListener("storage", resync);
+window.addEventListener("pageshow", e=>{ if(e.persisted) resync(); });
+
+/* ---------- auth gate ---------- */
+function refreshGate(){
+  const u = currentUser();
+  $("authGate").classList.toggle("hidden", !!u);
+  $("payWrap").classList.toggle("hidden", !u);
+  if(u){
+    $("payWho").textContent = `— for ${u.fn} ${u.ln}`;
+    if(!$("adName").value) $("adName").value = `${u.fn} ${u.ln}`;
+  }
+}
+function switchAuth(signup){
+  $("resetForm").hidden = true;
+  $("loginForm").hidden = signup; $("signupForm").hidden = !signup;
+  $("tabLogin").classList.toggle("active",!signup); $("tabSignup").classList.toggle("active",signup);
+}
+$("tabLogin").addEventListener("click", ()=>switchAuth(false));
+$("tabSignup").addEventListener("click", ()=>switchAuth(true));
+
+/* ---- forgotten password (same flow as the storefront modal) ---- */
+let resetStage = 1;
+$("forgotLink").addEventListener("click", ()=>{
+  $("loginForm").hidden = true; $("signupForm").hidden = true; $("resetForm").hidden = false;
+  $("tabLogin").classList.remove("active"); $("tabSignup").classList.remove("active");
+  resetStage = 1; $("resetStep2").hidden = true;
+  $("rsSubmit").textContent = "Send Reset Code"; $("rsMsg").textContent = "";
+  $("rsEmail").value = $("liEmail").value;
+  $("rsEmail").focus();
+});
+$("backToLogin").addEventListener("click", ()=>switchAuth(false));
+$("resetForm").addEventListener("submit", async e=>{
+  e.preventDefault();
+  const msg = $("rsMsg");
+  const em = $("rsEmail").value.trim().toLowerCase();
+  if(!EMAIL_RE.test(em)) return msg.textContent = "That email does not look right.";
+  const btn = $("rsSubmit");
+  if(resetStage === 1){
+    btn.disabled = true;
+    try{
+      const r = await OPALERA.authApi.forgot(em);
+      resetStage = 2;
+      $("resetStep2").hidden = false;
+      btn.textContent = "Set New Password";
+      $("rsNote").textContent = (r.demoCode ? `Your reset code is ${r.demoCode}. ` : "") + (r.demoNote || r.note || "");
+      msg.textContent = "";
+      $("rsCode").focus();
+    }catch(err){ msg.textContent = err.message; }
+    finally{ btn.disabled = false; }
+  }else{
+    const code = $("rsCode").value.trim(), pw = $("rsPass").value;
+    if(!/^\d{6}$/.test(code)) return msg.textContent = "Enter the 6-digit reset code.";
+    if(pw.length < 6) return msg.textContent = "New password needs at least 6 characters.";
+    btn.disabled = true;
+    try{
+      const user = await OPALERA.authApi.reset(em, code, pw);
+      await signedIn(user);
+      switchAuth(false);
+      toast("Your new password is set.");
+    }catch(err){ msg.textContent = err.message; }
+    finally{ btn.disabled = false; }
+  }
+});
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+/* real accounts on the maison's server; after signing in, merge the
+   guest bag/wishlist into the account and re-render the order summary */
+async function signedIn(u){
+  await adoptAccount();
+  bag = store.get("opalera.bag", []);
+  renderBag(); refreshGate();
+  toast(`Welcome, ${u.fn}.`);
+}
+$("signupForm").addEventListener("submit", async e=>{
+  e.preventDefault();
+  const fn=$("suFirst").value.trim(), ln=$("suLast").value.trim(),
+        em=$("suEmail").value.trim().toLowerCase(), pw=$("suPass").value, msg=$("suMsg");
+  if(!fn||!ln) return msg.textContent="Please tell the maison your name.";
+  if(!EMAIL_RE.test(em)) return msg.textContent="That email does not look right.";
+  if(pw.length<6) return msg.textContent="Password needs at least 6 characters.";
+  const btn = e.target.querySelector("button[type=submit]");
+  btn.disabled = true;
+  try{ await signedIn(await authApi.signup(fn, ln, em, pw)); }
+  catch(err){ msg.textContent = err.message; }
+  finally{ btn.disabled = false; }
+});
+$("loginForm").addEventListener("submit", async e=>{
+  e.preventDefault();
+  const em=$("liEmail").value.trim().toLowerCase(), pw=$("liPass").value, msg=$("liMsg");
+  const btn = e.target.querySelector("button[type=submit]");
+  btn.disabled = true;
+  try{ await signedIn(await authApi.login(em, pw)); }
+  catch(err){ msg.textContent = err.message; }
+  finally{ btn.disabled = false; }
+});
+refreshGate();
+/* verify the cookie session with the server before trusting the gate */
+authApi.me().then(refreshGate).catch(()=>{});
+
+/* ---------- simulated payment (no card data is ever stored) ---------- */
+let method = "card";
+document.querySelectorAll(".paymethod").forEach(b=>{
+  b.addEventListener("click", ()=>{
+    method = b.dataset.method;
+    document.querySelectorAll(".paymethod").forEach(x=>x.classList.toggle("active", x===b));
+    $("cardFields").style.display = method==="card" ? "" : "none";
+    $("eftNote").style.display = method==="eft" ? "" : "none";
+    $("payMsg").textContent = "";
+  });
+});
+$("pcNumber").addEventListener("input", e=>{
+  e.target.value = e.target.value.replace(/\D/g,"").slice(0,16).replace(/(.{4})/g,"$1 ").trim();
+});
+$("pcExp").addEventListener("input", e=>{
+  let v = e.target.value.replace(/\D/g,"").slice(0,4);
+  if(v.length>2) v = v.slice(0,2)+"/"+v.slice(2);
+  e.target.value = v;
+});
+$("pcCvv").addEventListener("input", e=>{ e.target.value = e.target.value.replace(/\D/g,"").slice(0,4); });
+
+$("payForm").addEventListener("submit", e=>{
+  e.preventDefault();
+  const msg = $("payMsg");
+  msg.classList.remove("ok"); msg.textContent = "";
+  if(!bag.length){ msg.textContent = "Your bag is empty — add a piece first."; return; }
+
+  /* delivery address is required — the atelier must know where to send the pieces */
+  const addr = {
+    name: $("adName").value.trim(), street: $("adStreet").value.trim(),
+    city: $("adCity").value.trim(), postal: $("adPostal").value.trim(),
+    province: $("adProvince").value, phone: $("adPhone").value.trim()
+  };
+  if(!addr.name || !addr.street || !addr.city || !addr.postal){
+    msg.textContent = "Please complete the delivery address."; return;
+  }
+
+  if(method==="card"){
+    const name = $("pcName").value.trim();
+    const num = $("pcNumber").value.replace(/\s/g,"");
+    const exp = $("pcExp").value.trim();
+    const cvv = $("pcCvv").value.trim();
+    if(!name){ msg.textContent = "Enter the name on the card."; $("pcName").focus(); return; }
+    if(num.length<13 || num.length>16){ msg.textContent = "Enter a valid card number."; $("pcNumber").focus(); return; }
+    if(!/^\d{2}\/\d{2}$/.test(exp)){ msg.textContent = "Enter the expiry as MM/YY."; $("pcExp").focus(); return; }
+    const [mm] = exp.split("/").map(Number);
+    if(mm<1 || mm>12){ msg.textContent = "That expiry month isn't valid."; $("pcExp").focus(); return; }
+    if(cvv.length<3){ msg.textContent = "Enter the 3 or 4 digit CVV."; $("pcCvv").focus(); return; }
+  }
+
+  const btn = $("payBtn");
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spin" aria-hidden="true"></span>Processing payment…';
+
+  /* card/EFT *capture* stays simulated (no gateway is wired up, and card
+     details never leave this page) — but the order itself is a real
+     request to the maison's server, saved to the patron's account */
+  setTimeout(async ()=>{
+    try{
+      const t = totals();
+      const { order } = await api("/orders", {method:"POST", body:{
+        items: bag,
+        method,
+        promo: promo ? promo.code : null,
+        discount: t.disc,
+        gift: $("giftChk").checked ? { message: $("giftMsg").value.trim().slice(0,160) } : null,
+        address: addr
+      }});
+      /* keep a local copy so the invoice opens offline and the manager
+         console's Reports can merge real orders into its dashboard */
+      const orders = store.get("opalera.orders", []);
+      orders.push({ user: order.email, items: order.items, itemsTotal: order.itemsTotal,
+                    promo: order.promo, discount: order.discount, vat: order.vat,
+                    total: order.total, gift: order.gift, address: order.address,
+                    method: order.method, placed: order.placedAt, ref: order.ref });
+      store.set("opalera.orders", orders);
+      bag.forEach(it=>{ if(!it.custom) setStock(it.pid, stockOf(it.pid) - (it.qty||1)); });
+      bag = []; store.set("opalera.bag", bag); renderBag();
+      $("payWrap").classList.add("hidden");
+      $("paySuccess").classList.add("show");
+      document.querySelectorAll(".steps span").forEach((s,i)=>{
+        s.classList.remove("on");
+        if(i<2){ s.classList.add("done"); s.querySelector("b").textContent = "✓"; }
+        else s.classList.add("on");
+      });
+      $("orderNo").textContent = "Order reference · " + order.ref;
+      $("invoiceLink").href = "invoice.html#ref=" + order.ref;
+      $("successText").textContent = `Merci — payment received. Your pieces will travel insured to ${esc(addr.city)}, ${esc(addr.province)}.`;
+    }catch(err){
+      if(err.status === 401){
+        refreshGate();
+        $("authGate").classList.remove("hidden");
+        $("liMsg").textContent = "Your session expired — please sign in again to place the order.";
+      }else{
+        msg.textContent = err.message || "Couldn't place your order — please try again.";
+      }
+    }finally{
+      btn.disabled = false; btn.innerHTML = "Pay &amp; Place Order";
+    }
+  }, 1200);
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,1077 @@
+{
+  "users": {
+    "demo@example.com": {
+      "firstName": "Demo",
+      "lastName": "Patron",
+      "email": "demo@example.com",
+      "salt": "e26977a06dd4e4ccd647e6b62d9cb9c4",
+      "hash": "8aa04f534e3c3f700e85568132b2b639c0e60c07a530e9aa8da1506672a55d4142700bd5b13c4b3b3e2bd4a545e4924ef3c6c05396bd8eba1c974f6ec7f26762",
+      "createdAt": "2026-09-02T21:55:54.079Z"
+    },
+    "testrun@example.com": {
+      "firstName": "Test",
+      "lastName": "Runner",
+      "email": "testrun@example.com",
+      "salt": "b6b10afff123dd7f4515ae4590d14be7",
+      "hash": "b9042e4e01a6f34b4425c58f49f457a1eeb31da32b13762bb83e7ec2e1ccbdbf903e5b18bad1191460fcb90a586f217e3c70779469aa0a0e10b48c3e449a333c",
+      "createdAt": "2026-09-02T23:10:39.305Z"
+    },
+    "khuthadzokhuthi789@gmail.com": {
+      "firstName": "Khuthadzo",
+      "lastName": "Thedzisani",
+      "email": "khuthadzokhuthi789@gmail.com",
+      "salt": "67a2f0c1914dd4c9b7c947160afc23b4",
+      "hash": "359129c74176d7451f68e5e2fd81034c7ad98ac49c834e17aafdf9c9552fc93036b6245b005b69274c25bc14c584bba60e3c156d57bea4b3e860877755117f1d",
+      "createdAt": "2026-09-03T11:54:05.334Z"
+    },
+    "resettest@example.com": {
+      "firstName": "Reset",
+      "lastName": "Test",
+      "email": "resettest@example.com",
+      "salt": "8adb46d8fc28da4fb8e34e62b9347075",
+      "hash": "2a044683ecc82e7c62f6dc0db5a1ce0345548e4440abd95e3a3f9cf0d43af6ee994f511c7ff618de0e3a89053224720d4378c028c0ea0c6a53c6b269bc3f01ba",
+      "createdAt": "2026-09-05T20:16:46.011Z"
+    },
+    "tvkmusic07@gmail.com": {
+      "firstName": "Thrivikraman",
+      "lastName": "Madhavan",
+      "email": "tvkmusic07@gmail.com",
+      "salt": "3be10b785bf3350ad2d72350b69f3f9e",
+      "hash": "f80310320becf09d7deaf7573e8986ff8126531f319d0720ab7d1cd781e5a4974ae747fec10bece6285b0fd286308fd4d9613a6e503da3ffca4316f16104f461",
+      "createdAt": "2026-09-05T20:44:30.197Z"
+    }
+  },
+  "sessions": {
+    "ad0c89bc005c251b43b344159113d3b0abbf2f7a1b4ee15d905d594961290bb2": {
+      "email": "demo@example.com",
+      "expires": 1790978154079
+    },
+    "74065858c37ff0d52c131c979f4ec4c69b026aa9378dba7466b32f92a7f05021": {
+      "email": "testrun@example.com",
+      "expires": 1791028153316
+    },
+    "68d027d2e677a9318c56de934112daa0191fc03c6da717b3cee86b5f3db80a90": {
+      "email": "testrun@example.com",
+      "expires": 1791028153808
+    },
+    "4bfa4443e4a05d4b6a8f6343a368bad9bc3893d2c9a713d43a24cc8f2de1f238": {
+      "email": "khuthadzokhuthi789@gmail.com",
+      "expires": 1791028835461
+    },
+    "38c992aaa11be9bc730d0d862bdbc9c59704b9bd862f93dc9174b4299177051d": {
+      "email": "demo@example.com",
+      "expires": 1791029508044
+    },
+    "44df283ceb6249880d56bb21b2c2507771bd78f1b3541aed76e53f202f182d4e": {
+      "email": "demo@example.com",
+      "expires": 1791229987560
+    },
+    "1b24e4137c785e6cd57c57d827678dbe810c52270f70c5eadf56b0a62099ade4": {
+      "email": "demo@example.com",
+      "expires": 1791230496547
+    },
+    "a990acb923fe82f1ac495fa70897b9ee450de94c4ab6f9a418177e048419ceaa": {
+      "email": "demo@example.com",
+      "expires": 1791231405246
+    },
+    "c0570f9ce847640f62a61778ec81fd05bf1d70664945c138bddb3af95490e8c7": {
+      "email": "resettest@example.com",
+      "expires": 1791231406792
+    },
+    "42a164db249342b3f10d19ac56982a965361cc3592a6a3e5857fadc388787cf5": {
+      "email": "resettest@example.com",
+      "expires": 1791231407166
+    },
+    "026c544fd372847086c9a7bbf83574155c9a7041385865e6501ee26e645a863c": {
+      "email": "tvkmusic07@gmail.com",
+      "expires": 1791233070198
+    }
+  },
+  "orders": [
+    {
+      "id": "fb1f4619-5d17-4503-9c4b-88333f9dd76a",
+      "ref": "OP-MTKMXW5K",
+      "email": "demo@example.com",
+      "items": [
+        {
+          "pid": 1,
+          "custom": null,
+          "price": 1759,
+          "qty": 2
+        },
+        {
+          "pid": 9,
+          "custom": {
+            "inscription": "A toi"
+          },
+          "price": 1599,
+          "qty": 1
+        }
+      ],
+      "itemsTotal": 5117,
+      "promo": "GEM10",
+      "discount": 512,
+      "vat": 601,
+      "total": 4605,
+      "gift": {
+        "message": "Joyeux anniversaire"
+      },
+      "address": {
+        "name": "Demo Patron",
+        "street": "12 Rosebank Ave",
+        "city": "Johannesburg",
+        "postal": "2196",
+        "province": "Gauteng",
+        "phone": "071 234 5678"
+      },
+      "method": "eft",
+      "status": "paid",
+      "placedAt": "2026-09-02T21:55:54.248Z"
+    },
+    {
+      "id": "e96c7fc5-a431-4b79-867c-f87fcbb4ee48",
+      "ref": "OP-MTKN23N4",
+      "email": "demo@example.com",
+      "items": [
+        {
+          "pid": 1,
+          "custom": null,
+          "price": 1759,
+          "qty": 1
+        }
+      ],
+      "itemsTotal": 1759,
+      "promo": null,
+      "discount": 0,
+      "vat": 229,
+      "total": 1759,
+      "gift": null,
+      "address": {
+        "name": "Demo Patron",
+        "street": "45 Diagonal Street",
+        "city": "Johannesburg",
+        "postal": "2001",
+        "province": "Gauteng",
+        "phone": ""
+      },
+      "method": "eft",
+      "status": "paid",
+      "placedAt": "2026-09-02T21:59:10.576Z"
+    },
+    {
+      "id": "d36e2869-387d-40f8-b507-e86c34842929",
+      "ref": "OP-MTKPA9IQ",
+      "email": "demo@example.com",
+      "items": [
+        {
+          "pid": 2,
+          "price": 3199,
+          "qty": 2
+        }
+      ],
+      "itemsTotal": 6398,
+      "promo": null,
+      "discount": 320,
+      "vat": 793,
+      "total": 6078,
+      "gift": null,
+      "address": {
+        "name": "Demo Patron",
+        "street": "1 Test Rd",
+        "city": "Joburg",
+        "postal": "2000",
+        "province": "Gauteng",
+        "phone": ""
+      },
+      "method": "eft",
+      "status": "paid",
+      "placedAt": "2026-09-02T23:01:30.674Z"
+    },
+    {
+      "id": "fd70c43c-a3e1-4163-908c-ede0fc0ac5ba",
+      "ref": "OP-MTKPM23K",
+      "email": "testrun@example.com",
+      "items": [
+        {
+          "pid": 5,
+          "custom": null,
+          "price": 1399,
+          "qty": 3
+        }
+      ],
+      "itemsTotal": 4197,
+      "promo": "GEM10",
+      "discount": 420,
+      "vat": 493,
+      "total": 3777,
+      "gift": {
+        "message": "testing"
+      },
+      "address": {
+        "name": "Test Runner",
+        "street": "9 Quantum St",
+        "city": "Johannesburg",
+        "postal": "2001",
+        "province": "Gauteng",
+        "phone": "071 000 0000"
+      },
+      "method": "card",
+      "status": "paid",
+      "placedAt": "2026-09-02T23:10:40.928Z"
+    },
+    {
+      "id": "26dc85b5-bd6c-4b94-8b43-31292170c737",
+      "ref": "OP-MTKQ48FP",
+      "email": "demo@example.com",
+      "items": [
+        {
+          "pid": 9,
+          "price": 1399,
+          "qty": 1
+        }
+      ],
+      "itemsTotal": 1399,
+      "promo": null,
+      "discount": 0,
+      "vat": 182,
+      "total": 1399,
+      "gift": null,
+      "address": {
+        "name": "Demo Patron",
+        "street": "1 Fetch Test",
+        "city": "Joburg",
+        "postal": "2000",
+        "province": "Gauteng",
+        "phone": ""
+      },
+      "method": "eft",
+      "status": "paid",
+      "placedAt": "2026-09-02T23:24:48.949Z"
+    },
+    {
+      "id": "72e88b40-e311-4b23-a78b-33475a79deb4",
+      "ref": "OP-MTLFZS6X",
+      "email": "testrun@example.com",
+      "items": [
+        {
+          "pid": 20,
+          "custom": null,
+          "price": 1039,
+          "qty": 2
+        },
+        {
+          "pid": 45,
+          "custom": null,
+          "price": 1119,
+          "qty": 1
+        }
+      ],
+      "itemsTotal": 3197,
+      "promo": null,
+      "discount": 0,
+      "vat": 417,
+      "total": 3197,
+      "gift": null,
+      "address": {
+        "name": "Test Runner",
+        "street": "9 Quantum St",
+        "city": "Pretoria",
+        "postal": "0002",
+        "province": "Gauteng",
+        "phone": ""
+      },
+      "method": "cod",
+      "status": "reserved",
+      "placedAt": "2026-09-03T11:29:11.289Z"
+    },
+    {
+      "id": "e24531b4-38a9-4d3b-ac0d-a0d7fe276dfe",
+      "ref": "OP-MTLH5CR0",
+      "email": "khuthadzokhuthi789@gmail.com",
+      "items": [
+        {
+          "pid": 3,
+          "custom": null,
+          "price": 2119,
+          "qty": 1
+        },
+        {
+          "pid": 23,
+          "custom": null,
+          "price": 2119,
+          "qty": 1
+        }
+      ],
+      "itemsTotal": 4238,
+      "promo": null,
+      "discount": 0,
+      "vat": 553,
+      "total": 4238,
+      "gift": null,
+      "address": {
+        "name": "Khuthadzo Thedzisani",
+        "street": "12 rosebank avenue",
+        "city": "johannesburg",
+        "postal": "0001",
+        "province": "Gauteng",
+        "phone": "0817877907"
+      },
+      "method": "eft",
+      "status": "paid",
+      "placedAt": "2026-09-03T12:01:30.828Z"
+    },
+    {
+      "id": "93b44ff2-2b88-4227-9223-91da18d76d07",
+      "ref": "OP-MTLH8SBK",
+      "email": "khuthadzokhuthi789@gmail.com",
+      "items": [
+        {
+          "pid": 22,
+          "custom": null,
+          "price": 1759,
+          "qty": 1
+        }
+      ],
+      "itemsTotal": 1759,
+      "promo": null,
+      "discount": 0,
+      "vat": 229,
+      "total": 1759,
+      "gift": null,
+      "address": {
+        "name": "Khuthadzo Thedzisani",
+        "street": "12 rosebank avenue",
+        "city": "johannesburg",
+        "postal": "0001",
+        "province": "Gauteng",
+        "phone": "0817877907"
+      },
+      "method": "card",
+      "status": "paid",
+      "placedAt": "2026-09-03T12:04:10.977Z"
+    },
+    {
+      "id": "8e478845-c197-4680-a452-f9587d13609d",
+      "ref": "OP-MTOSVK3O",
+      "email": "demo@example.com",
+      "items": [
+        {
+          "pid": 1,
+          "price": 1759
+        }
+      ],
+      "total": 1759,
+      "method": "card",
+      "status": "paid",
+      "placedAt": "2026-09-05T19:53:07.716Z"
+    },
+    {
+      "id": "b8b60a60-3f94-447c-b614-03d11aeefdf1",
+      "ref": "OP-MTOTPZWO",
+      "email": "demo@example.com",
+      "items": [
+        {
+          "pid": 1,
+          "price": 1759,
+          "qty": 2
+        }
+      ],
+      "itemsTotal": 3518,
+      "promo": null,
+      "discount": 0,
+      "vat": 459,
+      "total": 3518,
+      "gift": null,
+      "address": {
+        "name": "Demo",
+        "street": "1 St",
+        "city": "Joburg",
+        "postal": "2000",
+        "province": "Gauteng",
+        "phone": ""
+      },
+      "method": "card",
+      "status": "paid",
+      "placedAt": "2026-09-05T20:16:47.880Z"
+    },
+    {
+      "id": "ca61d71b-25f9-4e67-aa43-31b5370e5278",
+      "ref": "OP-MTOUPT9B",
+      "email": "tvkmusic07@gmail.com",
+      "items": [
+        {
+          "pid": 7,
+          "custom": null,
+          "price": 3199,
+          "qty": 1
+        }
+      ],
+      "itemsTotal": 3199,
+      "promo": null,
+      "discount": 0,
+      "vat": 417,
+      "total": 3199,
+      "gift": null,
+      "address": {
+        "name": "Thrivikraman Madhavan",
+        "street": "22, Streatley Avenue, Auckland Park",
+        "city": "Johannesburg",
+        "postal": "2092",
+        "province": "Gauteng",
+        "phone": "+27604365772"
+      },
+      "method": "eft",
+      "status": "paid",
+      "placedAt": "2026-09-05T20:44:38.879Z"
+    }
+  ],
+  "reviews": [
+    {
+      "id": "9805faf1-fb84-44c1-a2ae-3b351d09ad1e",
+      "pid": 1,
+      "stars": 5,
+      "text": "The maison delivers — tested end to end.",
+      "email": "demo@example.com",
+      "name": "Demo P.",
+      "verified": true,
+      "createdAt": "2026-09-02T21:55:54.520Z"
+    },
+    {
+      "id": "b5e533d1-5dcd-4e1a-81b8-c2b5d11dd2ca",
+      "pid": 5,
+      "stars": 5,
+      "text": "test run review",
+      "email": "testrun@example.com",
+      "name": "Test R.",
+      "verified": true,
+      "createdAt": "2026-09-02T23:10:42.669Z"
+    },
+    {
+      "id": "2f36892d-c285-41b9-b9ef-c5549b8b2dcb",
+      "pid": 77,
+      "stars": 4,
+      "text": "not bought",
+      "email": "testrun@example.com",
+      "name": "Test R.",
+      "verified": false,
+      "createdAt": "2026-09-02T23:10:42.964Z"
+    },
+    {
+      "id": "a72d66fe-6a1a-4685-b7c9-12feb8ef156c",
+      "pid": 45,
+      "stars": 5,
+      "text": "final test pass",
+      "email": "testrun@example.com",
+      "name": "Test R.",
+      "verified": true,
+      "createdAt": "2026-09-03T11:29:12.414Z"
+    },
+    {
+      "id": "cfd389fa-7c0a-4848-b0e4-d865582ed545",
+      "pid": 1,
+      "stars": 5,
+      "text": "teammate version works",
+      "email": "demo@example.com",
+      "name": "Demo P.",
+      "verified": true,
+      "createdAt": "2026-09-05T19:53:07.948Z"
+    },
+    {
+      "id": "7e5acf43-d969-4026-b539-89c329ef072e",
+      "pid": 1,
+      "stars": 5,
+      "text": "final run",
+      "email": "demo@example.com",
+      "name": "Demo P.",
+      "verified": true,
+      "createdAt": "2026-09-05T20:16:48.774Z"
+    }
+  ],
+  "wishlists": {
+    "demo@example.com": [
+      1,
+      9,
+      42
+    ],
+    "testrun@example.com": [
+      20,
+      45,
+      62
+    ]
+  },
+  "carts": {
+    "demo@example.com": [],
+    "testrun@example.com": [],
+    "khuthadzokhuthi789@gmail.com": [],
+    "tvkmusic07@gmail.com": []
+  },
+  "resets": {
+    "demo@example.com": {
+      "code": "440578",
+      "expires": 1788640211230,
+      "attempts": 0
+    }
+  },
+  "products": [
+    {
+      "id": 1,
+      "category": "necklace",
+      "name": "Sapphire Necklace",
+      "price": 1759,
+      "img": "https://images.pexels.com/photos/32988651/pexels-photo-32988651.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 2,
+      "category": "necklace",
+      "name": "Cyan Necklace",
+      "price": 3199,
+      "img": "https://images.pexels.com/photos/10215179/pexels-photo-10215179.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 3,
+      "category": "necklace",
+      "name": "Diamond Necklace",
+      "price": 2119,
+      "img": "https://images.pexels.com/photos/12427695/pexels-photo-12427695.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 4,
+      "category": "necklace",
+      "name": "Diamond Necklace",
+      "price": 3199,
+      "img": "https://images.pexels.com/photos/20100105/pexels-photo-20100105.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 5,
+      "category": "necklace",
+      "name": "Diamond Necklace",
+      "price": 1399,
+      "img": "https://images.pexels.com/photos/7541803/pexels-photo-7541803.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 6,
+      "category": "necklace",
+      "name": "Diamond Necklace",
+      "price": 6799,
+      "img": "https://images.pexels.com/photos/20455782/pexels-photo-20455782.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 7,
+      "category": "necklace",
+      "name": "Triple Gold Layer Necklace",
+      "price": 3199,
+      "img": "https://images.pexels.com/photos/14999288/pexels-photo-14999288.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 8,
+      "category": "necklace",
+      "name": "Flower Necklace",
+      "price": 3199,
+      "img": "https://images.pexels.com/photos/34461220/pexels-photo-34461220.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 9,
+      "category": "necklace",
+      "name": "Heart Necklace",
+      "price": 1399,
+      "img": "https://images.pexels.com/photos/19821929/pexels-photo-19821929.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 10,
+      "category": "necklace",
+      "name": "Yellow Pearl Necklace",
+      "price": 5359,
+      "img": "https://images.pexels.com/photos/12231889/pexels-photo-12231889.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 11,
+      "category": "necklace",
+      "name": "Green Pearl Necklace",
+      "price": 2119,
+      "img": "https://images.pexels.com/photos/17925116/pexels-photo-17925116.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 12,
+      "category": "necklace",
+      "name": "White Diamond Necklace",
+      "price": 1759,
+      "img": "https://images.pexels.com/photos/7134458/pexels-photo-7134458.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 13,
+      "category": "necklace",
+      "name": "LOVE Word Necklace",
+      "price": 5359,
+      "img": "https://images.pexels.com/photos/15576969/pexels-photo-15576969.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 14,
+      "category": "necklace",
+      "name": "White Small Stone Necklace",
+      "price": 1759,
+      "img": "https://images.pexels.com/photos/4595723/pexels-photo-4595723.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 15,
+      "category": "necklace",
+      "name": "Rose & White Gold Necklace",
+      "price": 2119,
+      "img": "https://images.pexels.com/photos/19564918/pexels-photo-19564918.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 16,
+      "category": "necklace",
+      "name": "Yellow & White Gold Necklace",
+      "price": 1759,
+      "img": "https://images.pexels.com/photos/16935588/pexels-photo-16935588.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 17,
+      "category": "necklace",
+      "name": "White Gold Diamond Necklace",
+      "price": 5359,
+      "img": "https://images.pexels.com/photos/7541801/pexels-photo-7541801.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 18,
+      "category": "necklace",
+      "name": "Flower Petal Pattern Necklace",
+      "price": 2119,
+      "img": "https://images.pexels.com/photos/34333050/pexels-photo-34333050.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 19,
+      "category": "necklace",
+      "name": "Small Three Flower Necklace",
+      "price": 2119,
+      "img": "https://images.pexels.com/photos/16879656/pexels-photo-16879656.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 20,
+      "category": "necklace",
+      "name": "Beautiful Gold Necklace",
+      "price": 1039,
+      "img": "https://images.pexels.com/photos/17368723/pexels-photo-17368723.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 21,
+      "category": "necklace",
+      "name": "Simple White Gold Necklace",
+      "price": 5359,
+      "img": "https://images.pexels.com/photos/29502933/pexels-photo-29502933.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 22,
+      "category": "necklace",
+      "name": "Diamond Cult Necklace",
+      "price": 1759,
+      "img": "https://images.pexels.com/photos/37798256/pexels-photo-37798256.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 23,
+      "category": "necklace",
+      "name": "White Heart Necklace",
+      "price": 2119,
+      "img": "https://images.pexels.com/photos/6709148/pexels-photo-6709148.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 24,
+      "category": "necklace",
+      "name": "Small Clove Necklace",
+      "price": 1759,
+      "img": "https://images.pexels.com/photos/16082501/pexels-photo-16082501.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 25,
+      "category": "necklace",
+      "name": "Peacock Feather Necklace",
+      "price": 5359,
+      "img": "https://images.pexels.com/photos/8656236/pexels-photo-8656236.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 26,
+      "category": "necklace",
+      "name": "Green Diamond Necklace",
+      "price": 5359,
+      "img": "https://images.pexels.com/photos/9322933/pexels-photo-9322933.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 27,
+      "category": "necklace",
+      "name": "Pink Flower Necklace",
+      "price": 5359,
+      "img": "https://images.pexels.com/photos/9173459/pexels-photo-9173459.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 28,
+      "category": "necklace",
+      "name": "Triple Layer Gold Necklace",
+      "price": 5359,
+      "img": "https://images.pexels.com/photos/4889719/pexels-photo-4889719.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 29,
+      "category": "necklace",
+      "name": "Five Layer White Gold Pearl Necklace",
+      "price": 5359,
+      "img": "https://images.pexels.com/photos/23495720/pexels-photo-23495720.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 30,
+      "category": "necklace",
+      "name": "Spiral Pink Necklace",
+      "price": 5359,
+      "img": "https://images.pexels.com/photos/34444213/pexels-photo-34444213.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 31,
+      "category": "earrings",
+      "name": "Rose Gold Earrings",
+      "price": 2219,
+      "img": "https://images.pexels.com/photos/34365842/pexels-photo-34365842.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 32,
+      "category": "earrings",
+      "name": "Rose Gold Star Earrings",
+      "price": 1859,
+      "img": "https://images.pexels.com/photos/16858919/pexels-photo-16858919.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 33,
+      "category": "earrings",
+      "name": "Gold Leaf Earrings",
+      "price": 2219,
+      "img": "https://images.pexels.com/photos/12144990/pexels-photo-12144990.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 34,
+      "category": "earrings",
+      "name": "24K Gold Leaf Earrings",
+      "price": 1119,
+      "img": "https://images.pexels.com/photos/7248760/pexels-photo-7248760.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 35,
+      "category": "earrings",
+      "name": "Gold Pearl Earrings",
+      "price": 4799,
+      "img": "https://images.pexels.com/photos/11365012/pexels-photo-11365012.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 36,
+      "category": "earrings",
+      "name": "Peacock Gold Earrings",
+      "price": 2589,
+      "img": "https://images.pexels.com/photos/4155252/pexels-photo-4155252.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 37,
+      "category": "earrings",
+      "name": "Blue Peacock Long Gold Earrings",
+      "price": 1819,
+      "img": "https://images.pexels.com/photos/4155247/pexels-photo-4155247.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 38,
+      "category": "earrings",
+      "name": "Pink-White Diamond Earrings",
+      "price": 2039,
+      "img": "https://images.pexels.com/photos/13595660/pexels-photo-13595660.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 39,
+      "category": "earrings",
+      "name": "Pink-Green-White Diamond Earrings",
+      "price": 2079,
+      "img": "https://images.pexels.com/photos/34501351/pexels-photo-34501351.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 40,
+      "category": "earrings",
+      "name": "Pink Stone Jhumka Earrings",
+      "price": 2039,
+      "img": "https://images.pexels.com/photos/9430429/pexels-photo-9430429.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 41,
+      "category": "earrings",
+      "name": "Red-Green Heart Earrings",
+      "price": 1669,
+      "img": "https://images.pexels.com/photos/2735970/pexels-photo-2735970.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 42,
+      "category": "earrings",
+      "name": "Beautiful Pearl-Diamond Earrings",
+      "price": 1859,
+      "img": "https://images.pexels.com/photos/4974343/pexels-photo-4974343.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 43,
+      "category": "earrings",
+      "name": "Small Pink Diamond Earrings",
+      "price": 2219,
+      "img": "https://images.pexels.com/photos/28389453/pexels-photo-28389453.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 44,
+      "category": "earrings",
+      "name": "Pink Diamond Leaf Earrings",
+      "price": 3329,
+      "img": "https://images.pexels.com/photos/13219289/pexels-photo-13219289.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 45,
+      "category": "earrings",
+      "name": "Beautiful Swan Shaped Earrings",
+      "price": 1119,
+      "img": "https://images.pexels.com/photos/33737455/pexels-photo-33737455.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 46,
+      "category": "earrings",
+      "name": "Fire Stone Earrings",
+      "price": 2219,
+      "img": "https://images.pexels.com/photos/8274718/pexels-photo-8274718.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 47,
+      "category": "earrings",
+      "name": "Yellow Stone Earrings",
+      "price": 1819,
+      "img": "https://images.pexels.com/photos/4004225/pexels-photo-4004225.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 48,
+      "category": "earrings",
+      "name": "Yellow Gold Stud Earrings",
+      "price": 2589,
+      "img": "https://images.pexels.com/photos/12168883/pexels-photo-12168883.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 49,
+      "category": "earrings",
+      "name": "Diamond Earrings",
+      "price": 2219,
+      "img": "https://images.pexels.com/photos/16242338/pexels-photo-16242338.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 50,
+      "category": "earrings",
+      "name": "Beautiful Abstract Earrings",
+      "price": 2959,
+      "img": "https://images.pexels.com/photos/32989025/pexels-photo-32989025.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 51,
+      "category": "pendant",
+      "name": "Pearl Pendant",
+      "price": 1869,
+      "img": "https://images.pexels.com/photos/14584454/pexels-photo-14584454.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 52,
+      "category": "pendant",
+      "name": "Purple-Orange Stone Pendant",
+      "price": 1869,
+      "img": "https://images.pexels.com/photos/35532662/pexels-photo-35532662.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 53,
+      "category": "pendant",
+      "name": "Orange-Green Pearl Pendant",
+      "price": 1419,
+      "img": "https://images.pexels.com/photos/10556215/pexels-photo-10556215.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 54,
+      "category": "pendant",
+      "name": "Black-White Pearl Pendant",
+      "price": 2149,
+      "img": "https://images.pexels.com/photos/10877350/pexels-photo-10877350.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 55,
+      "category": "pendant",
+      "name": "Purple Heart Pendant",
+      "price": 959,
+      "img": "https://images.pexels.com/photos/13292938/pexels-photo-13292938.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 56,
+      "category": "pendant",
+      "name": "Light Blue Heart Pendant",
+      "price": 4159,
+      "img": "https://images.pexels.com/photos/5370705/pexels-photo-5370705.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 57,
+      "category": "pendant",
+      "name": "Purple Clove Pendant",
+      "price": 3659,
+      "img": "https://images.pexels.com/photos/12197267/pexels-photo-12197267.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 58,
+      "category": "pendant",
+      "name": "Bird Pendant",
+      "price": 3249,
+      "img": "https://images.pexels.com/photos/32988665/pexels-photo-32988665.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 59,
+      "category": "pendant",
+      "name": "LOVE Letter Pendant",
+      "price": 3249,
+      "img": "https://images.pexels.com/photos/38290052/pexels-photo-38290052.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 60,
+      "category": "pendant",
+      "name": "I Love You With Arrow Pendant",
+      "price": 3249,
+      "img": "https://images.pexels.com/photos/5370650/pexels-photo-5370650.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 61,
+      "category": "pendant",
+      "name": "Simple White Pearl Pendant",
+      "price": 3249,
+      "img": "https://images.pexels.com/photos/34444209/pexels-photo-34444209.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 62,
+      "category": "pendant",
+      "name": "Infinity Pendant",
+      "price": 3249,
+      "img": "https://images.pexels.com/photos/9280250/pexels-photo-9280250.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 63,
+      "category": "pendant",
+      "name": "Heart With Love Pendant",
+      "price": 3249,
+      "img": "https://images.pexels.com/photos/34399039/pexels-photo-34399039.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 64,
+      "category": "pendant",
+      "name": "Cute Bow Pendant",
+      "price": 3249,
+      "img": "https://images.pexels.com/photos/4735885/pexels-photo-4735885.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 65,
+      "category": "pendant",
+      "name": "Heart Infinity Pendant",
+      "price": 3249,
+      "img": "https://images.pexels.com/photos/12638795/pexels-photo-12638795.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 66,
+      "category": "pendant",
+      "name": "Double Heart Pendant",
+      "price": 3249,
+      "img": "https://images.pexels.com/photos/34372585/pexels-photo-34372585.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 67,
+      "category": "pendant",
+      "name": "Double Infinity Pendant",
+      "price": 3249,
+      "img": "https://images.pexels.com/photos/7679824/pexels-photo-7679824.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 68,
+      "category": "pendant",
+      "name": "Rose Gold Infinity Heart Pendant",
+      "price": 3249,
+      "img": "https://images.pexels.com/photos/10983782/pexels-photo-10983782.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 69,
+      "category": "pendant",
+      "name": "Infinity Circle Pendant",
+      "price": 3249,
+      "img": "https://images.pexels.com/photos/4155254/pexels-photo-4155254.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 70,
+      "category": "pendant",
+      "name": "Kitty Pendant",
+      "price": 3249,
+      "img": "https://images.pexels.com/photos/7679654/pexels-photo-7679654.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 71,
+      "category": "pendant",
+      "name": "Cute Star Pendant",
+      "price": 3249,
+      "img": "https://images.pexels.com/photos/34505711/pexels-photo-34505711.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 72,
+      "category": "pendant",
+      "name": "Heart Cylinder Pendant",
+      "price": 3249,
+      "img": "https://images.pexels.com/photos/4741711/pexels-photo-4741711.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 73,
+      "category": "pendant",
+      "name": "Rose Pendant",
+      "price": 3249,
+      "img": "https://images.pexels.com/photos/19783942/pexels-photo-19783942.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 74,
+      "category": "pendant",
+      "name": "Classic Pendant",
+      "price": 3249,
+      "img": "https://images.pexels.com/photos/36854160/pexels-photo-36854160.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 75,
+      "category": "pendant",
+      "name": "Abstract Pendant",
+      "price": 3249,
+      "img": "https://images.pexels.com/photos/9428788/pexels-photo-9428788.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 76,
+      "category": "pendant",
+      "name": "Triple Stone Pendant",
+      "price": 3249,
+      "img": "https://images.pexels.com/photos/8369437/pexels-photo-8369437.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 77,
+      "category": "pendant",
+      "name": "Signature Pendant",
+      "price": 3249,
+      "img": "https://images.pexels.com/photos/29033684/pexels-photo-29033684.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 78,
+      "category": "pendant",
+      "name": "Double Butterfly Pendant",
+      "price": 3249,
+      "img": "https://images.pexels.com/photos/4735890/pexels-photo-4735890.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 79,
+      "category": "pendant",
+      "name": "Hexagon Pendant",
+      "price": 3249,
+      "img": "https://images.pexels.com/photos/735276/pexels-photo-735276.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "id": 80,
+      "category": "pendant",
+      "name": "Heart Butterfly Pendant",
+      "price": 3249,
+      "img": "https://images.pexels.com/photos/34317579/pexels-photo-34317579.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    }
+  ]
+}

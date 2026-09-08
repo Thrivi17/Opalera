@@ -1,0 +1,802 @@
+﻿[
+    {
+        "id":  1,
+        "category":  "necklace",
+        "name":  "Sapphire Necklace",
+        "price":  1499,
+        "image":  "img/necklace_88.jpg",
+        "bytes":  92865,
+        "md5":  "03503B7B07DD7ECC93C51133FFACAC76",
+        "exists":  true
+    },
+    {
+        "id":  2,
+        "category":  "necklace",
+        "name":  "Cyan necklace",
+        "price":  1899,
+        "image":  "img/necklace_89.jpg",
+        "bytes":  10162,
+        "md5":  "4058E2E739DABBA76B4CFBF70FC0BA23",
+        "exists":  true
+    },
+    {
+        "id":  3,
+        "category":  "necklace",
+        "name":  "Diamond Necklace",
+        "price":  1599,
+        "image":  "img/necklace_91.jpg",
+        "bytes":  240640,
+        "md5":  "665E89B25F81EB68A818A014F7395720",
+        "exists":  true
+    },
+    {
+        "id":  4,
+        "category":  "necklace",
+        "name":  "Diamond Necklace",
+        "price":  1899,
+        "image":  "img/necklace_93.jpg",
+        "bytes":  240640,
+        "md5":  "665E89B25F81EB68A818A014F7395720",
+        "exists":  true
+    },
+    {
+        "id":  5,
+        "category":  "necklace",
+        "name":  "Diamond Necklace",
+        "price":  1399,
+        "image":  "img/necklace_95.jpg",
+        "bytes":  9857,
+        "md5":  "9ABCFA6689A98B4EE3CAA57202788D11",
+        "exists":  true
+    },
+    {
+        "id":  6,
+        "category":  "necklace",
+        "name":  "Diamond Necklace",
+        "price":  2899,
+        "image":  "img/necklace_96.jpg",
+        "bytes":  9857,
+        "md5":  "9ABCFA6689A98B4EE3CAA57202788D11",
+        "exists":  true
+    },
+    {
+        "id":  7,
+        "category":  "necklace",
+        "name":  "Triple Gold Layer Necklace",
+        "price":  1899,
+        "image":  "img/necklace_154.jpg",
+        "bytes":  10004,
+        "md5":  "31EFC8B97E1DDC40F07F5C01E4584C11",
+        "exists":  true
+    },
+    {
+        "id":  8,
+        "category":  "necklace",
+        "name":  "Flower Necklace",
+        "price":  1899,
+        "image":  "img/necklace_10.jpg",
+        "bytes":  9968,
+        "md5":  "2F786587C1DAC8529795D0BF16C33DC8",
+        "exists":  true
+    },
+    {
+        "id":  9,
+        "category":  "necklace",
+        "name":  "Heart Necklace",
+        "price":  1399,
+        "image":  "img/necklace_29.jpg",
+        "bytes":  60148,
+        "md5":  "E3289234CA7A8F9A15C3C55F862BE86F",
+        "exists":  true
+    },
+    {
+        "id":  10,
+        "category":  "necklace",
+        "name":  "Yellow Pearl Necklace",
+        "price":  2499,
+        "image":  "img/necklace_30.jpg",
+        "bytes":  60740,
+        "md5":  "013A11B2580A5C670C2AD64AE3E2B803",
+        "exists":  true
+    },
+    {
+        "id":  11,
+        "category":  "necklace",
+        "name":  "Green Pearl Necklace",
+        "price":  1599,
+        "image":  "img/necklace_31.jpg",
+        "bytes":  59083,
+        "md5":  "22A7BBFA3C4B023AD06852A338D5747C",
+        "exists":  true
+    },
+    {
+        "id":  12,
+        "category":  "necklace",
+        "name":  "White Diamond Necklace",
+        "price":  1499,
+        "image":  "img/necklace_34.jpg",
+        "bytes":  9690,
+        "md5":  "216744075CDBBE83B5BBC15D61996F60",
+        "exists":  true
+    },
+    {
+        "id":  13,
+        "category":  "necklace",
+        "name":  "LOVE word Necklace",
+        "price":  2499,
+        "image":  "img/necklace_35.jpg",
+        "bytes":  42885,
+        "md5":  "8165DCE2EF17B5F579D9135F5081120F",
+        "exists":  true
+    },
+    {
+        "id":  14,
+        "category":  "necklace",
+        "name":  "White Small Stone Necklace",
+        "price":  1499,
+        "image":  "img/necklace_36.jpg",
+        "bytes":  9690,
+        "md5":  "216744075CDBBE83B5BBC15D61996F60",
+        "exists":  true
+    },
+    {
+        "id":  15,
+        "category":  "necklace",
+        "name":  "Rose \\u0026 White Gold Necklace",
+        "price":  1599,
+        "image":  "img/necklace_37.jpg",
+        "bytes":  9824,
+        "md5":  "A2161B41C167E037A3F9C4297D459808",
+        "exists":  true
+    },
+    {
+        "id":  16,
+        "category":  "necklace",
+        "name":  "Yellow \\u0026 White Gold Necklace",
+        "price":  1499,
+        "image":  "img/necklace_38.jpg",
+        "bytes":  9946,
+        "md5":  "AC5012A32B9CAB84FB40B62103C8C681",
+        "exists":  true
+    },
+    {
+        "id":  17,
+        "category":  "necklace",
+        "name":  "White Gold Diamond Necklace",
+        "price":  2499,
+        "image":  "img/necklace_39.jpg",
+        "bytes":  9690,
+        "md5":  "216744075CDBBE83B5BBC15D61996F60",
+        "exists":  true
+    },
+    {
+        "id":  18,
+        "category":  "necklace",
+        "name":  "Flower Petal Pattern Necklace",
+        "price":  1599,
+        "image":  "img/necklace_41.jpg",
+        "bytes":  9968,
+        "md5":  "2F786587C1DAC8529795D0BF16C33DC8",
+        "exists":  true
+    },
+    {
+        "id":  19,
+        "category":  "necklace",
+        "name":  "Small Three Flower Necklace",
+        "price":  1599,
+        "image":  "img/necklace_42.jpg",
+        "bytes":  9968,
+        "md5":  "2F786587C1DAC8529795D0BF16C33DC8",
+        "exists":  true
+    },
+    {
+        "id":  20,
+        "category":  "necklace",
+        "name":  "Beautiful Gold Necklace",
+        "price":  1299,
+        "image":  "img/necklace_43.jpg",
+        "bytes":  10004,
+        "md5":  "31EFC8B97E1DDC40F07F5C01E4584C11",
+        "exists":  true
+    },
+    {
+        "id":  21,
+        "category":  "necklace",
+        "name":  "Simple White Gold Necklace",
+        "price":  2499,
+        "image":  "img/necklace_44.jpg",
+        "bytes":  9690,
+        "md5":  "216744075CDBBE83B5BBC15D61996F60",
+        "exists":  true
+    },
+    {
+        "id":  22,
+        "category":  "necklace",
+        "name":  "Diamond Cult Necklace",
+        "price":  1499,
+        "image":  "img/necklace_45.jpg",
+        "bytes":  9857,
+        "md5":  "9ABCFA6689A98B4EE3CAA57202788D11",
+        "exists":  true
+    },
+    {
+        "id":  23,
+        "category":  "necklace",
+        "name":  "White Heart Necklace",
+        "price":  1599,
+        "image":  "img/necklace_80.jpg",
+        "bytes":  91883,
+        "md5":  "1B02F43B2F8C9D8197ED5273FDB7CBEF",
+        "exists":  true
+    },
+    {
+        "id":  24,
+        "category":  "necklace",
+        "name":  "Small Clove Necklace",
+        "price":  1499,
+        "image":  "img/necklace_81.jpg",
+        "bytes":  59335,
+        "md5":  "1994BF0FFA091D30649448CC6AD08AAC",
+        "exists":  true
+    },
+    {
+        "id":  25,
+        "category":  "necklace",
+        "name":  "Peacock Feather  Necklace",
+        "price":  2499,
+        "image":  "img/necklace_82.jpg",
+        "bytes":  30927,
+        "md5":  "C2800EAA800C2E90ED25046F0CFDE622",
+        "exists":  true
+    },
+    {
+        "id":  26,
+        "category":  "necklace",
+        "name":  "Green Diamond Necklace",
+        "price":  2499,
+        "image":  "img/necklace_83.jpg",
+        "bytes":  10036,
+        "md5":  "0C6442E0C1502C66A63042456D2EB1D5",
+        "exists":  true
+    },
+    {
+        "id":  27,
+        "category":  "necklace",
+        "name":  "Pink Flower Necklace",
+        "price":  2499,
+        "image":  "img/necklace_84.jpg",
+        "bytes":  9883,
+        "md5":  "6A4DA565EA3937AF586D44A6D5DB01C5",
+        "exists":  true
+    },
+    {
+        "id":  28,
+        "category":  "necklace",
+        "name":  "Triple layer Gold Necklace",
+        "price":  2499,
+        "image":  "img/necklace_85.jpg",
+        "bytes":  10004,
+        "md5":  "31EFC8B97E1DDC40F07F5C01E4584C11",
+        "exists":  true
+    },
+    {
+        "id":  29,
+        "category":  "necklace",
+        "name":  "Five Layer White Gold pearl Necklace",
+        "price":  2499,
+        "image":  "img/necklace_86.jpg",
+        "bytes":  70225,
+        "md5":  "89D6818A80102EE5757ABE142E9F2E34",
+        "exists":  true
+    },
+    {
+        "id":  30,
+        "category":  "necklace",
+        "name":  "Spiral Pink Necklace",
+        "price":  2499,
+        "image":  "img/necklace_87.jpg",
+        "bytes":  9883,
+        "md5":  "6A4DA565EA3937AF586D44A6D5DB01C5",
+        "exists":  true
+    },
+    {
+        "id":  31,
+        "category":  "earrings",
+        "name":  "Rose Gold earrings",
+        "price":  899,
+        "image":  "img/1.jpg",
+        "bytes":  131682,
+        "md5":  "695293A0AAAB63DDF0E6D04D671B9F65",
+        "exists":  true
+    },
+    {
+        "id":  32,
+        "category":  "earrings",
+        "name":  "Rose Gold Star earrings",
+        "price":  799,
+        "image":  "img/7.jpg",
+        "bytes":  36083,
+        "md5":  "F3C2E020ABE00FA934D851D7D0B2B095",
+        "exists":  true
+    },
+    {
+        "id":  33,
+        "category":  "earrings",
+        "name":  "Gold Leaf earrings",
+        "price":  899,
+        "image":  "img/8.jpg",
+        "bytes":  8244,
+        "md5":  "C2E17D3CA1127ABC8EAD489B7909B57B",
+        "exists":  true
+    },
+    {
+        "id":  34,
+        "category":  "earrings",
+        "name":  "24K Gold Leaf earrings",
+        "price":  599,
+        "image":  "img/9.jpg",
+        "bytes":  8244,
+        "md5":  "C2E17D3CA1127ABC8EAD489B7909B57B",
+        "exists":  true
+    },
+    {
+        "id":  35,
+        "category":  "earrings",
+        "name":  "Gold Pearl earrings",
+        "price":  1599,
+        "image":  "img/10.jpg",
+        "bytes":  60740,
+        "md5":  "013A11B2580A5C670C2AD64AE3E2B803",
+        "exists":  true
+    },
+    {
+        "id":  36,
+        "category":  "earrings",
+        "name":  "Peacock Gold earrings",
+        "price":  999,
+        "image":  "img/18.jpg",
+        "bytes":  49289,
+        "md5":  "2F74B863B78FDF0D76EE00B0979BEB6B",
+        "exists":  true
+    },
+    {
+        "id":  37,
+        "category":  "earrings",
+        "name":  "Blue Peacock Long gold earrings",
+        "price":  789,
+        "image":  "img/19.jpg",
+        "bytes":  41712,
+        "md5":  "8CB2F132CB0F5B6AE38713927B4AC1C6",
+        "exists":  true
+    },
+    {
+        "id":  38,
+        "category":  "earrings",
+        "name":  "Pink-White Diamond earrings",
+        "price":  849,
+        "image":  "img/20.jpg",
+        "bytes":  321196,
+        "md5":  "CBC260652EB3269C40BEAAC674ED3D2E",
+        "exists":  true
+    },
+    {
+        "id":  39,
+        "category":  "earrings",
+        "name":  "Pink-Green-White Diamond earrings",
+        "price":  859,
+        "image":  "img/21.jpg",
+        "bytes":  320316,
+        "md5":  "D69032D01FE57220CB1E25AF811D9B68",
+        "exists":  true
+    },
+    {
+        "id":  40,
+        "category":  "earrings",
+        "name":  "Pink Stone Jhumka earrings",
+        "price":  849,
+        "image":  "img/23.jpg",
+        "bytes":  8016,
+        "md5":  "B8314CFE1C7967B55EB44B977624846B",
+        "exists":  true
+    },
+    {
+        "id":  41,
+        "category":  "earrings",
+        "name":  "Red-Green Heart earrings",
+        "price":  749,
+        "image":  "img/24.jpg",
+        "bytes":  15914,
+        "md5":  "9BA3B1CC9D9CED9E7E9FE1166B4C049F",
+        "exists":  true
+    },
+    {
+        "id":  42,
+        "category":  "earrings",
+        "name":  "Beautiful Pearl-Diamond earrings",
+        "price":  799,
+        "image":  "img/25.jpg",
+        "bytes":  59083,
+        "md5":  "22A7BBFA3C4B023AD06852A338D5747C",
+        "exists":  true
+    },
+    {
+        "id":  43,
+        "category":  "earrings",
+        "name":  "Small Pink Diamond earrings",
+        "price":  899,
+        "image":  "img/26.jpg",
+        "bytes":  206164,
+        "md5":  "497446A16081D3627E1C3589EC910355",
+        "exists":  true
+    },
+    {
+        "id":  44,
+        "category":  "earrings",
+        "name":  "Pink Diamond Leaf earrings",
+        "price":  1199,
+        "image":  "img/27.jpg",
+        "bytes":  239595,
+        "md5":  "F7C2276C2E0803AD4566377BF9A95534",
+        "exists":  true
+    },
+    {
+        "id":  45,
+        "category":  "earrings",
+        "name":  "Beautiful Swan Shaped earrings",
+        "price":  599,
+        "image":  "img/42.jpg",
+        "bytes":  21841,
+        "md5":  "A06FABE2DBC8C3B2A6D0F1DBDFD11EDD",
+        "exists":  true
+    },
+    {
+        "id":  46,
+        "category":  "earrings",
+        "name":  "Fire Stone earrings",
+        "price":  899,
+        "image":  "img/46.jpg",
+        "bytes":  8405,
+        "md5":  "E3D953A3C97B7B4984AD4C5E43D77D9B",
+        "exists":  true
+    },
+    {
+        "id":  47,
+        "category":  "earrings",
+        "name":  "Yellow Stone earrings",
+        "price":  789,
+        "image":  "img/47.jpg",
+        "bytes":  8147,
+        "md5":  "116721B2EB0A945A85B5091B797AAEF9",
+        "exists":  true
+    },
+    {
+        "id":  48,
+        "category":  "earrings",
+        "name":  "Yellow Gold Stud earrings",
+        "price":  999,
+        "image":  "img/72.jpg",
+        "bytes":  8147,
+        "md5":  "116721B2EB0A945A85B5091B797AAEF9",
+        "exists":  true
+    },
+    {
+        "id":  49,
+        "category":  "earrings",
+        "name":  "Diamond earrings",
+        "price":  899,
+        "image":  "img/73.jpg",
+        "bytes":  161539,
+        "md5":  "AB782F21609B6B9E17E42BCA47C37515",
+        "exists":  true
+    },
+    {
+        "id":  50,
+        "category":  "earrings",
+        "name":  "Beautiful Abstract earrings",
+        "price":  1099,
+        "image":  "img/74.jpg",
+        "bytes":  8154,
+        "md5":  "2EC797E6B0E41F539D25C9AD7D57660F",
+        "exists":  true
+    },
+    {
+        "id":  51,
+        "category":  "pendant",
+        "name":  "Pearl Pendant",
+        "price":  499,
+        "image":  "img/necklace_1.jpg",
+        "bytes":  7797,
+        "md5":  "4C4148E4EE2DF56773A90798E53753F8",
+        "exists":  true
+    },
+    {
+        "id":  52,
+        "category":  "pendant",
+        "name":  "Purple-Ornage Stone Pendant",
+        "price":  499,
+        "image":  "img/necklace_2.jpg",
+        "bytes":  8111,
+        "md5":  "1B62DAAFB141BB5654C1F0E49C5C1B48",
+        "exists":  true
+    },
+    {
+        "id":  53,
+        "category":  "pendant",
+        "name":  "Orange-Green Pearl Pendant",
+        "price":  399,
+        "image":  "img/necklace_3.jpg",
+        "bytes":  8293,
+        "md5":  "F7F0D2917417D84639E52EFEE1A9FBEB",
+        "exists":  true
+    },
+    {
+        "id":  54,
+        "category":  "pendant",
+        "name":  "Black-White Pearl Pendant",
+        "price":  559,
+        "image":  "img/necklace_4.jpg",
+        "bytes":  7977,
+        "md5":  "34656AD10A2873225C3D2E42710450CC",
+        "exists":  true
+    },
+    {
+        "id":  55,
+        "category":  "pendant",
+        "name":  "Purple Heart Pendant",
+        "price":  299,
+        "image":  "img/necklace_6.jpg",
+        "bytes":  96302,
+        "md5":  "71FA3742E727F81611AB5DF7657B9C22",
+        "exists":  true
+    },
+    {
+        "id":  56,
+        "category":  "pendant",
+        "name":  "Light Blue Heart Pendant",
+        "price":  999,
+        "image":  "img/necklace_7.jpg",
+        "bytes":  8286,
+        "md5":  "A0369857DB018AEF5A6393DC4622A47A",
+        "exists":  true
+    },
+    {
+        "id":  57,
+        "category":  "pendant",
+        "name":  "Purple Clove Pendant",
+        "price":  889,
+        "image":  "img/necklace_9.jpg",
+        "bytes":  59335,
+        "md5":  "1994BF0FFA091D30649448CC6AD08AAC",
+        "exists":  true
+    },
+    {
+        "id":  58,
+        "category":  "pendant",
+        "name":  "Bird Pendant",
+        "price":  799,
+        "image":  "img/necklace_97.jpg",
+        "bytes":  8150,
+        "md5":  "84212421CF52DC8614EA8CDBF4438A38",
+        "exists":  true
+    },
+    {
+        "id":  59,
+        "category":  "pendant",
+        "name":  "LOVE Letter Pendant",
+        "price":  799,
+        "image":  "img/necklace_98.jpg",
+        "bytes":  60148,
+        "md5":  "E3289234CA7A8F9A15C3C55F862BE86F",
+        "exists":  true
+    },
+    {
+        "id":  60,
+        "category":  "pendant",
+        "name":  "I love you With Arrow Pendant",
+        "price":  799,
+        "image":  "img/necklace_99.jpg",
+        "bytes":  91883,
+        "md5":  "1B02F43B2F8C9D8197ED5273FDB7CBEF",
+        "exists":  true
+    },
+    {
+        "id":  61,
+        "category":  "pendant",
+        "name":  "Simple White Pearl Pendant",
+        "price":  799,
+        "image":  "img/necklace_100.jpg",
+        "bytes":  7797,
+        "md5":  "4C4148E4EE2DF56773A90798E53753F8",
+        "exists":  true
+    },
+    {
+        "id":  62,
+        "category":  "pendant",
+        "name":  "Infinity Pendant",
+        "price":  799,
+        "image":  "img/necklace_102.jpg",
+        "bytes":  8077,
+        "md5":  "9B3AC2AB5AFDC210E16BC81FF534EA2D",
+        "exists":  true
+    },
+    {
+        "id":  63,
+        "category":  "pendant",
+        "name":  "Heart with Love Pendant",
+        "price":  799,
+        "image":  "img/necklace_103.jpg",
+        "bytes":  8161,
+        "md5":  "CF10712135594666B134D04CCE1C9C2D",
+        "exists":  true
+    },
+    {
+        "id":  64,
+        "category":  "pendant",
+        "name":  "Cute Bow Pendant",
+        "price":  799,
+        "image":  "img/necklace_104.jpg",
+        "bytes":  8150,
+        "md5":  "84212421CF52DC8614EA8CDBF4438A38",
+        "exists":  true
+    },
+    {
+        "id":  65,
+        "category":  "pendant",
+        "name":  "Heart Infinity Pendant",
+        "price":  799,
+        "image":  "img/necklace_105.jpg",
+        "bytes":  8161,
+        "md5":  "CF10712135594666B134D04CCE1C9C2D",
+        "exists":  true
+    },
+    {
+        "id":  66,
+        "category":  "pendant",
+        "name":  "Double Heart Pendant",
+        "price":  799,
+        "image":  "img/necklace_106.jpg",
+        "bytes":  8161,
+        "md5":  "CF10712135594666B134D04CCE1C9C2D",
+        "exists":  true
+    },
+    {
+        "id":  67,
+        "category":  "pendant",
+        "name":  "Double Infinity Pendant",
+        "price":  799,
+        "image":  "img/necklace_107.jpg",
+        "bytes":  8077,
+        "md5":  "9B3AC2AB5AFDC210E16BC81FF534EA2D",
+        "exists":  true
+    },
+    {
+        "id":  68,
+        "category":  "pendant",
+        "name":  "Rose Gold Infinity Heart Pendant",
+        "price":  799,
+        "image":  "img/necklace_108.jpg",
+        "bytes":  8000,
+        "md5":  "586BEA4DB951A0F74081055ECACB48B5",
+        "exists":  true
+    },
+    {
+        "id":  69,
+        "category":  "pendant",
+        "name":  "Infinity Circle Pendant",
+        "price":  799,
+        "image":  "img/necklace_109.jpg",
+        "bytes":  8077,
+        "md5":  "9B3AC2AB5AFDC210E16BC81FF534EA2D",
+        "exists":  true
+    },
+    {
+        "id":  70,
+        "category":  "pendant",
+        "name":  "Kitty Pendant",
+        "price":  799,
+        "image":  "img/necklace_119.jpg",
+        "bytes":  8150,
+        "md5":  "84212421CF52DC8614EA8CDBF4438A38",
+        "exists":  true
+    },
+    {
+        "id":  71,
+        "category":  "pendant",
+        "name":  "Cute Star Pendant",
+        "price":  799,
+        "image":  "img/necklace_123.jpg",
+        "bytes":  43864,
+        "md5":  "60637CCD4E2A8FA450626F1E32E073CF",
+        "exists":  true
+    },
+    {
+        "id":  72,
+        "category":  "pendant",
+        "name":  "Heart Cylinder Pendant",
+        "price":  799,
+        "image":  "img/necklace_124.jpg",
+        "bytes":  8161,
+        "md5":  "CF10712135594666B134D04CCE1C9C2D",
+        "exists":  true
+    },
+    {
+        "id":  73,
+        "category":  "pendant",
+        "name":  "Rose Pendant",
+        "price":  799,
+        "image":  "img/necklace_125.jpg",
+        "bytes":  8000,
+        "md5":  "586BEA4DB951A0F74081055ECACB48B5",
+        "exists":  true
+    },
+    {
+        "id":  74,
+        "category":  "pendant",
+        "name":  "Pendant",
+        "price":  799,
+        "image":  "img/necklace_126.jpg",
+        "bytes":  8150,
+        "md5":  "84212421CF52DC8614EA8CDBF4438A38",
+        "exists":  true
+    },
+    {
+        "id":  75,
+        "category":  "pendant",
+        "name":  "Abstract Pendant",
+        "price":  799,
+        "image":  "img/necklace_128.jpg",
+        "bytes":  8150,
+        "md5":  "84212421CF52DC8614EA8CDBF4438A38",
+        "exists":  true
+    },
+    {
+        "id":  76,
+        "category":  "pendant",
+        "name":  "triple stone Pendant",
+        "price":  799,
+        "image":  "img/necklace_129.jpg",
+        "bytes":  8150,
+        "md5":  "84212421CF52DC8614EA8CDBF4438A38",
+        "exists":  true
+    },
+    {
+        "id":  77,
+        "category":  "pendant",
+        "name":  "Pendant",
+        "price":  799,
+        "image":  "img/necklace_130.jpg",
+        "bytes":  8150,
+        "md5":  "84212421CF52DC8614EA8CDBF4438A38",
+        "exists":  true
+    },
+    {
+        "id":  78,
+        "category":  "pendant",
+        "name":  "Double Butterfly Pendant",
+        "price":  799,
+        "image":  "img/necklace_131.jpg",
+        "bytes":  62132,
+        "md5":  "286A17FDB0B2265259B72DD5899D3C07",
+        "exists":  true
+    },
+    {
+        "id":  79,
+        "category":  "pendant",
+        "name":  "Hexagon Pendant",
+        "price":  799,
+        "image":  "img/necklace_133.jpg",
+        "bytes":  8150,
+        "md5":  "84212421CF52DC8614EA8CDBF4438A38",
+        "exists":  true
+    },
+    {
+        "id":  80,
+        "category":  "pendant",
+        "name":  "Heart Butterfly Pendant",
+        "price":  799,
+        "image":  "img/necklace_137.jpg",
+        "bytes":  8161,
+        "md5":  "CF10712135594666B134D04CCE1C9C2D",
+        "exists":  true
+    }
+]

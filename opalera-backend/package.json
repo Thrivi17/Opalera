@@ -1,0 +1,12 @@
+{
+  "name": "opalera-backend",
+  "version": "1.0.0",
+  "description": "OPALERA storefront backend - accounts, orders, reviews and cart. No external dependencies.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=16"
+  }
+}

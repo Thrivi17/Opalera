@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: opalera-backend
+    env: node
+    plan: free
+    buildCommand: ""
+    startCommand: node server.js

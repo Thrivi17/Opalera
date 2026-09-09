@@ -1,9 +1,4 @@
-/* ============================================================
-   OPALÉRA — shared product-page logic.
-   Each generated piece page (product-1.html … product-80.html) sets
-   window.PRODUCT_ID; the dynamic template (product.html) resolves the
-   id from ?id=N or #id=N instead (used for manager-added pieces).
-   ============================================================ */
+/* OPALÉRA — shared product-page logic. */
 const { products, byId, fmt, esc, webSrc, stoneOf, isSignature,
         metalOf, descOf, specOf,
         seedOf, ratingOf, starStr, boutiqueEst, store, currentUser,
@@ -11,7 +6,7 @@ const { products, byId, fmt, esc, webSrc, stoneOf, isSignature,
         api, authApi, adoptAccount, pushBag, pushWishlist, pullReviews } = OPALERA;
 const $ = id => document.getElementById(id);
 
-/* ---------- resolve the piece ---------- */
+/*  resolve the piece */
 function resolveId(){
   if(window.PRODUCT_ID) return window.PRODUCT_ID;
   const q = new URLSearchParams(location.search).get("id");
@@ -22,12 +17,12 @@ function resolveId(){
 const p = findProduct(resolveId()) || products[0];
 if(!window.PRODUCT_ID){ document.title = `OPALÉRA — ${p.name}`; addEventListener("hashchange", ()=>location.reload()); }
 
-/* ---------- toast ---------- */
+/* toast */
 let toastT;
 function toast(t){ const el=$("toast"); el.textContent=t; el.classList.add("show");
   clearTimeout(toastT); toastT=setTimeout(()=>el.classList.remove("show"),2600); }
 
-/* ---------- image (CDN -> local -> placeholder) ---------- */
+/* image */
 const stage = $("stage"), img = $("pImg");
 img.alt = p.name;
 img.onload = ()=>stage.classList.add("ok");
@@ -37,9 +32,7 @@ img.onerror = ()=>{
 };
 img.src = p.img || "missing.jpg";
 
-/* ---------- slideable views + pointer-follow magnifier ---------- */
-/* every view carries an HD baseline grade (full brightness, enriched
-   colour) so the photography reads vividly on the dark stage */
+/*  slideable views + pointer-follow magnifier */
 const HD = "brightness(1.03) saturate(1.12) contrast(1.05)";
 const VIEWS = [
   {label:"Full view", transform:"none", origin:"50% 50%", filter:HD},
@@ -86,13 +79,13 @@ document.addEventListener("keydown", e=>{
   if(e.key==="ArrowRight") setView(viewIdx+1);
 });
 
-/* ---------- fill the record ---------- */
+/* fill the record */
 $("pCat").textContent = "OPALÉRA · " + p.category + " collection";
 $("pName").textContent = p.name;
 $("pPrice").textContent = fmt(p.price);
 $("pSig").classList.toggle("show", !p.custom && isSignature(p));
 $("pDesc").textContent = p.desc || descOf(p);   /* hand-written first, generated for new arrivals */
-$("pSpec").textContent = specOf(p);             /* per-piece craftsmanship line */
+$("pSpec").textContent = specOf(p);          
 if(!p.custom){
   const r0 = ratingOf(p);
   $("pStars").innerHTML = `${starStr(r0.avg)}<small>${r0.avg.toFixed(1)} · ${r0.count} patron reviews</small>`;
@@ -111,22 +104,27 @@ $("customLink").href = `jewellery_Html.html#tab=studio&pick=${p.id}`;
 $("customLink").textContent = (!p.custom && isSignature(p)) ? "Add Inscription" : "Customise";
 if(p.custom) $("customLink").style.display = "none";
 
-/* stock (manager-controlled) */
-const stock = stockOf(p.id);
+/* stock */
+let stock = stockOf(p.id);
 const sr = $("pStock");
-if(hiddenIds().has(p.id)){
-  sr.className = "stockrow out"; sr.textContent = "This piece is currently unavailable";
-  $("addBag").disabled = true;
-}else if(stock <= 0){
-  sr.className = "stockrow out"; sr.textContent = "Out of stock — enquire with the maison";
-  $("addBag").disabled = true;
-}else if(stock <= 3){
-  sr.className = "stockrow low"; sr.textContent = `Only ${stock} left in the vault`;
-}else{
-  sr.className = "stockrow in"; sr.textContent = `In stock · ${stock} available`;
+function paintStock(){
+  stock = stockOf(p.id);
+  $("addBag").disabled = false;
+  if(hiddenIds().has(p.id)){
+    sr.className = "stockrow out"; sr.textContent = "This piece is currently unavailable";
+    $("addBag").disabled = true;
+  }else if(stock <= 0){
+    sr.className = "stockrow out"; sr.textContent = "Out of stock — enquire with the maison";
+    $("addBag").disabled = true;
+  }else if(stock <= 3){
+    sr.className = "stockrow low"; sr.textContent = `Only ${stock} left in the vault`;
+  }else{
+    sr.className = "stockrow in"; sr.textContent = `In stock · ${stock} available`;
+  }
 }
+paintStock();
 
-/* prev / next piece (within the original archive) */
+/* prev / next piece */
 if(!p.custom){
   const idx = products.findIndex(x=>x.id===p.id);
   const prev = products[(idx-1+products.length)%products.length];
@@ -135,7 +133,6 @@ if(!p.custom){
   $("nextLink").href = pageOf(next); $("nextLink").textContent = `${next.name} →`;
 }
 
-/* ---------- thumbs up / down ---------- */
 function paintThumbs(){
   const v = votesOf(p.id), mine = myVote(p.id);
   $("thumbUp").classList.toggle("on", mine===1);
@@ -150,7 +147,7 @@ $("thumbUp").addEventListener("click", ()=>{ castVote(p.id, 1); paintThumbs(); }
 $("thumbDown").addEventListener("click", ()=>{ castVote(p.id, -1); paintThumbs(); });
 paintThumbs();
 
-/* ---------- wishlist + bag (qty-aware, stock-capped) ---------- */
+/*  wishlist + bag (quantity-aware, stock-capped)*/
 let wishlist = new Set(store.get("opalera.wishlist", []));
 const bagQty = () => store.get("opalera.bag", []).reduce((s,it)=>s+(it.qty||1),0);
 function syncBadges(){
@@ -161,7 +158,7 @@ function syncBadges(){
 $("pHeart").addEventListener("click", ()=>{
   wishlist.has(p.id) ? wishlist.delete(p.id) : wishlist.add(p.id);
   store.set("opalera.wishlist",[...wishlist]);
-  pushWishlist();   /* keep the account's wishlist in sync on the server */
+  pushWishlist();  
   syncBadges();
   toast(wishlist.has(p.id) ? `${p.name} saved to your wishlist` : `${p.name} removed from your wishlist`);
 });
@@ -173,13 +170,13 @@ $("addBag").addEventListener("click", ()=>{
   if(line) line.qty = have + 1;
   else bag.push({ pid:p.id, custom:null, price:p.price, qty:1 });
   store.set("opalera.bag", bag);
-  pushBag();        /* keep the account's bag in sync on the server */
+  pushBag();     
   syncBadges();
   toast(`${p.name} added to your bag`);
 });
 syncBadges();
 
-/* ---------- related pieces & recently viewed ---------- */
+/*  related pieces & recently viewed */
 function mini(x){
   return `<a class="mini" href="${pageOf(x)}">
     <div class="mimg"><img src="${x.custom ? esc(x.img) : webSrc(x)}" alt="" loading="lazy"
@@ -201,9 +198,8 @@ else $("recentSec").style.display = "none";
 recent.unshift(p.id);
 store.set("opalera.recent", recent.slice(0,8));
 
-/* ---------- structured data for search engines (dynamic pages) ---------- */
-/* custom (manager-added) pieces have no seed ratings, so skip the block
-   for them — ratingOf() would throw and take the rest of the page down */
+/*  structured data for search engines (dynamic pages) */
+/* custom pieces have no seed ratings */
 if(!document.getElementById("jsonld") && !p.custom){
   const r = ratingOf(p);
   const ld = document.createElement("script");
@@ -219,7 +215,7 @@ if(!document.getElementById("jsonld") && !p.custom){
   document.head.appendChild(ld);
 }
 
-/* ---------- reviews ---------- */
+/* reviews */
 function revRow(stars, name, text, verified){
   const d = document.createElement("div");
   d.className = "rev";
@@ -256,8 +252,7 @@ $("revForm").addEventListener("submit", async e=>{
   const btn = e.target.querySelector("button[type=submit]");
   if(btn) btn.disabled = true;
   try{
-    /* the server stores the review and marks it "Verified purchase" by
-       checking the patron's real order history */
+
     const { review } = await api("/reviews", {method:"POST",
       body:{ pid:p.id, stars:pickedStars, text:$("revText").value.trim().slice(0,240) }});
     const reviews = store.get("opalera.reviews", []);
@@ -278,7 +273,7 @@ $("revForm").addEventListener("submit", async e=>{
   }
 });
 
-/* pull the latest reviews from the server so every patron sees them */
+/* pull the latest reviews from the server so every users sees them */
 pullReviews().then(()=>{
   renderReviews();
   if(!p.custom){
@@ -287,7 +282,7 @@ pullReviews().then(()=>{
   }
 });
 
-/* ---------- auth ---------- */
+/* auth  */
 const authModal = $("authModal");
 function openAuth(msg){ authModal.classList.add("open"); document.body.style.overflow="hidden";
   $("liMsg").textContent = msg||""; $("liEmail").focus(); }
@@ -304,8 +299,7 @@ $("authClose").addEventListener("click", closeAuth);
 authModal.addEventListener("click", e=>{ if(e.target===authModal) closeAuth(); });
 document.addEventListener("keydown", e=>{ if(e.key==="Escape" && authModal.classList.contains("open")) closeAuth(); });
 
-/* real accounts on the maison's server; after signing in, merge this
-   browser's guest bag/wishlist into the account and refresh the badges */
+/* real accounts on the maison's server */
 async function signedIn(u){
   await adoptAccount();
   wishlist = new Set(store.get("opalera.wishlist", []));
@@ -341,5 +335,16 @@ function syncAccount(){
   $("acctBtn").onclick = u ? ()=>{ location.href = "account.html"; } : ()=>openAuth();
 }
 syncAccount();
-/* verify the cookie session with the server, then refresh the header */
 authApi.me().then(syncAccount).catch(()=>{});
+
+/* live catalogue from the database  */
+OPALERA.syncCatalogue().then(list => {
+  if(!list) return;
+  if(!byId.get(p.id)){ location.replace("jewellery_Html.html"); return; }  
+  $("pName").textContent = p.name;
+  $("pPrice").textContent = fmt(p.price);
+  if(p.desc) $("pDesc").textContent = p.desc;
+  if(p.img && img.getAttribute("src") !== p.img) img.src = p.img;
+  document.title = `OPALÉRA — ${p.name}`;
+  paintStock();
+});

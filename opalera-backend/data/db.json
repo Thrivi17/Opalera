@@ -6,7 +6,8 @@
       "email": "demo@example.com",
       "salt": "e26977a06dd4e4ccd647e6b62d9cb9c4",
       "hash": "8aa04f534e3c3f700e85568132b2b639c0e60c07a530e9aa8da1506672a55d4142700bd5b13c4b3b3e2bd4a545e4924ef3c6c05396bd8eba1c974f6ec7f26762",
-      "createdAt": "2026-09-02T21:55:54.079Z"
+      "createdAt": "2026-09-02T21:55:54.079Z",
+      "role": "patron"
     },
     "testrun@example.com": {
       "firstName": "Test",
@@ -14,7 +15,8 @@
       "email": "testrun@example.com",
       "salt": "b6b10afff123dd7f4515ae4590d14be7",
       "hash": "b9042e4e01a6f34b4425c58f49f457a1eeb31da32b13762bb83e7ec2e1ccbdbf903e5b18bad1191460fcb90a586f217e3c70779469aa0a0e10b48c3e449a333c",
-      "createdAt": "2026-09-02T23:10:39.305Z"
+      "createdAt": "2026-09-02T23:10:39.305Z",
+      "role": "patron"
     },
     "khuthadzokhuthi789@gmail.com": {
       "firstName": "Khuthadzo",
@@ -22,7 +24,8 @@
       "email": "khuthadzokhuthi789@gmail.com",
       "salt": "67a2f0c1914dd4c9b7c947160afc23b4",
       "hash": "359129c74176d7451f68e5e2fd81034c7ad98ac49c834e17aafdf9c9552fc93036b6245b005b69274c25bc14c584bba60e3c156d57bea4b3e860877755117f1d",
-      "createdAt": "2026-09-03T11:54:05.334Z"
+      "createdAt": "2026-09-03T11:54:05.334Z",
+      "role": "patron"
     },
     "resettest@example.com": {
       "firstName": "Reset",
@@ -30,15 +33,17 @@
       "email": "resettest@example.com",
       "salt": "8adb46d8fc28da4fb8e34e62b9347075",
       "hash": "2a044683ecc82e7c62f6dc0db5a1ce0345548e4440abd95e3a3f9cf0d43af6ee994f511c7ff618de0e3a89053224720d4378c028c0ea0c6a53c6b269bc3f01ba",
-      "createdAt": "2026-09-05T20:16:46.011Z"
+      "createdAt": "2026-09-05T20:16:46.011Z",
+      "role": "patron"
     },
-    "tvkmusic07@gmail.com": {
-      "firstName": "Thrivikraman",
-      "lastName": "Madhavan",
-      "email": "tvkmusic07@gmail.com",
-      "salt": "3be10b785bf3350ad2d72350b69f3f9e",
-      "hash": "f80310320becf09d7deaf7573e8986ff8126531f319d0720ab7d1cd781e5a4974ae747fec10bece6285b0fd286308fd4d9613a6e503da3ffca4316f16104f461",
-      "createdAt": "2026-09-05T20:44:30.197Z"
+    "manager@opalera.co.za": {
+      "firstName": "Ompha",
+      "lastName": "Manager",
+      "email": "manager@opalera.co.za",
+      "salt": "a5c974afcf416dec540e566aef269d29",
+      "hash": "67824a96baea51d09026a69f40afd746d7efb9e4ecd112b7532e60617f5d6ba0eb7177a7436cbb217a00778265b661d0fb095cac58d9bd90cf24121cc4dabb41",
+      "role": "manager",
+      "createdAt": "2026-09-09T11:19:30.386Z"
     }
   },
   "sessions": {
@@ -82,9 +87,21 @@
       "email": "resettest@example.com",
       "expires": 1791231407166
     },
-    "026c544fd372847086c9a7bbf83574155c9a7041385865e6501ee26e645a863c": {
-      "email": "tvkmusic07@gmail.com",
-      "expires": 1791233070198
+    "55ea7720d89adec5576ddd1fbb6bf73e55c91636fcfdd13f6f40d06e5e780650": {
+      "email": "demo@example.com",
+      "expires": 1791232641281
+    },
+    "69e8c84a8f245178461f59e9d682f2d9cc32db854a995baa2072f4e70f504ff0": {
+      "email": "demo@example.com",
+      "expires": 1791542323066
+    },
+    "df6a772d1dafeda7e846e60437e1ad5fe6ee4319486a72e41072ad414111332d": {
+      "email": "demo@example.com",
+      "expires": 1791544956894
+    },
+    "4dd748510196bf1db400a815dd16667352328c19d5c1a8b0a3eee3b7da315ff4": {
+      "email": "manager@opalera.co.za",
+      "expires": 1791545267913
     }
   },
   "orders": [
@@ -395,34 +412,64 @@
       "placedAt": "2026-09-05T20:16:47.880Z"
     },
     {
-      "id": "ca61d71b-25f9-4e67-aa43-31b5370e5278",
-      "ref": "OP-MTOUPT9B",
-      "email": "tvkmusic07@gmail.com",
+      "id": "094d360d-abc9-47b4-924a-48ec3a715420",
+      "ref": "OP-MTTYTZLZ",
+      "email": "demo@example.com",
       "items": [
         {
-          "pid": 7,
+          "pid": 20,
           "custom": null,
-          "price": 3199,
+          "price": 1039,
           "qty": 1
         }
       ],
-      "itemsTotal": 3199,
+      "itemsTotal": 1039,
       "promo": null,
       "discount": 0,
-      "vat": 417,
-      "total": 3199,
+      "vat": 136,
+      "total": 1039,
       "gift": null,
       "address": {
-        "name": "Thrivikraman Madhavan",
-        "street": "22, Streatley Avenue, Auckland Park",
+        "name": "Demo Patron",
+        "street": "12 Rosebank Ave",
         "city": "Johannesburg",
-        "postal": "2092",
+        "postal": "2196",
         "province": "Gauteng",
-        "phone": "+27604365772"
+        "phone": "071 234 5678"
+      },
+      "method": "card",
+      "status": "paid",
+      "placedAt": "2026-09-09T10:38:43.079Z"
+    },
+    {
+      "id": "8feb8f14-cf80-440d-8534-75ebdaa9e2cd",
+      "ref": "OP-MTU0EHDH",
+      "email": "demo@example.com",
+      "items": [
+        {
+          "pid": 3,
+          "price": 2199,
+          "qty": 1,
+          "custom": null
+        }
+      ],
+      "itemsTotal": 2199,
+      "promo": null,
+      "discount": 0,
+      "vat": 287,
+      "total": 2199,
+      "gift": null,
+      "address": {
+        "name": "Demo Patron",
+        "street": "1 Test Rd",
+        "city": "Pretoria",
+        "postal": "0001",
+        "province": "Gauteng",
+        "phone": "0123456789"
       },
       "method": "eft",
       "status": "paid",
-      "placedAt": "2026-09-05T20:44:38.879Z"
+      "placedAt": "2026-09-09T11:22:38.838Z"
     }
   ],
   "reviews": [
@@ -502,8 +549,7 @@
   "carts": {
     "demo@example.com": [],
     "testrun@example.com": [],
-    "khuthadzokhuthi789@gmail.com": [],
-    "tvkmusic07@gmail.com": []
+    "khuthadzokhuthi789@gmail.com": []
   },
   "resets": {
     "demo@example.com": {
@@ -518,560 +564,881 @@
       "category": "necklace",
       "name": "Sapphire Necklace",
       "price": 1759,
-      "img": "https://images.pexels.com/photos/32988651/pexels-photo-32988651.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/32988651/pexels-photo-32988651.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 18,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 2,
       "category": "necklace",
       "name": "Cyan Necklace",
       "price": 3199,
-      "img": "https://images.pexels.com/photos/10215179/pexels-photo-10215179.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/10215179/pexels-photo-10215179.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 16,
+      "hidden": false,
+      "custom": false,
+      "updatedAt": "2026-09-09T11:27:42.826Z"
     },
     {
       "id": 3,
       "category": "necklace",
       "name": "Diamond Necklace",
       "price": 2119,
-      "img": "https://images.pexels.com/photos/12427695/pexels-photo-12427695.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/12427695/pexels-photo-12427695.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 9,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 4,
       "category": "necklace",
       "name": "Diamond Necklace",
       "price": 3199,
-      "img": "https://images.pexels.com/photos/20100105/pexels-photo-20100105.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/20100105/pexels-photo-20100105.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 8,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 5,
       "category": "necklace",
       "name": "Diamond Necklace",
       "price": 1399,
-      "img": "https://images.pexels.com/photos/7541803/pexels-photo-7541803.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/7541803/pexels-photo-7541803.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 7,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 6,
       "category": "necklace",
       "name": "Diamond Necklace",
       "price": 6799,
-      "img": "https://images.pexels.com/photos/20455782/pexels-photo-20455782.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/20455782/pexels-photo-20455782.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 8,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 7,
       "category": "necklace",
       "name": "Triple Gold Layer Necklace",
       "price": 3199,
-      "img": "https://images.pexels.com/photos/14999288/pexels-photo-14999288.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/14999288/pexels-photo-14999288.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 20,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 8,
       "category": "necklace",
       "name": "Flower Necklace",
       "price": 3199,
-      "img": "https://images.pexels.com/photos/34461220/pexels-photo-34461220.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/34461220/pexels-photo-34461220.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 16,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 9,
       "category": "necklace",
       "name": "Heart Necklace",
       "price": 1399,
-      "img": "https://images.pexels.com/photos/19821929/pexels-photo-19821929.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/19821929/pexels-photo-19821929.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 3,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 10,
       "category": "necklace",
       "name": "Yellow Pearl Necklace",
       "price": 5359,
-      "img": "https://images.pexels.com/photos/12231889/pexels-photo-12231889.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/12231889/pexels-photo-12231889.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 13,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 11,
       "category": "necklace",
       "name": "Green Pearl Necklace",
       "price": 2119,
-      "img": "https://images.pexels.com/photos/17925116/pexels-photo-17925116.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/17925116/pexels-photo-17925116.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 5,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 12,
       "category": "necklace",
       "name": "White Diamond Necklace",
       "price": 1759,
-      "img": "https://images.pexels.com/photos/7134458/pexels-photo-7134458.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/7134458/pexels-photo-7134458.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 22,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 13,
       "category": "necklace",
       "name": "LOVE Word Necklace",
       "price": 5359,
-      "img": "https://images.pexels.com/photos/15576969/pexels-photo-15576969.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/15576969/pexels-photo-15576969.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 20,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 14,
       "category": "necklace",
       "name": "White Small Stone Necklace",
       "price": 1759,
-      "img": "https://images.pexels.com/photos/4595723/pexels-photo-4595723.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/4595723/pexels-photo-4595723.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 21,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 15,
       "category": "necklace",
       "name": "Rose & White Gold Necklace",
       "price": 2119,
-      "img": "https://images.pexels.com/photos/19564918/pexels-photo-19564918.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/19564918/pexels-photo-19564918.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 18,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 16,
       "category": "necklace",
       "name": "Yellow & White Gold Necklace",
       "price": 1759,
-      "img": "https://images.pexels.com/photos/16935588/pexels-photo-16935588.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/16935588/pexels-photo-16935588.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 4,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 17,
       "category": "necklace",
       "name": "White Gold Diamond Necklace",
       "price": 5359,
-      "img": "https://images.pexels.com/photos/7541801/pexels-photo-7541801.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/7541801/pexels-photo-7541801.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 14,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 18,
       "category": "necklace",
       "name": "Flower Petal Pattern Necklace",
       "price": 2119,
-      "img": "https://images.pexels.com/photos/34333050/pexels-photo-34333050.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/34333050/pexels-photo-34333050.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 3,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 19,
       "category": "necklace",
       "name": "Small Three Flower Necklace",
       "price": 2119,
-      "img": "https://images.pexels.com/photos/16879656/pexels-photo-16879656.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/16879656/pexels-photo-16879656.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 6,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 20,
       "category": "necklace",
       "name": "Beautiful Gold Necklace",
       "price": 1039,
-      "img": "https://images.pexels.com/photos/17368723/pexels-photo-17368723.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/17368723/pexels-photo-17368723.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 16,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 21,
       "category": "necklace",
       "name": "Simple White Gold Necklace",
       "price": 5359,
-      "img": "https://images.pexels.com/photos/29502933/pexels-photo-29502933.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/29502933/pexels-photo-29502933.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 17,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 22,
       "category": "necklace",
       "name": "Diamond Cult Necklace",
       "price": 1759,
-      "img": "https://images.pexels.com/photos/37798256/pexels-photo-37798256.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/37798256/pexels-photo-37798256.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 18,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 23,
       "category": "necklace",
       "name": "White Heart Necklace",
       "price": 2119,
-      "img": "https://images.pexels.com/photos/6709148/pexels-photo-6709148.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/6709148/pexels-photo-6709148.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 21,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 24,
       "category": "necklace",
       "name": "Small Clove Necklace",
       "price": 1759,
-      "img": "https://images.pexels.com/photos/16082501/pexels-photo-16082501.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/16082501/pexels-photo-16082501.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 15,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 25,
       "category": "necklace",
       "name": "Peacock Feather Necklace",
       "price": 5359,
-      "img": "https://images.pexels.com/photos/8656236/pexels-photo-8656236.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/8656236/pexels-photo-8656236.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 19,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 26,
       "category": "necklace",
       "name": "Green Diamond Necklace",
       "price": 5359,
-      "img": "https://images.pexels.com/photos/9322933/pexels-photo-9322933.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/9322933/pexels-photo-9322933.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 3,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 27,
       "category": "necklace",
       "name": "Pink Flower Necklace",
       "price": 5359,
-      "img": "https://images.pexels.com/photos/9173459/pexels-photo-9173459.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/9173459/pexels-photo-9173459.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 3,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 28,
       "category": "necklace",
       "name": "Triple Layer Gold Necklace",
       "price": 5359,
-      "img": "https://images.pexels.com/photos/4889719/pexels-photo-4889719.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/4889719/pexels-photo-4889719.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 7,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 29,
       "category": "necklace",
       "name": "Five Layer White Gold Pearl Necklace",
       "price": 5359,
-      "img": "https://images.pexels.com/photos/23495720/pexels-photo-23495720.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/23495720/pexels-photo-23495720.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 16,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 30,
       "category": "necklace",
       "name": "Spiral Pink Necklace",
       "price": 5359,
-      "img": "https://images.pexels.com/photos/34444213/pexels-photo-34444213.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/34444213/pexels-photo-34444213.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 3,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 31,
       "category": "earrings",
       "name": "Rose Gold Earrings",
       "price": 2219,
-      "img": "https://images.pexels.com/photos/34365842/pexels-photo-34365842.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/34365842/pexels-photo-34365842.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 22,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 32,
       "category": "earrings",
       "name": "Rose Gold Star Earrings",
       "price": 1859,
-      "img": "https://images.pexels.com/photos/16858919/pexels-photo-16858919.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/16858919/pexels-photo-16858919.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 9,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 33,
       "category": "earrings",
       "name": "Gold Leaf Earrings",
       "price": 2219,
-      "img": "https://images.pexels.com/photos/12144990/pexels-photo-12144990.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/12144990/pexels-photo-12144990.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 20,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 34,
       "category": "earrings",
       "name": "24K Gold Leaf Earrings",
       "price": 1119,
-      "img": "https://images.pexels.com/photos/7248760/pexels-photo-7248760.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/7248760/pexels-photo-7248760.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 5,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 35,
       "category": "earrings",
       "name": "Gold Pearl Earrings",
       "price": 4799,
-      "img": "https://images.pexels.com/photos/11365012/pexels-photo-11365012.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/11365012/pexels-photo-11365012.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 21,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 36,
       "category": "earrings",
       "name": "Peacock Gold Earrings",
       "price": 2589,
-      "img": "https://images.pexels.com/photos/4155252/pexels-photo-4155252.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/4155252/pexels-photo-4155252.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 11,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 37,
       "category": "earrings",
       "name": "Blue Peacock Long Gold Earrings",
       "price": 1819,
-      "img": "https://images.pexels.com/photos/4155247/pexels-photo-4155247.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/4155247/pexels-photo-4155247.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 21,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 38,
       "category": "earrings",
       "name": "Pink-White Diamond Earrings",
       "price": 2039,
-      "img": "https://images.pexels.com/photos/13595660/pexels-photo-13595660.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/13595660/pexels-photo-13595660.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 19,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 39,
       "category": "earrings",
       "name": "Pink-Green-White Diamond Earrings",
       "price": 2079,
-      "img": "https://images.pexels.com/photos/34501351/pexels-photo-34501351.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/34501351/pexels-photo-34501351.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 12,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 40,
       "category": "earrings",
       "name": "Pink Stone Jhumka Earrings",
       "price": 2039,
-      "img": "https://images.pexels.com/photos/9430429/pexels-photo-9430429.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/9430429/pexels-photo-9430429.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 20,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 41,
       "category": "earrings",
       "name": "Red-Green Heart Earrings",
       "price": 1669,
-      "img": "https://images.pexels.com/photos/2735970/pexels-photo-2735970.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/2735970/pexels-photo-2735970.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 12,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 42,
       "category": "earrings",
       "name": "Beautiful Pearl-Diamond Earrings",
       "price": 1859,
-      "img": "https://images.pexels.com/photos/4974343/pexels-photo-4974343.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/4974343/pexels-photo-4974343.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 6,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 43,
       "category": "earrings",
       "name": "Small Pink Diamond Earrings",
       "price": 2219,
-      "img": "https://images.pexels.com/photos/28389453/pexels-photo-28389453.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/28389453/pexels-photo-28389453.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 20,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 44,
       "category": "earrings",
       "name": "Pink Diamond Leaf Earrings",
       "price": 3329,
-      "img": "https://images.pexels.com/photos/13219289/pexels-photo-13219289.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/13219289/pexels-photo-13219289.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 18,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 45,
       "category": "earrings",
       "name": "Beautiful Swan Shaped Earrings",
       "price": 1119,
-      "img": "https://images.pexels.com/photos/33737455/pexels-photo-33737455.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/33737455/pexels-photo-33737455.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 16,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 46,
       "category": "earrings",
       "name": "Fire Stone Earrings",
       "price": 2219,
-      "img": "https://images.pexels.com/photos/8274718/pexels-photo-8274718.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/8274718/pexels-photo-8274718.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 17,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 47,
       "category": "earrings",
       "name": "Yellow Stone Earrings",
       "price": 1819,
-      "img": "https://images.pexels.com/photos/4004225/pexels-photo-4004225.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/4004225/pexels-photo-4004225.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 7,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 48,
       "category": "earrings",
       "name": "Yellow Gold Stud Earrings",
       "price": 2589,
-      "img": "https://images.pexels.com/photos/12168883/pexels-photo-12168883.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/12168883/pexels-photo-12168883.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 17,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 49,
       "category": "earrings",
       "name": "Diamond Earrings",
       "price": 2219,
-      "img": "https://images.pexels.com/photos/16242338/pexels-photo-16242338.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/16242338/pexels-photo-16242338.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 10,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 50,
       "category": "earrings",
       "name": "Beautiful Abstract Earrings",
       "price": 2959,
-      "img": "https://images.pexels.com/photos/32989025/pexels-photo-32989025.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/32989025/pexels-photo-32989025.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 20,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 51,
       "category": "pendant",
       "name": "Pearl Pendant",
       "price": 1869,
-      "img": "https://images.pexels.com/photos/14584454/pexels-photo-14584454.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/14584454/pexels-photo-14584454.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 10,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 52,
       "category": "pendant",
       "name": "Purple-Orange Stone Pendant",
       "price": 1869,
-      "img": "https://images.pexels.com/photos/35532662/pexels-photo-35532662.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/35532662/pexels-photo-35532662.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 4,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 53,
       "category": "pendant",
       "name": "Orange-Green Pearl Pendant",
       "price": 1419,
-      "img": "https://images.pexels.com/photos/10556215/pexels-photo-10556215.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/10556215/pexels-photo-10556215.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 20,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 54,
       "category": "pendant",
       "name": "Black-White Pearl Pendant",
       "price": 2149,
-      "img": "https://images.pexels.com/photos/10877350/pexels-photo-10877350.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/10877350/pexels-photo-10877350.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 6,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 55,
       "category": "pendant",
       "name": "Purple Heart Pendant",
       "price": 959,
-      "img": "https://images.pexels.com/photos/13292938/pexels-photo-13292938.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/13292938/pexels-photo-13292938.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 15,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 56,
       "category": "pendant",
       "name": "Light Blue Heart Pendant",
       "price": 4159,
-      "img": "https://images.pexels.com/photos/5370705/pexels-photo-5370705.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/5370705/pexels-photo-5370705.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 15,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 57,
       "category": "pendant",
       "name": "Purple Clove Pendant",
       "price": 3659,
-      "img": "https://images.pexels.com/photos/12197267/pexels-photo-12197267.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/12197267/pexels-photo-12197267.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 6,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 58,
       "category": "pendant",
       "name": "Bird Pendant",
       "price": 3249,
-      "img": "https://images.pexels.com/photos/32988665/pexels-photo-32988665.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/32988665/pexels-photo-32988665.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 22,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 59,
       "category": "pendant",
       "name": "LOVE Letter Pendant",
       "price": 3249,
-      "img": "https://images.pexels.com/photos/38290052/pexels-photo-38290052.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/38290052/pexels-photo-38290052.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 3,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 60,
       "category": "pendant",
       "name": "I Love You With Arrow Pendant",
       "price": 3249,
-      "img": "https://images.pexels.com/photos/5370650/pexels-photo-5370650.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/5370650/pexels-photo-5370650.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 19,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 61,
       "category": "pendant",
       "name": "Simple White Pearl Pendant",
       "price": 3249,
-      "img": "https://images.pexels.com/photos/34444209/pexels-photo-34444209.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/34444209/pexels-photo-34444209.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 4,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 62,
       "category": "pendant",
       "name": "Infinity Pendant",
       "price": 3249,
-      "img": "https://images.pexels.com/photos/9280250/pexels-photo-9280250.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/9280250/pexels-photo-9280250.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 17,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 63,
       "category": "pendant",
       "name": "Heart With Love Pendant",
       "price": 3249,
-      "img": "https://images.pexels.com/photos/34399039/pexels-photo-34399039.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/34399039/pexels-photo-34399039.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 4,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 64,
       "category": "pendant",
       "name": "Cute Bow Pendant",
       "price": 3249,
-      "img": "https://images.pexels.com/photos/4735885/pexels-photo-4735885.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/4735885/pexels-photo-4735885.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 8,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 65,
       "category": "pendant",
       "name": "Heart Infinity Pendant",
       "price": 3249,
-      "img": "https://images.pexels.com/photos/12638795/pexels-photo-12638795.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/12638795/pexels-photo-12638795.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 17,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 66,
       "category": "pendant",
       "name": "Double Heart Pendant",
       "price": 3249,
-      "img": "https://images.pexels.com/photos/34372585/pexels-photo-34372585.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/34372585/pexels-photo-34372585.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 16,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 67,
       "category": "pendant",
       "name": "Double Infinity Pendant",
       "price": 3249,
-      "img": "https://images.pexels.com/photos/7679824/pexels-photo-7679824.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/7679824/pexels-photo-7679824.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 9,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 68,
       "category": "pendant",
       "name": "Rose Gold Infinity Heart Pendant",
       "price": 3249,
-      "img": "https://images.pexels.com/photos/10983782/pexels-photo-10983782.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/10983782/pexels-photo-10983782.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 6,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 69,
       "category": "pendant",
       "name": "Infinity Circle Pendant",
       "price": 3249,
-      "img": "https://images.pexels.com/photos/4155254/pexels-photo-4155254.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/4155254/pexels-photo-4155254.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 10,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 70,
       "category": "pendant",
       "name": "Kitty Pendant",
       "price": 3249,
-      "img": "https://images.pexels.com/photos/7679654/pexels-photo-7679654.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/7679654/pexels-photo-7679654.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 7,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 71,
       "category": "pendant",
       "name": "Cute Star Pendant",
       "price": 3249,
-      "img": "https://images.pexels.com/photos/34505711/pexels-photo-34505711.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/34505711/pexels-photo-34505711.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 6,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 72,
       "category": "pendant",
       "name": "Heart Cylinder Pendant",
       "price": 3249,
-      "img": "https://images.pexels.com/photos/4741711/pexels-photo-4741711.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/4741711/pexels-photo-4741711.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 4,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 73,
       "category": "pendant",
       "name": "Rose Pendant",
       "price": 3249,
-      "img": "https://images.pexels.com/photos/19783942/pexels-photo-19783942.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/19783942/pexels-photo-19783942.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 8,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 74,
       "category": "pendant",
       "name": "Classic Pendant",
       "price": 3249,
-      "img": "https://images.pexels.com/photos/36854160/pexels-photo-36854160.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/36854160/pexels-photo-36854160.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 4,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 75,
       "category": "pendant",
       "name": "Abstract Pendant",
       "price": 3249,
-      "img": "https://images.pexels.com/photos/9428788/pexels-photo-9428788.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/9428788/pexels-photo-9428788.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 20,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 76,
       "category": "pendant",
       "name": "Triple Stone Pendant",
       "price": 3249,
-      "img": "https://images.pexels.com/photos/8369437/pexels-photo-8369437.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/8369437/pexels-photo-8369437.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 21,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 77,
       "category": "pendant",
       "name": "Signature Pendant",
       "price": 3249,
-      "img": "https://images.pexels.com/photos/29033684/pexels-photo-29033684.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/29033684/pexels-photo-29033684.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 14,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 78,
       "category": "pendant",
       "name": "Double Butterfly Pendant",
       "price": 3249,
-      "img": "https://images.pexels.com/photos/4735890/pexels-photo-4735890.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/4735890/pexels-photo-4735890.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 11,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 79,
       "category": "pendant",
       "name": "Hexagon Pendant",
       "price": 3249,
-      "img": "https://images.pexels.com/photos/735276/pexels-photo-735276.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/735276/pexels-photo-735276.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 19,
+      "hidden": false,
+      "custom": false
     },
     {
       "id": 80,
       "category": "pendant",
       "name": "Heart Butterfly Pendant",
       "price": 3249,
-      "img": "https://images.pexels.com/photos/34317579/pexels-photo-34317579.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "img": "https://images.pexels.com/photos/34317579/pexels-photo-34317579.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "desc": "",
+      "stock": 9,
+      "hidden": false,
+      "custom": false
     }
   ]
 }

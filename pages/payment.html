@@ -17,7 +17,7 @@
   .eyebrow{font-family:var(--font-label);font-size:.66rem;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);margin-bottom:.6rem}
   h1.pay{font-size:clamp(2rem,4.5vw,3rem);font-weight:500;letter-spacing:.06em}
   .sub{color:var(--muted);font-style:italic;margin-top:.5rem;line-height:1.7}
-  /* checkout journey */
+  /* checkout */
   .steps{display:flex;gap:1.6rem;flex-wrap:wrap;margin-top:1.4rem;font-family:var(--font-label);
     font-size:.62rem;letter-spacing:.26em;text-transform:uppercase;color:var(--muted)}
   .steps span{display:flex;align-items:center;gap:.55rem}
@@ -260,9 +260,9 @@ function toast(t){ const el=$("toast"); el.textContent=t; el.classList.add("show
 
 PROVINCES.forEach(p=>{ const o=document.createElement("option"); o.textContent=p; $("adProvince").appendChild(o); });
 
-/* ---------- order summary (qty-aware) ---------- */
+/* order summary */
 let bag = store.get("opalera.bag", []);
-let promo = null;   /* {code, frac} */
+let promo = null; 
 const lineTotal = it => it.price * (it.qty||1);
 const itemsTotal = () => bag.reduce((s,it)=>s+lineTotal(it),0);
 
@@ -338,12 +338,11 @@ $("promoBtn").addEventListener("click", ()=>{
 });
 $("giftChk").addEventListener("change", ()=>$("giftBox").classList.toggle("on", $("giftChk").checked));
 
-/* stay in sync across tabs / bfcache */
 function resync(){ bag = store.get("opalera.bag", []); renderBag(); refreshGate(); }
 window.addEventListener("storage", resync);
 window.addEventListener("pageshow", e=>{ if(e.persisted) resync(); });
 
-/* ---------- auth gate ---------- */
+/* auth gate */
 function refreshGate(){
   const u = currentUser();
   $("authGate").classList.toggle("hidden", !!u);
@@ -361,7 +360,7 @@ function switchAuth(signup){
 $("tabLogin").addEventListener("click", ()=>switchAuth(false));
 $("tabSignup").addEventListener("click", ()=>switchAuth(true));
 
-/* ---- forgotten password (same flow as the storefront modal) ---- */
+/*forgotten password*/
 let resetStage = 1;
 $("forgotLink").addEventListener("click", ()=>{
   $("loginForm").hidden = true; $("signupForm").hidden = true; $("resetForm").hidden = false;
@@ -405,8 +404,6 @@ $("resetForm").addEventListener("submit", async e=>{
   }
 });
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-/* real accounts on the maison's server; after signing in, merge the
-   guest bag/wishlist into the account and re-render the order summary */
 async function signedIn(u){
   await adoptAccount();
   bag = store.get("opalera.bag", []);
@@ -436,10 +433,9 @@ $("loginForm").addEventListener("submit", async e=>{
   finally{ btn.disabled = false; }
 });
 refreshGate();
-/* verify the cookie session with the server before trusting the gate */
 authApi.me().then(refreshGate).catch(()=>{});
 
-/* ---------- simulated payment (no card data is ever stored) ---------- */
+/* simulated payment  */
 let method = "card";
 document.querySelectorAll(".paymethod").forEach(b=>{
   b.addEventListener("click", ()=>{
@@ -466,7 +462,7 @@ $("payForm").addEventListener("submit", e=>{
   msg.classList.remove("ok"); msg.textContent = "";
   if(!bag.length){ msg.textContent = "Your bag is empty — add a piece first."; return; }
 
-  /* delivery address is required — the atelier must know where to send the pieces */
+  /* delivery address is required */
   const addr = {
     name: $("adName").value.trim(), street: $("adStreet").value.trim(),
     city: $("adCity").value.trim(), postal: $("adPostal").value.trim(),
@@ -493,9 +489,7 @@ $("payForm").addEventListener("submit", e=>{
   btn.disabled = true;
   btn.innerHTML = '<span class="spin" aria-hidden="true"></span>Processing payment…';
 
-  /* card/EFT *capture* stays simulated (no gateway is wired up, and card
-     details never leave this page) — but the order itself is a real
-     request to the maison's server, saved to the patron's account */
+  /* card/EFT *capture* stays simulated  */
   setTimeout(async ()=>{
     try{
       const t = totals();
@@ -507,15 +501,14 @@ $("payForm").addEventListener("submit", e=>{
         gift: $("giftChk").checked ? { message: $("giftMsg").value.trim().slice(0,160) } : null,
         address: addr
       }});
-      /* keep a local copy so the invoice opens offline and the manager
-         console's Reports can merge real orders into its dashboard */
       const orders = store.get("opalera.orders", []);
       orders.push({ user: order.email, items: order.items, itemsTotal: order.itemsTotal,
                     promo: order.promo, discount: order.discount, vat: order.vat,
                     total: order.total, gift: order.gift, address: order.address,
                     method: order.method, placed: order.placedAt, ref: order.ref });
       store.set("opalera.orders", orders);
-      bag.forEach(it=>{ if(!it.custom) setStock(it.pid, stockOf(it.pid) - (it.qty||1)); });
+      /* the server deducted the stock */
+      OPALERA.syncCatalogue();
       bag = []; store.set("opalera.bag", bag); renderBag();
       $("payWrap").classList.add("hidden");
       $("paySuccess").classList.add("show");

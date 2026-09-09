@@ -156,6 +156,14 @@
 <div id="toast" role="status" aria-live="polite"></div>
 
 <script src="/opalera-backend/js/opalera-data.js"></script>
-<script src="/opalera-backend/js/product-page.js"></script>
+<script>
+(async () => {
+  const id = parseInt(new URLSearchParams(location.search).get("id") || location.hash.replace(/\D/g, ""), 10);
+  if (id && !OPALERA.findProduct(id)) await OPALERA.syncCatalogue();
+  const s = document.createElement("script");
+  s.src = "/opalera-backend/js/product-page.js";
+  document.body.appendChild(s);
+})();
+</script>
 </body>
 </html>

@@ -16,7 +16,6 @@ const HOME_PAGE = SITE_ROOT ? "/pages/jewellery_Html.html" : "/index.html";
 const SESSION_COOKIE = "opalera_session";
 const MANAGER_COOKIE = "opalera_manager";   
 const SESSION_TTL_MS = 30 * 24 * 60 * 60 * 1000; 
- */
 /* Product catalogue */
 const PRODUCTS = [
   {id:1,category:"necklace",name:"Sapphire Necklace",price:1759,img:"https://images.pexels.com/photos/32988651/pexels-photo-32988651.jpeg?auto=compress&cs=tinysrgb&w=1200"},

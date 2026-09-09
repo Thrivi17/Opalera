@@ -1,11 +1,4 @@
-/* ============================================================
-   OPALÉRA backend
-   Plain Node.js (no npm dependencies required) — just `node server.js`.
-   Provides: real accounts, sessions, orders, reviews and a
-   per-account cart/wishlist, backed by a JSON file on disk
-   (db.json). Swap the storage layer for a real database later
-   without changing the API surface below.
-   ============================================================ */
+/* OPALÉRA backend */
 "use strict";
 
 const http = require("http");
@@ -16,29 +9,15 @@ const { URL } = require("url");
 
 const PORT = process.env.PORT || 3000;
 const DB_FILE = path.join(__dirname, "data", "db.json");
-// Serve the full multi-page OPALÉRA site (storefront, product pages,
-// payment, invoices, account, manager console) when this backend sits
-// inside the jewellery folder. Deployed standalone (e.g. on Render),
-// it falls back to the bundled single-page build in ./public.
-// The multi-page site keeps its HTML in a pages/ folder and its stylesheet
-// in css/; the storefront is pages/jewellery_Html.html.
 const SITE_ROOT = [path.resolve(__dirname, "..", ".."), path.resolve(__dirname, "..")]
   .find(dir => fs.existsSync(path.join(dir, "pages", "jewellery_Html.html"))) || null;
 const PUBLIC_DIR = SITE_ROOT || path.join(__dirname, "public");
 const HOME_PAGE = SITE_ROOT ? "/pages/jewellery_Html.html" : "/index.html";
 const SESSION_COOKIE = "opalera_session";
-const SESSION_TTL_MS = 30 * 24 * 60 * 60 * 1000; // 30 days
-
-/* ------------------------------------------------------------
-   Tiny JSON-file "database"
-   ------------------------------------------------------------ */
-/* ------------------------------------------------------------
-   Product catalogue — seeded into the database on first run.
-   This is the ONLY hardcoded copy; everything else (the frontend
-   included) reads products from the database via GET /api/products,
-   so the catalogue can be edited, added to, or migrated to a real
-   database later without touching index.html at all.
-   ------------------------------------------------------------ */
+const MANAGER_COOKIE = "opalera_manager";   
+const SESSION_TTL_MS = 30 * 24 * 60 * 60 * 1000; 
+ */
+/* Product catalogue */
 const PRODUCTS = [
   {id:1,category:"necklace",name:"Sapphire Necklace",price:1759,img:"https://images.pexels.com/photos/32988651/pexels-photo-32988651.jpeg?auto=compress&cs=tinysrgb&w=1200"},
   {id:2,category:"necklace",name:"Cyan Necklace",price:3199,img:"https://images.pexels.com/photos/10215179/pexels-photo-10215179.jpeg?auto=compress&cs=tinysrgb&w=1200"},
@@ -122,6 +101,34 @@ const PRODUCTS = [
   {id:80,category:"pendant",name:"Heart Butterfly Pendant",price:3249,img:"https://images.pexels.com/photos/34317579/pexels-photo-34317579.jpeg?auto=compress&cs=tinysrgb&w=1200"},
 ];
 
+/* deterministic opening stock per piece */
+function h32(n){ n=(n^61)^(n>>>16); n=n+(n<<3); n=n^(n>>>4); n=Math.imul(n,0x27d4eb2d); return (n^(n>>>15))>>>0; }
+const stockSeed = id => 3 + (h32(id * 31) % 20);
+function normaliseProduct(p) {
+  return {
+    ...p,
+    desc: p.desc || "",
+    stock: typeof p.stock === "number" ? p.stock : stockSeed(p.id),
+    hidden: !!p.hidden,
+    custom: !!p.custom
+  };
+}
+/* the demo manager account — the console's role-gated login */
+const MANAGER = { email: "manager@opalera.co.za", password: "Opalera2026", firstName: "Ompha", lastName: "Manager" };
+function ensureManager(d) {
+  if (d.users[MANAGER.email]) { d.users[MANAGER.email].role = "manager"; return; }
+  const { salt, hash } = hashPassword(MANAGER.password);
+  d.users[MANAGER.email] = { firstName: MANAGER.firstName, lastName: MANAGER.lastName, email: MANAGER.email,
+                             salt, hash, role: "manager", createdAt: new Date().toISOString() };
+}
+/* bring any loaded database up to the current shape */
+function migrate(d) {
+  d.products = (Array.isArray(d.products) && d.products.length ? d.products : PRODUCTS).map(normaliseProduct);
+  for (const u of Object.values(d.users)) if (!u.role) u.role = "patron";
+  ensureManager(d);
+  return d;
+}
+
 function emptyDb() {
   return {
     users: {},      // email -> { firstName, lastName, email, salt, hash, createdAt }
@@ -131,28 +138,26 @@ function emptyDb() {
     wishlists: {},  // email -> [pid, ...]
     carts: {},      // email -> [{ pid, custom, price }, ...]
     resets: {},     // email -> { code, expires, attempts } (password reset)
-    products: PRODUCTS.slice()  // catalogue, seeded on first run; served via GET /api/products
+    products: PRODUCTS.map(normaliseProduct)  // catalogue, seeded on first run; managed via /api/products
   };
 }
 
 let db = loadDb();
 let saveTimer = null;
+saveDb(); 
 
 function loadDb() {
   try {
     const raw = fs.readFileSync(DB_FILE, "utf8");
     const loaded = { ...emptyDb(), ...JSON.parse(raw) };
-    // older db.json (saved before products lived in the DB) won't have a
-    // products key yet — seed it in rather than losing the catalogue
     if (!Array.isArray(loaded.products) || !loaded.products.length) loaded.products = PRODUCTS.slice();
-    return loaded;
+    return migrate(loaded);
   } catch (e) {
-    return emptyDb();
+    return migrate(emptyDb());
   }
 }
 
 function saveDb() {
-  // debounce disk writes slightly so bursts of requests don't thrash the disk
   clearTimeout(saveTimer);
   saveTimer = setTimeout(() => {
     fs.mkdirSync(path.dirname(DB_FILE), { recursive: true });
@@ -160,9 +165,7 @@ function saveDb() {
   }, 50);
 }
 
-/* ------------------------------------------------------------
-   Password hashing (scrypt, built into Node — no bcrypt needed)
-   ------------------------------------------------------------ */
+/* Password hashing (scrypt, built into Node — no bcrypt needed) */
 function hashPassword(password) {
   const salt = crypto.randomBytes(16).toString("hex");
   const hash = crypto.scryptSync(password, salt, 64).toString("hex");
@@ -227,24 +230,22 @@ function readJsonBody(req) {
     req.on("error", reject);
   });
 }
-function setSessionCookie(res, token) {
+function setSessionCookie(res, token, name = SESSION_COOKIE) {
   const expires = new Date(Date.now() + SESSION_TTL_MS).toUTCString();
   res.setHeader("Set-Cookie",
-    `${SESSION_COOKIE}=${token}; Path=/; HttpOnly; SameSite=Lax; Expires=${expires}`);
+    `${name}=${token}; Path=/; HttpOnly; SameSite=Lax; Expires=${expires}`);
 }
-function clearSessionCookie(res) {
-  res.setHeader("Set-Cookie", `${SESSION_COOKIE}=; Path=/; HttpOnly; SameSite=Lax; Max-Age=0`);
+function clearSessionCookie(res, name = SESSION_COOKIE) {
+  res.setHeader("Set-Cookie", `${name}=; Path=/; HttpOnly; SameSite=Lax; Max-Age=0`);
 }
 
 function publicUser(u) {
-  return { email: u.email, firstName: u.firstName, lastName: u.lastName };
+  return { email: u.email, firstName: u.firstName, lastName: u.lastName, role: u.role || "patron" };
 }
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-/* ------------------------------------------------------------
-   Route handlers
-   ------------------------------------------------------------ */
+/* Route handlers*/
 const routes = [];
 function route(method, pattern, handler) {
   // pattern like /api/reviews/:pid -> regex with named groups
@@ -268,7 +269,7 @@ route("POST", "/api/auth/signup", async (req, res, ctx) => {
   if (db.users[email]) return send(res, 409, { error: "An account with that email already exists." });
 
   const { salt, hash } = hashPassword(password);
-  db.users[email] = { firstName, lastName, email, salt, hash, createdAt: new Date().toISOString() };
+  db.users[email] = { firstName, lastName, email, salt, hash, role: "patron", createdAt: new Date().toISOString() };
   saveDb();
 
   const token = createSession(email);
@@ -284,22 +285,22 @@ route("POST", "/api/auth/login", async (req, res) => {
   if (!u || !verifyPassword(password, u.salt, u.hash)) {
     return send(res, 401, { error: "Email or password is incorrect." });
   }
+  // scope "manager": the console signs in under its own cookie
+  if (body.scope === "manager") {
+    if (u.role !== "manager") return send(res, 403, { error: "This account is a patron's — the console is for managers only." });
+    setSessionCookie(res, createSession(email), MANAGER_COOKIE);
+    return send(res, 200, { user: publicUser(u) });
+  }
   const token = createSession(email);
   setSessionCookie(res, token);
   send(res, 200, { user: publicUser(u) });
 });
 
-/* ---- Forgotten password: request a one-time reset code ----
-   NOTE: no email gateway is wired up in this student demonstration, so —
-   in the same spirit as the simulated card capture — the code is returned
-   in the response with a note. In production this handler would email the
-   code and return only { ok: true }. */
+/* ---- Forgotten password: request a one-time reset code ---- */
 route("POST", "/api/auth/forgot", async (req, res) => {
   const body = await readJsonBody(req);
   const email = (body.email || "").trim().toLowerCase();
   if (!EMAIL_RE.test(email)) return send(res, 400, { error: "Enter a valid email address." });
-  // always answer the same way, so the endpoint doesn't reveal which
-  // emails have accounts
   if (!db.users[email]) {
     return send(res, 200, { ok: true, note: "If that email has an account, a reset code has been issued." });
   }
@@ -309,12 +310,12 @@ route("POST", "/api/auth/forgot", async (req, res) => {
   send(res, 200, {
     ok: true,
     note: "If that email has an account, a reset code has been issued.",
-    demoCode: code,   // simulated email delivery — remove when a mailer is wired up
+    demoCode: code,   // simulated email delivery
     demoNote: "Email delivery is simulated for this demonstration; in production this code would be emailed to you."
   });
 });
 
-/* ---- Forgotten password: verify the code and set a new password ---- */
+/*Forgotten password: verify the code and set a new password*/
 route("POST", "/api/auth/reset", async (req, res) => {
   const body = await readJsonBody(req);
   const email = (body.email || "").trim().toLowerCase();
@@ -343,15 +344,18 @@ route("POST", "/api/auth/reset", async (req, res) => {
     if (s.email === email) delete db.sessions[t];
   }
   saveDb();
-  const token = createSession(email);            // sign the patron straight in
-  setSessionCookie(res, token);
+  const token = createSession(email);            // sign the user straight in
+  const asManager = body.scope === "manager" && db.users[email].role === "manager";
+  setSessionCookie(res, token, asManager ? MANAGER_COOKIE : SESSION_COOKIE);
   send(res, 200, { user: publicUser(db.users[email]) });
 });
 
 route("POST", "/api/auth/logout", async (req, res, ctx) => {
   const cookies = parseCookies(req);
-  if (cookies[SESSION_COOKIE]) destroySession(cookies[SESSION_COOKIE]);
-  clearSessionCookie(res);
+  const body = await readJsonBody(req);
+  const name = body.scope === "manager" ? MANAGER_COOKIE : SESSION_COOKIE;
+  if (cookies[name]) destroySession(cookies[name]);
+  clearSessionCookie(res, name);
   send(res, 200, { ok: true });
 });
 
@@ -359,13 +363,26 @@ route("GET", "/api/auth/me", async (req, res, ctx) => {
   if (!ctx.email) return send(res, 200, { user: null });
   send(res, 200, { user: publicUser(db.users[ctx.email]) });
 });
+route("GET", "/api/admin/me", async (req, res, ctx) => {       
+  const u = ctx.manager && db.users[ctx.manager];
+  if (!u || u.role !== "manager") return send(res, 200, { user: null });
+  send(res, 200, { user: publicUser(u) });
+});
 
 function requireAuth(ctx, res) {
   if (!ctx.email) { send(res, 401, { error: "Sign in required." }); return false; }
   return true;
 }
+/* role-defined functionality: product management and reports are for the
+   maison's managers only */
+function requireManager(ctx, res) {
+  if (!ctx.manager) { send(res, 401, { error: "Manager sign-in required." }); return false; }
+  const u = db.users[ctx.manager];
+  if (!u || u.role !== "manager") { send(res, 403, { error: "Manager access only." }); return false; }
+  return true;
+}
 
-/* ---- Cart (per account, so it follows the patron across devices) ---- */
+/*Cart (per account)*/
 route("GET", "/api/cart", async (req, res, ctx) => {
   if (!requireAuth(ctx, res)) return;
   send(res, 200, { items: db.carts[ctx.email] || [] });
@@ -379,7 +396,7 @@ route("PUT", "/api/cart", async (req, res, ctx) => {
   send(res, 200, { items: db.carts[ctx.email] });
 });
 
-/* ---- Wishlist ---- */
+/*Wishlist */
 route("GET", "/api/wishlist", async (req, res, ctx) => {
   if (!requireAuth(ctx, res)) return;
   send(res, 200, { pids: db.wishlists[ctx.email] || [] });
@@ -393,12 +410,70 @@ route("PUT", "/api/wishlist", async (req, res, ctx) => {
   send(res, 200, { pids: db.wishlists[ctx.email] });
 });
 
-/* ---- Products (catalogue lives in the DB; the standalone build reads it) ---- */
+/*  Products: the catalogue lives in the database and every page reads it through this service; managers add, edit and delete pieces  */
 route("GET", "/api/products", async (req, res) => {
   send(res, 200, { products: db.products });
 });
+const CATEGORIES = ["necklace", "earrings", "pendant"];
+function readProductFields(body) {
+  const f = {};
+  if (body.name !== undefined) { const n = String(body.name).trim().slice(0, 80); if (!n) return { error: "A name is required." }; f.name = n; }
+  if (body.category !== undefined) { if (!CATEGORIES.includes(body.category)) return { error: "Category must be necklace, earrings or pendant." }; f.category = body.category; }
+  if (body.price !== undefined) { const p = Math.round(Number(body.price)); if (!(p > 0)) return { error: "Price must be a positive number." }; f.price = p; }
+  if (body.img !== undefined) f.img = String(body.img).trim().slice(0, 500);
+  if (body.desc !== undefined) f.desc = String(body.desc).trim().slice(0, 600);
+  if (body.stock !== undefined) { const s = Math.round(Number(body.stock)); if (!(s >= 0)) return { error: "Stock can't be negative." }; f.stock = s; }
+  if (body.hidden !== undefined) f.hidden = !!body.hidden;
+  return { fields: f };
+}
+route("POST", "/api/products", async (req, res, ctx) => {          // Product Addition
+  if (!requireManager(ctx, res)) return;
+  const r = readProductFields(await readJsonBody(req));
+  if (r.error) return send(res, 400, { error: r.error });
+  const f = r.fields;
+  if (!f.name || !f.category || !f.price) return send(res, 400, { error: "Name, category and price are required." });
+  const id = Math.max(1000, ...db.products.map(p => p.id)) + 1;   // manager-added pieces number from 1001
+  const product = { id, category: f.category, name: f.name, price: f.price, img: f.img || "", desc: f.desc || "",
+                    stock: f.stock ?? 5, hidden: false, custom: true, createdAt: new Date().toISOString() };
+  db.products.push(product); saveDb();
+  send(res, 201, { product });
+});
+route("PUT", "/api/products/:id", async (req, res, ctx) => {       // Product Information Editing
+  if (!requireManager(ctx, res)) return;
+  const p = db.products.find(x => x.id === Number(ctx.params.id));
+  if (!p) return send(res, 404, { error: "No such piece." });
+  const r = readProductFields(await readJsonBody(req));
+  if (r.error) return send(res, 400, { error: r.error });
+  Object.assign(p, r.fields, { updatedAt: new Date().toISOString() });
+  saveDb();
+  send(res, 200, { product: p });
+});
+route("DELETE", "/api/products/:id", async (req, res, ctx) => {    // Product Deletion
+  if (!requireManager(ctx, res)) return;
+  const i = db.products.findIndex(x => x.id === Number(ctx.params.id));
+  if (i === -1) return send(res, 404, { error: "No such piece." });
+  const [removed] = db.products.splice(i, 1);
+  saveDb();
+  send(res, 200, { removed: { id: removed.id, name: removed.name } });
+});
 
-/* ---- Reviews ---- */
+/* Manager reporting (all orders, and registered users with sign-up dates) */
+route("GET", "/api/admin/orders", async (req, res, ctx) => {
+  if (!requireManager(ctx, res)) return;
+  const orders = db.orders.slice().sort((a, b) => new Date(b.placedAt) - new Date(a.placedAt));
+  send(res, 200, { orders });
+});
+route("GET", "/api/admin/users", async (req, res, ctx) => {
+  if (!requireManager(ctx, res)) return;
+  const users = Object.values(db.users).map(u => ({
+    email: u.email, firstName: u.firstName, lastName: u.lastName,
+    role: u.role || "patron", createdAt: u.createdAt || null,
+    orders: db.orders.filter(o => o.email === u.email).length
+  }));
+  send(res, 200, { users });
+});
+
+/* Reviews  */
 route("GET", "/api/reviews", async (req, res) => {
   const list = db.reviews.slice().sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
   send(res, 200, { reviews: list });
@@ -432,7 +507,7 @@ route("POST", "/api/reviews", async (req, res, ctx) => {
   send(res, 201, { review });
 });
 
-/* ---- Orders / checkout ---- */
+/* Orders / checkout  */
 route("GET", "/api/orders", async (req, res, ctx) => {
   if (!requireAuth(ctx, res)) return;
   const mine = db.orders.filter(o => o.email === ctx.email)
@@ -450,8 +525,7 @@ route("POST", "/api/orders", async (req, res, ctx) => {
   // PayFast) would happen for "card" and "eft". Card details are
   // deliberately NOT accepted or stored here — only used client-side for
   // the simulated portal — so nothing sensitive ever reaches this server.
-  // Totals are recomputed server-side (quantity-aware, VAT-inclusive
-  // prices) so the client can't submit a mismatched amount.
+  // Totals are recomputed server-side 
   const itemsTotal = items.reduce((s, it) => s + Number(it.price || 0) * (Number(it.qty) || 1), 0);
   const discount = Math.min(Math.max(0, Math.round(Number(body.discount) || 0)), itemsTotal);
   const total = itemsTotal - discount;
@@ -482,15 +556,18 @@ route("POST", "/api/orders", async (req, res, ctx) => {
     status: method === "cod" ? "reserved" : "paid",
     placedAt: new Date().toISOString()
   };
+  // every ordered unit leaves the vault — keeps "products on hand" honest
+  for (const it of items) {
+    const p = db.products.find(x => x.id === Number(it.pid));
+    if (p && !it.custom) p.stock = Math.max(0, (typeof p.stock === "number" ? p.stock : stockSeed(p.id)) - (Number(it.qty) || 1));
+  }
   db.orders.push(order);
   db.carts[ctx.email] = []; // clear server-side cart on checkout
   saveDb();
   send(res, 201, { order });
 });
 
-/* ------------------------------------------------------------
-   Static file serving (the storefront itself)
-   ------------------------------------------------------------ */
+/* Static file serving (the storefront itself))*/
 const MIME = {
   ".html": "text/html; charset=utf-8", ".js": "application/javascript",
   ".css": "text/css", ".json": "application/json", ".svg": "image/svg+xml",
@@ -518,13 +595,12 @@ function serveStatic(req, res, pathname) {
   });
 }
 
-/* ------------------------------------------------------------
-   Server
-   ------------------------------------------------------------ */
+/* Server */
 const server = http.createServer(async (req, res) => {
   const url = new URL(req.url, `http://${req.headers.host}`);
   const cookies = parseCookies(req);
-  const email = sessionEmail(cookies[SESSION_COOKIE]);
+  const email = sessionEmail(cookies[SESSION_COOKIE]);      // the patron
+  const manager = sessionEmail(cookies[MANAGER_COOKIE]);    // the console
 
   if (url.pathname.startsWith("/api/")) {
     for (const r of routes) {
@@ -534,8 +610,9 @@ const server = http.createServer(async (req, res) => {
       const params = {};
       r.keys.forEach((k, i) => (params[k] = decodeURIComponent(m[i + 1])));
       try {
-        await r.handler(req, res, { params, email });
+        await r.handler(req, res, { params, email, manager });
       } catch (e) {
+        if (/Invalid JSON|Payload too large/.test(e.message)) return send(res, 400, { error: e.message + "." });
         console.error(e);
         send(res, 500, { error: "Server error." });
       }
@@ -544,8 +621,6 @@ const server = http.createServer(async (req, res) => {
     return send(res, 404, { error: "No such endpoint." });
   }
 
-  // send "/" to the storefront in pages/ (a real redirect, so the browser's
-  // URL sits inside pages/ and the pages' relative links resolve correctly)
   if (req.method === "GET" && url.pathname === "/" && SITE_ROOT) {
     res.writeHead(302, { Location: HOME_PAGE });
     return res.end();

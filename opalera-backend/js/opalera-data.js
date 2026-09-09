@@ -1,14 +1,7 @@
-/* ============================================================
-   OPALÉRA — shared catalogue & helpers
-   Used by product.html and payment.html (jewellery_Html.html keeps
-   its own inline copy of the price data for the grid & studio).
-   Every piece carries its own hand-written description.
-   ============================================================ */
+/* OPALÉRA — shared catalogue & helpers*/
 const OPALERA = (() => {
 
-  /* Product photography hotlinks directly to Pexels (a free-to-use stock
-     photo library) at 1200px — sharp at every size it's shown at. CDN is
-     kept only for backwards compatibility with older callers. */
+  /* Product photography hotlinks directly to Pexels  */
   const CDN = "https://images.pexels.com/photos/";
 
   /* id, category, name, price (R), image, unique description */
@@ -187,7 +180,6 @@ const OPALERA = (() => {
 
   const fmt = n => "R " + n.toLocaleString("en-ZA");
   const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-  /* catalogue images are absolute Pexels URLs now — no CDN prefixing */
   const webSrc = p => p.img;
 
   function stoneOf(p){
@@ -205,19 +197,12 @@ const OPALERA = (() => {
     if(n.includes("white gold")) return "18K white gold";
     return {necklace:"18K white gold", earrings:"18K yellow gold", pendant:"18K rose gold"}[p.category];
   }
-  /* first recognisable motif word in the piece's own name — used to make
-     generated text actually describe *this* piece */
   const MOTIF_WORDS = ["heart","flower","peacock","swan","star","butterfly","bow","kitty",
     "bird","infinity","hexagon","spiral","circle","leaf","clove","jhumka","abstract",
     "classic","signature","word","letter","arrow","cylinder","cult"];
   const motifOf = p => MOTIF_WORDS.find(w => p.name.toLowerCase().includes(w)) || null;
 
-  /* ================= PER-ITEM DESCRIPTION & SPEC =================
-     Deterministic per product.id (h32 seed), so text stays stable across
-     visits but is genuinely different piece to piece. The hand-written
-     descriptions in the catalogue above take precedence; descOf() covers
-     manager-added pieces that have no hand-written text yet, and specOf()
-     gives every piece its own craftsmanship line. */
+  /* PER-ITEM DESCRIPTION & SPEC  */
   const DESC_OPENERS = {
     necklace: [
       p=>`This necklace is designed to sit right at the collarbone, catching the light with every turn of the head.`,
@@ -299,7 +284,7 @@ const OPALERA = (() => {
   const SIG_CUT = SIG_PRICES.length >= 10 ? SIG_PRICES[9] : Infinity;
   const isSignature = p => p.price >= SIG_CUT;
 
-  /* deterministic SAMPLE ratings & seed reviews (back-end replaces later) */
+  /* deterministic SAMPLE ratings & seed reviews*/
   function h32(n){ n=(n^61)^(n>>>16); n=n+(n<<3); n=n^(n>>>4); n=Math.imul(n,0x27d4eb2d); return (n^(n>>>15))>>>0; }
   const REV_NAMES=["Naledi M.","Sipho K.","Aisha P.","Lerato D.","Thandi N.","Pieter V.","Zanele S.","Kagiso R.","Anele B.","Megan J.","Tebogo L.","Farhana I."];
   const REV_TEXTS=[
@@ -316,7 +301,7 @@ const OPALERA = (() => {
    "My fiancée teared up when she opened the box. Worth every rand.",
    "Gorgeous craftsmanship for the price — I was genuinely surprised."
   ];
-  const seedOf = new Map(products.map(p=>{
+  function makeSeed(p){
     const h = h32(p.id*2654435761 % 4294967296);
     const rating = 4.2 + (h % 9)/10;
     const count = 8 + ((h>>>4) % 33);
@@ -327,13 +312,15 @@ const OPALERA = (() => {
       name: REV_NAMES[(h>>>(7+i*4)) % REV_NAMES.length],
       verified: ((h>>>(9+i)) % 3) > 0
     }));
-    return [p.id, {rating, count, revs}];
-  }));
+    return {rating, count, revs};
+  }
+  const seedOf = new Map(products.map(p=>[p.id, makeSeed(p)]));
   const store = {
     get(k,d){ try{ const v = JSON.parse(localStorage.getItem(k)); return v===null||v===undefined ? d : v; }catch(e){ return d; } },
     set(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
   };
   function ratingOf(p){
+    if(!seedOf.has(p.id)) seedOf.set(p.id, makeSeed(p));   /* pieces added by the manager later */
     const s = seedOf.get(p.id);
     const mine = store.get("opalera.reviews", []).filter(r=>r.pid===p.id);
     const total = s.count + mine.length;
@@ -349,24 +336,60 @@ const OPALERA = (() => {
     return Math.round(p.price*(1.9 + (h%6)/10)/50)*50;   /* SAMPLE comparison */
   }
 
-  /* ================= COMMERCE CONSTANTS ================= */
-  const VAT_RATE = 0.15;                       /* South African VAT, prices are VAT-inclusive */
+  /*COMMERCE CONSTANTS */
+  const VAT_RATE = 0.15;                       /* prices are VAT-inclusive */
   const PROMOS = { GEM10: 0.10, OPAL5: 0.05 }; /* demo promo codes -> discount fraction */
   const PROVINCES = ["Gauteng","Western Cape","KwaZulu-Natal","Eastern Cape","Free State",
                      "Limpopo","Mpumalanga","North West","Northern Cape"];
 
-  /* ================= ADMIN OVERLAYS (localStorage; DB later) =================
-     The manager's edits never touch this file — they live as overlays that
-     every page reads: stock levels, hidden pieces, and manager-added pieces. */
-  const hiddenIds = () => new Set(store.get("opalera.hidden", []));
-  function setHidden(id, hide){
-    const h = hiddenIds();
+  /* ================= LIVE CATALOGUE (database → service → every page) =================
+     The catalogue — names, prices, images, stock, retired and manager-added
+     pieces  */
+  const MIRROR_KEY = "opalera.catalogue";
+  const mirror = () => store.get(MIRROR_KEY, null);
+  const hasMirror = () => Array.isArray(mirror());
+  function applyCatalogue(list){
+    const seen = new Set();
+    list.forEach(sp => {
+      seen.add(sp.id);
+      const p = byId.get(sp.id);
+      if(p){
+        Object.assign(p, { name:sp.name, category:sp.category, price:sp.price, img:sp.img,
+                           desc: sp.desc || p.desc, stock:sp.stock, hidden:!!sp.hidden, custom:!!sp.custom });
+      }else{
+        const np = { id:sp.id, category:sp.category, name:sp.name, price:sp.price, img:sp.img||"",
+                     desc:sp.desc||"", stock:sp.stock, hidden:!!sp.hidden, custom:true };
+        products.push(np); byId.set(np.id, np);
+      }
+    });
+    for(let i = products.length-1; i >= 0; i--){                       /* deleted by the manager */
+      if(!seen.has(products[i].id)){ byId.delete(products[i].id); products.splice(i, 1); }
+    }
+  }
+  if(hasMirror()) applyCatalogue(mirror());   
+  async function syncCatalogue(){
+    try{
+      const { products: list } = await api("/products");
+      store.set(MIRROR_KEY, list);
+      applyCatalogue(list);
+      return list;
+    }catch(e){ return null; }        
+  }
+
+  const hiddenIds = () => hasMirror()
+    ? new Set(products.filter(p=>p.hidden).map(p=>p.id))
+    : new Set(store.get("opalera.hidden", []));
+  function setHidden(id, hide){           
+    const h = new Set(store.get("opalera.hidden", []));
     hide ? h.add(id) : h.delete(id);
     store.set("opalera.hidden", [...h]);
+    if(byId.get(id)) byId.get(id).hidden = !!hide;
   }
-  const customProducts = () => store.get("opalera.custom", []);
-  function addCustomProduct(p){
-    const list = customProducts();
+  const customProducts = () => hasMirror()
+    ? products.filter(p=>p.custom)
+    : store.get("opalera.custom", []);
+  function addCustomProduct(p){       
+    const list = store.get("opalera.custom", []);
     const id = 1000 + list.length + 1;
     list.push({ id, category:p.category, name:p.name, price:p.price,
                 img:p.img || "", desc:p.desc || "" , custom:true });
@@ -375,25 +398,29 @@ const OPALERA = (() => {
   }
   function allProducts(){
     const h = hiddenIds();
-    return [...products.filter(p=>!h.has(p.id)), ...customProducts()];
+    return hasMirror()
+      ? products.filter(p=>!h.has(p.id))
+      : [...products.filter(p=>!h.has(p.id)), ...customProducts()];
   }
   function findProduct(id){
-    return byId.get(id) || customProducts().find(p=>p.id===id) || null;
+    return byId.get(id) || (hasMirror() ? null : store.get("opalera.custom", []).find(p=>p.id===id)) || null;
   }
 
-  /* stock: deterministic seed per piece, manager overrides via overlay */
+  /* stock: from the database */
   const stockSeed = id => 3 + (h32(id*31) % 20);
   function stockOf(id){
+    const p = byId.get(id);
+    if(hasMirror() && p && typeof p.stock === "number") return p.stock;
     const o = store.get("opalera.stock", {});
     return (id in o) ? o[id] : stockSeed(id);
   }
-  function setStock(id, qty){
+  function setStock(id, qty){              
     const o = store.get("opalera.stock", {});
     o[id] = Math.max(0, qty|0);
     store.set("opalera.stock", o);
+    if(byId.get(id)) byId.get(id).stock = o[id];
   }
-
-  /* thumbs up / down: SAMPLE seed baseline + real votes on top */
+   
   function voteSeed(id){
     const h = h32(id*53);
     return { up: 6 + (h % 34), down: 1 + ((h>>>5) % 6) };
@@ -404,11 +431,11 @@ const OPALERA = (() => {
     const up = seed.up + real.up, down = seed.down + real.down;
     return { up, down, pct: Math.round(up/(up+down)*100) };
   }
-  function castVote(id, dir){            /* dir: 1 up, -1 down; one vote per browser per piece */
+  function castVote(id, dir){           
     const mine = store.get("opalera.myvotes", {});
     const votes = store.get("opalera.votes", {});
     const v = votes[id] || (votes[id] = { up:0, down:0 });
-    if(mine[id] === dir) {               /* tap again to undo */
+    if(mine[id] === dir) {              
       dir === 1 ? v.up-- : v.down--;
       delete mine[id];
     } else {
@@ -423,10 +450,7 @@ const OPALERA = (() => {
   }
   const myVote = id => store.get("opalera.myvotes", {})[id] || 0;
 
-  /* ================= SAMPLE SALES HISTORY (for the Reports feature) =================
-     Deterministic 19 months of trading history so the dashboard can show
-     year/month trends before the back-end exists. Real localStorage orders
-     are merged on top by the admin page. Clearly SAMPLE data. */
+  /*SAMPLE SALES HISTORY (for the Reports feature) */
   const MONTHS = [];
   (function(){
     for(let y=2025, m=1; y<2026 || (y===2026 && m<=7); m++){
@@ -452,7 +476,7 @@ const OPALERA = (() => {
     });
   }
 
-  /* shared auth (same localStorage schema as the main page) */
+  /* shared auth */
   async function hashPw(pw){
     try{
       const d = await crypto.subtle.digest("SHA-256", new TextEncoder().encode("opalera·"+pw));
@@ -463,13 +487,7 @@ const OPALERA = (() => {
       return "djb2:"+(h>>>0).toString(16);
     }
   }
-  /* ================= MAISON SERVER (real backend) =================
-     Same-origin API served by opalera-backend/server.js. Patron accounts,
-     carts, wishlists, orders and reviews live on the server; the signed-in
-     patron is mirrored into localStorage ("opalera.serverUser") so the
-     synchronous currentUser() callers across the pages keep working, and
-     every page re-verifies against the server on load via authApi.me().
-     The manager console keeps its own local demo account (role gate). */
+  /*MAISON SERVER (real backend) */
   async function api(path, opts={}){
     let res;
     try{
@@ -495,7 +513,7 @@ const OPALERA = (() => {
     }
     return data;
   }
-  const asLocalUser = u => u ? { email:u.email, fn:u.firstName, ln:u.lastName } : null;
+  const asLocalUser = u => u ? { email:u.email, fn:u.firstName, ln:u.lastName, role:u.role || "patron" } : null;
   const setServerUser = u => store.set("opalera.serverUser", asLocalUser(u));
   const authApi = {
     async signup(fn, ln, em, pw){
@@ -511,11 +529,9 @@ const OPALERA = (() => {
     async logout(){
       try{ await api("/auth/logout", {method:"POST"}); }catch(e){}
       store.set("opalera.serverUser", null);
-      store.set("opalera.session", null);      /* clear any legacy local session too */
+      store.set("opalera.session", null);      
     },
-    /* forgotten password: request a one-time code, then set a new password.
-       Email delivery is simulated in this demonstration — the server returns
-       the code (demoCode) with a note, the way card capture is simulated. */
+    /* forgotten password: request a one-time code, then set a new password. */
     async forgot(em){
       return api("/auth/forgot", {method:"POST", body:{email:em}});
     },
@@ -524,8 +540,6 @@ const OPALERA = (() => {
       setServerUser(user);
       return asLocalUser(user);
     },
-    /* verify the cookie session; on success refresh the mirror, on 401 clear
-       it, and if the server is unreachable keep trusting the mirror */
     async me(){
       try{
         const { user } = await api("/auth/me");
@@ -534,8 +548,40 @@ const OPALERA = (() => {
       }catch(e){ return currentUser(); }
     }
   };
-  /* merge this browser's guest bag & wishlist into the account that just
-     signed in, push the result to the server, and mirror it locally */
+  /*MANAGER CONSOLE API */
+  const managerApi = {
+    current(){ return store.get("opalera.adminSession", null); },
+    async login(em, pw){
+      const { user } = await api("/auth/login", {method:"POST", body:{email:em, password:pw, scope:"manager"}});
+      store.set("opalera.adminSession", asLocalUser(user));
+      return asLocalUser(user);
+    },
+    async me(){
+      try{
+        const { user } = await api("/admin/me");
+        store.set("opalera.adminSession", asLocalUser(user));
+        return asLocalUser(user);
+      }catch(e){ return managerApi.current(); }
+    },
+    async logout(){
+      try{ await api("/auth/logout", {method:"POST", body:{scope:"manager"}}); }catch(e){}
+      store.set("opalera.adminSession", null);
+    },
+    forgot: em => api("/auth/forgot", {method:"POST", body:{email:em}}),
+    async reset(em, code, pw){
+      const { user } = await api("/auth/reset", {method:"POST", body:{email:em, code, password:pw, scope:"manager"}});
+      store.set("opalera.adminSession", asLocalUser(user));
+      return asLocalUser(user);
+    },
+    /* product management — every change lands in the database and reaches
+       the storefront through GET /api/products */
+    async addProduct(p){ const { product } = await api("/products", {method:"POST", body:p}); await syncCatalogue(); return product; },
+    async updateProduct(id, fields){ const { product } = await api(`/products/${id}`, {method:"PUT", body:fields}); await syncCatalogue(); return product; },
+    async deleteProduct(id){ const r = await api(`/products/${id}`, {method:"DELETE"}); await syncCatalogue(); return r; },
+    orders: async () => (await api("/admin/orders")).orders,
+    users:  async () => (await api("/admin/users")).users
+  };
+
   async function adoptAccount(){
     try{
       const [{ items: serverCart }, { pids: serverWish }] = await Promise.all([ api("/cart"), api("/wishlist") ]);
@@ -550,8 +596,6 @@ const OPALERA = (() => {
   }
   const pushBag = () => { if(currentUser()) api("/cart", {method:"PUT", body:{items: store.get("opalera.bag", [])}}).catch(()=>{}); };
   const pushWishlist = () => { if(currentUser()) api("/wishlist", {method:"PUT", body:{pids: store.get("opalera.wishlist", [])}}).catch(()=>{}); };
-  /* pull all patron reviews from the server into the local mirror that
-     ratingOf() and the review lists already read */
   async function pullReviews(){
     try{
       const { reviews } = await api("/reviews");
@@ -560,14 +604,11 @@ const OPALERA = (() => {
     }catch(e){ return store.get("opalera.reviews", []); }
   }
 
-  /* ================= SHOW/HIDE PASSWORD TOGGLES =================
-     Adds an eye icon inside every password field so patrons can check
-     what they typed. Injects its own CSS, so it works on every page
-     that loads this file with no markup changes. */
+  /*SHOW/HIDE PASSWORD TOGGLES */
   const EYE_OPEN = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.5-6.5 10-6.5S22 12 22 12s-3.5 6.5-10 6.5S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>';
   const EYE_OFF  = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.5-6.5 10-6.5c2 0 3.7.6 5.1 1.4M22 12s-3.5 6.5-10 6.5c-2 0-3.7-.6-5.1-1.4"/><path d="M9.9 9.9a3 3 0 1 0 4.2 4.2"/><path d="m4 20 16-16"/></svg>';
   function attachPasswordToggles(){
-    if(typeof document === "undefined") return;   /* also runs under Node for the page generator */
+    if(typeof document === "undefined") return;  
     if(!document.getElementById("pwToggleCss")){
       const st = document.createElement("style");
       st.id = "pwToggleCss";
@@ -590,7 +631,7 @@ const OPALERA = (() => {
       const btn = document.createElement("button");
       btn.type = "button";
       btn.className = "pwtoggle";
-      btn.tabIndex = -1;                          /* tabbing stays on the fields */
+      btn.tabIndex = -1;                        
       btn.setAttribute("aria-label", "Show password");
       btn.setAttribute("aria-pressed", "false");
       btn.innerHTML = EYE_OPEN;
@@ -613,16 +654,48 @@ const OPALERA = (() => {
   };
   const currentUser = () => {
     const su = store.get("opalera.serverUser", null);
-    if(su) return su;                                   /* real account on the server */
-    const s = store.get("opalera.session", null);       /* legacy local account (manager console) */
+    if(su) return su;                                  
+    const s = store.get("opalera.session", null);       
     if(!s) return null;
     const u = store.get("opalera.users", {})[s];
     return u ? { email:s, ...u } : null;
   };
 
-  /* link to a piece's own page (each of the 80 pieces has a generated page;
-     manager-added pieces use the dynamic template) */
+  /* link to a piece's own page */
   const pageOf = p => (p.id >= 1 && p.id <= 80 && !p.custom) ? `product-${p.id}.html` : `product.html?id=${p.id}`;
+
+  /* ORDER TRACKING */
+  const DAY_MS = 24 * 60 * 60 * 1000;
+  const fmtWhen = ts => new Date(ts).toLocaleDateString("en-ZA", { weekday:"short", day:"numeric", month:"short" });
+  function orderTracking(order){
+    const placed = new Date(order.placedAt || order.placed || Date.now()).getTime();
+    const now = Date.now();
+    const plan = order.method === "cod"
+      ? [ ["reserved",  "Reserved at the counter",   0],
+          ["ready",     "Ready for collection",      1],
+          ["collected", "Collected",                 4] ]
+      : [ ["placed",    "Order placed",              0],
+          ["paid",      order.method === "eft" ? "EFT payment confirmed" : "Payment confirmed", 0],
+          ["packed",    "Packed by the atelier",     1],
+          ["shipped",   "Shipped — insured courier", 2],
+          ["delivered", "Delivered",                 4] ];
+    const stages = plan.map(([key, label, days]) => {
+      const at = placed + days * DAY_MS;
+      return { key, label, at, when: fmtWhen(at), done: at <= now };
+    });
+    const doneCount = stages.filter(s => s.done).length;       /* always ≥ 1: "placed" is at day 0 */
+    const currentIdx = Math.max(0, doneCount - 1);
+    stages.forEach((s, i) => { s.state = i < currentIdx ? "done" : i === currentIdx ? "current" : "pending"; });
+    const next = stages[currentIdx + 1] || null;
+    const complete = doneCount === stages.length;
+    return {
+      stages, next, complete,
+      current: stages[currentIdx],
+      etaText: complete
+        ? (order.method === "cod" ? "Collected" : "Delivered " + stages[stages.length - 1].when)
+        : "Expected " + next.when
+    };
+  }
 
   return { CDN, products, byId, SPEC, METAL, fmt, esc, webSrc, stoneOf, isSignature,
            metalOf, motifOf, descOf, specOf,
@@ -631,5 +704,5 @@ const OPALERA = (() => {
            hiddenIds, setHidden, customProducts, addCustomProduct, allProducts, findProduct,
            stockOf, setStock, votesOf, castVote, myVote, MONTHS, salesHistory, pageOf,
            api, authApi, adoptAccount, pushBag, pushWishlist, pullReviews,
-           attachPasswordToggles };
+           attachPasswordToggles, orderTracking, syncCatalogue, applyCatalogue, managerApi };
 })();

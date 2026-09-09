@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>OPALÉRA Console — Manager</title>
-<meta name="description" content="OPALÉRA back-office console — inventory, orders, sales reports and engagement.">
+<meta name="description" content="OPALÉRA back-office console — inventory, product management, orders, patrons and filtered sales reports.">
 <meta name="theme-color" content="#f4f5f7">
 <link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect x="7" y="7" width="10" height="10" transform="rotate(45 12 12)" fill="%231d2733"/></svg>'>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -37,57 +37,90 @@
   .vsub{font-size:.8rem;color:var(--mut);margin-bottom:1.4rem}
   .samplenote{display:inline-block;font-size:.64rem;letter-spacing:.08em;text-transform:uppercase;color:var(--warn);border:1px solid currentColor;padding:.2rem .55rem;border-radius:3px;margin-left:.5rem;vertical-align:middle}
 
+  /* report filters */
+  .filters{display:flex;flex-wrap:wrap;gap:.9rem 1.2rem;align-items:flex-end;background:var(--card);border:1px solid var(--line);border-radius:6px;padding:1rem 1.3rem;margin-bottom:1.2rem}
+  .filters .f label{display:block;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);margin-bottom:.3rem}
+  .filters select,.filters input{font-family:inherit;font-size:.8rem;padding:.5rem .7rem;border:1px solid var(--line);border-radius:4px;background:#fff;color:var(--ink);min-width:150px}
+  .filters .range{display:none;gap:.5rem;align-items:center}
+  .filters .range.on{display:flex}
+  .filters .textctl{min-width:220px;border-color:var(--gold);background:#fdfaf2;font-weight:600;letter-spacing:.02em}
+  .filters .fsum{font-size:.72rem;color:var(--mut);margin-left:auto;align-self:center;max-width:320px;line-height:1.5}
+  .linkbtn{background:none;border:none;font-family:inherit;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);cursor:pointer;text-decoration:underline;padding:0}
+  .linkbtn:hover{color:var(--ink)}
+
   .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1rem;margin-bottom:1.6rem}
   .kpi{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:1.1rem 1.3rem}
   .kpi .kl{font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
   .kpi .kv{font-size:1.7rem;font-weight:600;margin-top:.25rem}
-  .kpi .kd{font-size:.72rem;margin-top:.2rem}
+  .kpi .kd{font-size:.72rem;margin-top:.2rem;color:var(--mut)}
   .kpi .up{color:var(--good)} .kpi .down{color:var(--bad)}
 
   .grid2{display:grid;grid-template-columns:2fr 1fr;gap:1rem;margin-bottom:1rem}
-  @media(max-width:900px){.grid2{grid-template-columns:1fr}}
+  .grid22{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+  @media(max-width:900px){.grid2,.grid22{grid-template-columns:1fr}}
   .panel{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:1.2rem 1.4rem;margin-bottom:1rem}
-  .panel h3{font-size:.82rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);margin-bottom:.9rem}
+  .panel h3{font-size:.82rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);margin-bottom:.9rem;display:flex;justify-content:space-between;align-items:center;gap:1rem}
+  .panel h3 small{font-weight:400;letter-spacing:.04em;text-transform:none;color:var(--mut);font-size:.72rem}
   canvas{width:100%;height:auto;display:block}
   .legend{display:flex;gap:1.1rem;flex-wrap:wrap;font-size:.7rem;color:var(--mut);margin-top:.6rem}
   .legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:.35rem;vertical-align:-1px}
+  .empty{font-size:.78rem;color:var(--mut);padding:.6rem 0}
 
   table{width:100%;border-collapse:collapse;font-size:.8rem}
-  th{font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);text-align:left;padding:.55rem .7rem;border-bottom:2px solid var(--line)}
+  th{font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);text-align:left;padding:.55rem .7rem;border-bottom:2px solid var(--line);white-space:nowrap}
   td{padding:.55rem .7rem;border-bottom:1px solid var(--line);vertical-align:middle}
   tr:hover td{background:#f8f9fb}
   .num{text-align:right} th.num{text-align:right}
   .pctbar{background:#edf0f3;border-radius:4px;height:10px;min-width:90px;overflow:hidden}
   .pctbar i{display:block;height:100%;background:linear-gradient(90deg,#188a5e,#4fbe8f)}
   .stockin{width:64px;font-family:inherit;font-size:.8rem;padding:.3rem .4rem;border:1px solid var(--line);border-radius:4px;text-align:right}
-  .mini-btn{background:none;border:1px solid var(--line);border-radius:4px;font-family:inherit;font-size:.66rem;letter-spacing:.06em;padding:.3rem .7rem;cursor:pointer;transition:.2s;color:var(--ink)}
+  .thumb{width:38px;height:38px;object-fit:cover;border-radius:4px;background:#eef1f4;vertical-align:middle;margin-right:.5rem}
+  .pname{display:flex;align-items:center;gap:.2rem}
+  .mini-btn{background:none;border:1px solid var(--line);border-radius:4px;font-family:inherit;font-size:.66rem;letter-spacing:.06em;padding:.3rem .7rem;cursor:pointer;transition:.2s;color:var(--ink);margin-right:.25rem}
   .mini-btn:hover{border-color:var(--ink)}
   .mini-btn.danger{color:var(--bad)} .mini-btn.danger:hover{border-color:var(--bad)}
   .mini-btn.good{color:var(--good)} .mini-btn.good:hover{border-color:var(--good)}
-  .chip{font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;padding:.18rem .5rem;border-radius:3px}
+  .mini-btn:disabled{opacity:.45;cursor:default}
+  .chip{font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;padding:.18rem .5rem;border-radius:3px;white-space:nowrap}
   .chip.live{background:#e3f4ec;color:var(--good)}
   .chip.hidden{background:#faeaea;color:var(--bad)}
   .chip.low{background:#faf2e0;color:var(--warn)}
   .chip.out{background:#faeaea;color:var(--bad)}
+  .chip.mgr{background:#f6efdc;color:var(--gold)}
+  .chip.pat{background:#eef1f4;color:var(--mut)}
   .chip.nec{background:#e7eefb;color:var(--nec)} .chip.ear{background:#faeee4;color:var(--ear)} .chip.pen{background:#f2e9f8;color:var(--pen)}
 
-  .addform{display:grid;grid-template-columns:2fr 1fr 1fr;gap:.8rem}
+  .addform{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:.8rem}
   @media(max-width:760px){.addform{grid-template-columns:1fr}}
   .af label{display:block;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);margin-bottom:.3rem}
   .af input,.af select,.af textarea{width:100%;font-family:inherit;font-size:.82rem;padding:.55rem .7rem;border:1px solid var(--line);border-radius:4px;background:#fff;color:var(--ink)}
+  .af input:focus,.af select:focus,.af textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(176,140,52,.15)}
   .af textarea{min-height:38px;resize:vertical}
   .formmsg{font-size:.76rem;color:var(--good);min-height:1.2em;margin-top:.5rem}
   .btn{background:var(--accent);color:#fff;border:none;border-radius:4px;font-family:inherit;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;padding:.75rem 1.5rem;cursor:pointer;transition:.2s}
   .btn:hover{background:#31445a}
+  .btn.ghost{background:none;color:var(--ink);border:1px solid var(--line)} .btn.ghost:hover{border-color:var(--ink)}
+  .btn:disabled{opacity:.6;cursor:wait}
+  .editing{outline:2px solid var(--gold);outline-offset:-2px}
+  .toolbar{display:flex;flex-wrap:wrap;gap:.7rem;align-items:center;margin-bottom:.9rem}
+  .toolbar input,.toolbar select{font-family:inherit;font-size:.8rem;padding:.45rem .7rem;border:1px solid var(--line);border-radius:4px;background:#fff;color:var(--ink)}
+  .toolbar input[type=search]{min-width:220px}
+  .preview{width:100%;max-width:220px;aspect-ratio:1;object-fit:cover;border-radius:6px;border:1px solid var(--line);background:#eef1f4;display:block}
 
   /* login gate */
-  .gate{max-width:400px;margin:7vh auto;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:2.2rem 2.4rem;box-shadow:0 10px 34px rgba(29,39,51,.08)}
+  .gate{max-width:420px;margin:7vh auto;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:2.2rem 2.4rem;box-shadow:0 10px 34px rgba(29,39,51,.08)}
   .gate h1{font-size:1.25rem;font-weight:600;letter-spacing:.04em;margin-bottom:.3rem}
   .gate p{font-size:.78rem;color:var(--mut);margin-bottom:1.4rem;line-height:1.6}
   .gate .af{margin-bottom:1rem}
   .gmsg{font-size:.76rem;color:var(--bad);min-height:1.2em;margin:.2rem 0 .8rem}
+  .gmsg.ok{color:var(--good)}
+  .gate .pwtoggle{color:#8a94a0} .gate .pwtoggle:hover{color:var(--gold)}
+  .authlink{display:block;width:100%;margin-top:.9rem;background:none;border:none;cursor:pointer;font-family:inherit;font-size:.64rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mut);transition:.2s}
+  .authlink:hover{color:var(--gold)}
   .democreds{margin-top:1.2rem;border-top:1px dashed var(--line);padding-top:1rem;font-size:.7rem;color:var(--mut);line-height:1.8}
   .democreds code{background:#eef1f4;padding:.1rem .4rem;border-radius:3px;font-size:.72rem}
+  .democode{background:#fdfaf2;border:1px solid var(--gold);border-radius:4px;padding:.6rem .8rem;font-size:.74rem;line-height:1.6;margin-bottom:1rem}
+  .democode b{font-size:1.1rem;letter-spacing:.2em}
   .hidden{display:none!important}
 </style>
 </head>
@@ -101,38 +134,78 @@
   </div>
 </header>
 
-<!-- manager login -->
+<!--MANAGER SIGN-IN (server account, role "manager")-->
 <div class="gate" id="gate">
   <h1>Manager sign-in</h1>
-  <p>This console controls the maison's stock, pieces, orders and reports. Customer accounts cannot enter.</p>
+  <p>This console controls the maison's catalogue, stock, orders and reports. Accounts are verified by the server — patron accounts cannot enter.</p>
   <form id="gForm" novalidate>
     <div class="af"><label for="gEmail">Email</label><input id="gEmail" type="email" autocomplete="username"></div>
     <div class="af"><label for="gPass">Password</label><input id="gPass" type="password" autocomplete="current-password"></div>
     <div class="gmsg" id="gMsg" role="status" aria-live="polite"></div>
     <button class="btn" type="submit" style="width:100%">Enter the Console</button>
-    <button class="authlink" type="button" id="gForgot" style="display:block;width:100%;margin-top:.9rem;background:none;border:none;cursor:pointer;font-family:var(--font-label);font-size:.64rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)">Forgot password? Restore the demo manager account</button>
+    <button class="authlink" type="button" id="gForgot">Forgot password?</button>
   </form>
+
+  <!-- forgotten password: request a one-time code, then choose a new password -->
+  <form id="fForm" class="hidden" novalidate>
+    <p style="margin-bottom:1rem">Enter the manager email to receive a one-time reset code, then choose a new password.</p>
+    <div class="af"><label for="fEmail">Email</label><input id="fEmail" type="email" autocomplete="username"></div>
+    <div id="fCode" class="hidden">
+      <div class="democode" id="fDemo"></div>
+      <div class="af"><label for="fCodeIn">Reset code</label><input id="fCodeIn" type="text" inputmode="numeric" maxlength="6" autocomplete="one-time-code"></div>
+      <div class="af"><label for="fPass">New password</label><input id="fPass" type="password" autocomplete="new-password"></div>
+    </div>
+    <div class="gmsg" id="fMsg" role="status" aria-live="polite"></div>
+    <button class="btn" type="submit" style="width:100%" id="fBtn">Send reset code</button>
+    <button class="authlink" type="button" id="fBack">← Back to sign-in</button>
+  </form>
+
   <div class="democreds">Demo manager account:<br>email <code>manager@opalera.co.za</code> · password <code>Opalera2026</code></div>
 </div>
 
 <main id="console" class="hidden">
   <div class="tabsbar" role="tablist">
-    <button class="tabbtn active" data-v="dash">Dashboard</button>
-    <button class="tabbtn" data-v="engage">Engagement</button>
-    <button class="tabbtn" data-v="inv">Inventory</button>
+    <button class="tabbtn active" data-v="dash">Reports</button>
+    <button class="tabbtn" data-v="inv">Inventory &amp; pieces</button>
     <button class="tabbtn" data-v="ord">Orders</button>
+    <button class="tabbtn" data-v="pat">Patrons</button>
+    <button class="tabbtn" data-v="engage">Engagement</button>
   </div>
 
-  <!-- ============ DASHBOARD ============ -->
+  <!-- ============ REPORTS ============ -->
   <section class="view active" id="v-dash">
-    <h2 class="vt">Trading overview <span class="samplenote">includes sample history — live orders merge on top</span></h2>
-    <p class="vsub">Is the business improving? Units and revenue by month, where they sell, and what carries the growth.</p>
+    <h2 class="vt">Sales reports <span class="samplenote">sample history + live orders from the database</span></h2>
+    <p class="vsub">Filter by period, collection, province and source — every figure and chart below recalculates.</p>
+
+    <div class="filters" role="group" aria-label="Report filters">
+      <div class="f"><label for="fPeriod">Period</label>
+        <select id="fPeriod">
+          <option value="all">All time</option>
+          <option value="30d">Last 30 days</option>
+          <option value="90d">Last 90 days</option>
+          <option value="ytd">This year</option>
+          <option value="custom">Custom months…</option>
+        </select></div>
+      <div class="f range" id="fRange">
+        <div><label for="fFrom">From</label><input id="fFrom" type="month"></div>
+        <div><label for="fTo">To</label><input id="fTo" type="month"></div>
+      </div>
+      <div class="f"><label for="fCat">Collection</label>
+        <select id="fCat"><option value="all">All collections</option><option value="necklace">Necklaces</option><option value="earrings">Earrings</option><option value="pendant">Pendants</option></select></div>
+      <div class="f"><label for="fProv">Province</label><select id="fProv"><option value="all">All provinces</option></select></div>
+      <div class="f"><label for="fSource">Source</label>
+        <select id="fSource"><option value="all">Sample + live</option><option value="live">Live orders only</option><option value="sample">Sample history only</option></select></div>
+      <div class="f"><label for="distinctSold">Different products sold</label>
+        <input id="distinctSold" class="textctl" type="text" readonly aria-live="polite" title="Number of distinct catalogue pieces that appear in the filtered orders"></div>
+      <div class="fsum"><span id="fSummary"></span> <button class="linkbtn" id="fReset" type="button">reset</button></div>
+    </div>
+
     <div class="kpis" id="kpis"></div>
     <div class="grid2">
       <div class="panel">
-        <h3>Pieces sold per month</h3>
+        <h3>Pieces sold per month <small id="mSub"></small></h3>
         <canvas id="chMonthly" height="240"></canvas>
-        <div class="legend"><span><i style="background:#31445a"></i>Units</span><span><i style="background:#b08c34"></i>Revenue (R, scaled)</span></div>
+        <div class="legend"><span><i style="background:#31445a"></i>Sample history</span><span><i style="background:#b08c34"></i>Live orders</span><span><i style="background:#188a5e"></i>Revenue (R, scaled)</span></div>
       </div>
       <div class="panel">
         <h3>Sales by collection</h3>
@@ -140,13 +213,106 @@
         <div class="legend" id="pieLegend"></div>
       </div>
     </div>
-    <div class="panel">
-      <h3>Units by province</h3>
-      <canvas id="chProv" height="180"></canvas>
+    <div class="grid22">
+      <div class="panel">
+        <h3>Units by province</h3>
+        <canvas id="chProv" height="200"></canvas>
+        <p class="empty hidden" id="provEmpty">No sales in this selection.</p>
+      </div>
+      <div class="panel">
+        <h3>Registered users per day <small id="uSub"></small></h3>
+        <canvas id="chUsers" height="200"></canvas>
+        <div class="legend"><span><i style="background:#2f5fb3"></i>New patron accounts</span></div>
+      </div>
+    </div>
+    <div class="grid22">
+      <div class="panel">
+        <h3>Best sellers <small>live orders in this selection</small></h3>
+        <table><thead><tr><th>Piece</th><th>Collection</th><th class="num">Units</th><th class="num">Revenue</th></tr></thead><tbody id="topRows"></tbody></table>
+        <p class="empty hidden" id="topEmpty">No live orders in this selection.</p>
+      </div>
+      <div class="panel">
+        <h3>Stock on hand <small>by collection</small></h3>
+        <table><thead><tr><th>Collection</th><th class="num">Pieces</th><th class="num">Units in vault</th><th class="num">Low / out</th><th class="num">Vault value</th></tr></thead><tbody id="stockRows"></tbody></table>
+      </div>
     </div>
   </section>
 
-  <!-- ============ ENGAGEMENT ============ -->
+  <!--INVENTORY & PRODUCT MANAGEMENT-->
+  <section class="view" id="v-inv">
+    <h2 class="vt">Inventory &amp; pieces</h2>
+    <p class="vsub">Add, edit, retire or delete pieces and adjust stock. Every change is saved to the database and reaches the storefront through the products service.</p>
+    <div class="panel" id="pfPanel">
+      <h3 id="pfTitle">Add a new piece</h3>
+      <form id="pf" class="addform" novalidate>
+        <input type="hidden" id="pfId">
+        <div class="af"><label for="npName">Name</label><input id="npName" type="text" maxlength="80" placeholder="Aurora Pearl Necklace"></div>
+        <div class="af"><label for="npCat">Collection</label>
+          <select id="npCat"><option value="necklace">Necklace</option><option value="earrings">Earrings</option><option value="pendant">Pendant</option></select></div>
+        <div class="af"><label for="npPrice">Price (R, VAT incl.)</label><input id="npPrice" type="number" min="1" step="1" placeholder="2999"></div>
+        <div class="af"><label for="npStock">Stock</label><input id="npStock" type="number" min="0" step="1" value="5"></div>
+        <div class="af" style="grid-column:1/3"><label for="npImg">Image URL</label><input id="npImg" type="url" placeholder="https://images.pexels.com/…jpeg"></div>
+        <div class="af" style="grid-column:3/-1;grid-row:span 2"><label>Preview</label><img class="preview" id="npPreview" alt="" hidden></div>
+        <div class="af" style="grid-column:1/3"><label for="npDesc">Description</label><textarea id="npDesc" maxlength="600" placeholder="A line or two about the piece — stones, metal, the mood it carries."></textarea></div>
+        <div style="grid-column:1/-1;display:flex;gap:.8rem;align-items:center;flex-wrap:wrap">
+          <button class="btn" type="submit" id="pfSave">Add Piece</button>
+          <button class="btn ghost hidden" type="button" id="pfCancel">Cancel</button>
+          <span class="formmsg" id="addMsg" role="status" aria-live="polite"></span>
+        </div>
+      </form>
+    </div>
+    <div class="panel">
+      <h3>All pieces <small id="invCount"></small></h3>
+      <div class="toolbar">
+        <input type="search" id="invSearch" placeholder="Search by name or #id" aria-label="Search pieces">
+        <select id="invCat" aria-label="Filter by collection"><option value="all">All collections</option><option value="necklace">Necklaces</option><option value="earrings">Earrings</option><option value="pendant">Pendants</option></select>
+        <select id="invStatus" aria-label="Filter by status"><option value="all">Any status</option><option value="live">Live</option><option value="low">Low stock</option><option value="out">Out of stock</option><option value="hidden">Retired</option></select>
+      </div>
+      <div style="overflow-x:auto"><table>
+        <thead><tr><th>#</th><th>Piece</th><th>Collection</th><th class="num">Price</th><th class="num">Stock</th><th>Status</th><th>Actions</th></tr></thead>
+        <tbody id="invRows"></tbody>
+      </table></div>
+    </div>
+  </section>
+
+  <!--ORDERS -->
+  <section class="view" id="v-ord">
+    <h2 class="vt">Orders</h2>
+    <p class="vsub">Every order in the database, from every patron, newest first.</p>
+    <div class="panel" style="overflow-x:auto">
+      <div class="toolbar">
+        <input type="search" id="ordSearch" placeholder="Search reference or email" aria-label="Search orders">
+        <select id="ordMethod" aria-label="Filter by payment method"><option value="all">Any method</option><option value="card">Card</option><option value="eft">Instant EFT</option><option value="cod">Pay at counter</option></select>
+        <span class="empty" id="ordCount"></span>
+      </div>
+      <table>
+        <thead><tr><th>Reference</th><th>Date</th><th>Customer</th><th>Destination</th><th class="num">Items</th><th class="num">VAT</th><th class="num">Total</th><th>Method</th><th>Status</th><th></th></tr></thead>
+        <tbody id="ordRows"></tbody>
+      </table>
+      <p class="empty hidden" id="ordEmpty">No orders match.</p>
+    </div>
+  </section>
+
+  <!--  PATRONS  -->
+  <section class="view" id="v-pat">
+    <h2 class="vt">Patrons</h2>
+    <p class="vsub">Registered accounts and when they joined; the "Registered users per day" chart on the Reports tab follows the same period filter.</p>
+    <div class="grid2">
+      <div class="panel" style="overflow-x:auto">
+        <h3>Accounts <small id="patCount"></small></h3>
+        <table>
+          <thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Joined</th><th class="num">Orders</th></tr></thead>
+          <tbody id="patRows"></tbody>
+        </table>
+      </div>
+      <div class="panel">
+        <h3>Sign-ups by day</h3>
+        <table><thead><tr><th>Day</th><th class="num">New accounts</th></tr></thead><tbody id="dayRows"></tbody></table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ENGAGEMENT  -->
   <section class="view" id="v-engage">
     <h2 class="vt">Patron engagement <span class="samplenote">seeded baseline + live votes</span></h2>
     <p class="vsub">Thumbs from the storefront, ranked — the share of patrons who recommend each piece.</p>
@@ -165,206 +331,234 @@
       </div>
     </div>
   </section>
-
-  <!-- ============ INVENTORY ============ -->
-  <section class="view" id="v-inv">
-    <h2 class="vt">Inventory &amp; pieces</h2>
-    <p class="vsub">Adjust stock, retire pieces from the storefront, or introduce new ones — changes appear on the customer site immediately.</p>
-    <div class="panel">
-      <h3>Add a new piece</h3>
-      <form id="addForm" class="addform" novalidate>
-        <div class="af"><label for="npName">Name</label><input id="npName" type="text" placeholder="Aurora Pearl Necklace"></div>
-        <div class="af"><label for="npCat">Collection</label>
-          <select id="npCat"><option value="necklace">Necklace</option><option value="earrings">Earrings</option><option value="pendant">Pendant</option></select></div>
-        <div class="af"><label for="npPrice">Price (R, VAT incl.)</label><input id="npPrice" type="number" min="1" placeholder="2999"></div>
-        <div class="af" style="grid-column:1/-1"><label for="npImg">Image URL (optional)</label><input id="npImg" type="url" placeholder="https://…jpg"></div>
-        <div class="af" style="grid-column:1/-1"><label for="npDesc">Description</label><textarea id="npDesc" maxlength="300"></textarea></div>
-        <div style="grid-column:1/-1;display:flex;gap:1rem;align-items:center">
-          <button class="btn" type="submit">Add Piece</button>
-          <span class="formmsg" id="addMsg" role="status" aria-live="polite"></span>
-        </div>
-      </form>
-    </div>
-    <div class="panel">
-      <h3>All pieces (<span id="invCount"></span>)</h3>
-      <div style="overflow-x:auto"><table>
-        <thead><tr><th>#</th><th>Piece</th><th>Collection</th><th class="num">Price</th><th class="num">Stock</th><th>Status</th><th>Actions</th></tr></thead>
-        <tbody id="invRows"></tbody>
-      </table></div>
-    </div>
-  </section>
-
-  <!-- ============ ORDERS ============ -->
-  <section class="view" id="v-ord">
-    <h2 class="vt">Orders</h2>
-    <p class="vsub">Every order placed through the storefront in this browser, newest first.</p>
-    <div class="panel" style="overflow-x:auto">
-      <table>
-        <thead><tr><th>Reference</th><th>Date</th><th>Customer</th><th>Destination</th><th class="num">Items</th><th class="num">VAT</th><th class="num">Total</th><th>Method</th><th></th></tr></thead>
-        <tbody id="ordRows"></tbody>
-      </table>
-      <p class="vsub" id="ordEmpty" style="margin:.9rem 0 0" hidden>No live orders yet — place one on the storefront to see it here.</p>
-    </div>
-  </section>
 </main>
 
 <script src="/opalera-backend/js/opalera-data.js"></script>
 <script>
-const { products, findProduct, allProducts, customProducts, hiddenIds, setHidden, addCustomProduct,
-        stockOf, setStock, votesOf, fmt, esc, store, hashPw,
-        salesHistory, MONTHS } = OPALERA;
+const { products, findProduct, allProducts, hiddenIds, stockOf, votesOf, fmt, esc, store,
+        salesHistory, PROVINCES, managerApi, syncCatalogue, attachPasswordToggles } = OPALERA;
 const $ = id => document.getElementById(id);
+const DAY = 24*60*60*1000;
+const CATS = ["necklace","earrings","pendant"];
+const CATNAME = { necklace:"Necklaces", earrings:"Earrings", pendant:"Pendants" };
+const CATCOL = { necklace:"#2f5fb3", earrings:"#b0642f", pendant:"#7a3fa0" };
+const COLLECT = "In-store collection";
 
-/* The console has its own manager sign-in, separate from the storefront's
-   customer accounts (which live on the server). We resolve the manager
-   from the console's own local session so that being signed in as a
-   customer elsewhere never blocks — or grants — manager access. */
-function managerUser(){
-  const em = store.get("opalera.adminSession", null);
-  if(!em) return null;
-  const u = store.get("opalera.users", {})[em];
-  return (u && u.role === "manager") ? { email: em, ...u } : null;
-}
+/*live data from the database*/
+let mgr = managerApi.current();
+let liveOrders = [];
+let patrons = [];
+let loading = false;
 
-/* ---------- seed the demo manager account ---------- */
-async function seedManager(){
-  const users = store.get("opalera.users", {});
-  if(!users["manager@opalera.co.za"]){
-    users["manager@opalera.co.za"] = { fn:"Ompha", ln:"Manager", role:"manager", h: await hashPw("Opalera2026") };
-    store.set("opalera.users", users);
-  }else if(!users["manager@opalera.co.za"].role){
-    users["manager@opalera.co.za"].role = "manager";
-    store.set("opalera.users", users);
-  }
-}
-
-/* ---------- gate ---------- */
+/*  gate */
 function refreshGate(){
-  const u = managerUser();
-  const ok = !!u;
+  const ok = !!mgr;
   $("gate").classList.toggle("hidden", ok);
   $("console").classList.toggle("hidden", !ok);
   $("signOut").classList.toggle("hidden", !ok);
-  $("whoami").textContent = ok ? `${u.fn} ${u.ln} · manager` : "";
-  if(ok) renderAll();
+  $("whoami").textContent = ok ? `${mgr.fn} ${mgr.ln} · manager` : "";
+  if(ok) loadAll();
 }
 $("gForm").addEventListener("submit", async e=>{
   e.preventDefault();
-  await seedManager();
   const em = $("gEmail").value.trim().toLowerCase(), pw = $("gPass").value;
-  const users = store.get("opalera.users", {});
-  if(!users[em]){ $("gMsg").textContent = "No such account."; return; }
-  if(users[em].h !== await hashPw(pw)){ $("gMsg").textContent = "Password does not match."; return; }
-  if(users[em].role !== "manager"){ $("gMsg").textContent = "This account is a customer — the console is for managers only."; return; }
-  store.set("opalera.adminSession", em);
-  $("gMsg").textContent = "";
-  refreshGate();
+  $("gMsg").className = "gmsg";
+  if(!em || !pw){ $("gMsg").textContent = "Enter your email and password."; return; }
+  try{
+    mgr = await managerApi.login(em, pw);
+    $("gMsg").textContent = "";
+    $("gPass").value = "";
+    refreshGate();
+  }catch(err){ $("gMsg").textContent = err.message; }
 });
-$("signOut").addEventListener("click", ()=>{ store.set("opalera.adminSession", null); refreshGate(); });
-/* forgotten manager password: the console uses the local demo account, so
-   "reset" restores it to the default credentials shown below the form */
-$("gForgot").addEventListener("click", async ()=>{
-  const users = store.get("opalera.users", {});
-  users["manager@opalera.co.za"] = { fn:"Ompha", ln:"Manager", role:"manager", h: await hashPw("Opalera2026") };
-  store.set("opalera.users", users);
-  store.set("opalera.adminSession", null);
-  $("gMsg").style.color = "var(--emerald, #3db280)";
-  $("gMsg").textContent = "Manager account restored — sign in with the demo credentials shown below.";
-  $("gEmail").value = "manager@opalera.co.za"; $("gPass").value = ""; $("gPass").focus();
-});
-seedManager().then(refreshGate);
+$("signOut").addEventListener("click", async ()=>{ await managerApi.logout(); mgr = null; refreshGate(); });
 
-/* ---------- tabs ---------- */
+/* forgotten password — same one-time-code flow the storefront uses */
+$("gForgot").addEventListener("click", ()=>{
+  $("gForm").classList.add("hidden"); $("fForm").classList.remove("hidden");
+  $("fEmail").value = $("gEmail").value.trim() || "manager@opalera.co.za";
+  $("fCode").classList.add("hidden"); $("fBtn").textContent = "Send reset code"; $("fMsg").textContent = "";
+  $("fEmail").focus();
+});
+$("fBack").addEventListener("click", ()=>{ $("fForm").classList.add("hidden"); $("gForm").classList.remove("hidden"); });
+$("fForm").addEventListener("submit", async e=>{
+  e.preventDefault();
+  const em = $("fEmail").value.trim().toLowerCase();
+  $("fMsg").className = "gmsg";
+  try{
+    if($("fCode").classList.contains("hidden")){            /* step 1: request the code */
+      const r = await managerApi.forgot(em);
+      $("fDemo").innerHTML = r.demoCode
+        ? `Your reset code: <b>${esc(r.demoCode)}</b><br><span style="color:var(--mut)">${esc(r.demoNote||"")}</span>`
+        : esc(r.note || "If that email has an account, a reset code has been issued.");
+      $("fCode").classList.remove("hidden"); $("fBtn").textContent = "Set new password";
+      attachPasswordToggles();
+      $("fCodeIn").focus();
+    }else{                                                  /* step 2: verify + set the new password */
+      mgr = await managerApi.reset(em, $("fCodeIn").value.trim(), $("fPass").value);
+      $("fMsg").className = "gmsg ok"; $("fMsg").textContent = "Password changed — opening the console…";
+      setTimeout(()=>{ $("fForm").classList.add("hidden"); $("gForm").classList.remove("hidden"); refreshGate(); }, 600);
+    }
+  }catch(err){ $("fMsg").textContent = err.message; }
+});
+/* tabs */
 document.querySelectorAll(".tabbtn").forEach(b=>b.addEventListener("click", ()=>{
   document.querySelectorAll(".tabbtn").forEach(x=>x.classList.toggle("active", x===b));
   document.querySelectorAll(".view").forEach(v=>v.classList.toggle("active", v.id === "v-"+b.dataset.v));
+  if(b.dataset.v === "dash") renderDash();   
+  if(b.dataset.v === "engage") renderEngage();
 }));
 
-/* ---------- data: sample history + live orders merged ---------- */
-function mergedMonths(){
-  const rows = salesHistory().map(r=>({ ...r, provinces: r.provinces.map(p=>({...p})) }));
-  const idx = Object.fromEntries(rows.map((r,i)=>[r.month,i]));
-  store.get("opalera.orders", []).forEach(o=>{
-    const month = (o.placed||"").slice(0,7);
-    let row = rows[idx[month]];
-    if(!row){ row = { month, units:0, revenue:0, necklaces:0, earrings:0, pendants:0,
-                      provinces: [], sample:false }; rows.push(row); idx[month]=rows.length-1; }
-    const units = o.items.reduce((s,it)=>s+(it.qty||1),0);
-    row.units += units;
-    row.revenue += o.total || 0;
-    o.items.forEach(it=>{
-      const p = findProduct(it.pid);
-      if(!p) return;
-      const q = it.qty||1;
-      if(p.category==="necklace") row.necklaces += q;
-      else if(p.category==="earrings") row.earrings += q;
-      else row.pendants += q;
-    });
-    if(o.address && o.address.province){
-      const pr = row.provinces.find(x=>x.province===o.address.province);
-      if(pr) pr.units += units; else row.provinces.push({province:o.address.province, units});
-    }
-  });
-  rows.sort((a,b)=>a.month.localeCompare(b.month));
-  return rows;
+/* load everything the console shows */
+async function loadAll(){
+  if(loading) return; loading = true;
+  try{
+    const [, orders, users] = await Promise.all([ syncCatalogue(), managerApi.orders(), managerApi.users() ]);
+    liveOrders = orders; patrons = users;
+    renderAll();
+  }catch(err){
+    if(/sign-in|access/i.test(err.message)){ mgr = null; store.set("opalera.adminSession", null); refreshGate(); }
+    else { $("kpis").innerHTML = `<div class="kpi"><div class="kl">Server</div><div class="kd" style="color:var(--bad)">${esc(err.message)}</div></div>`; }
+  }finally{ loading = false; }
 }
-const CATCOL = { necklaces:"#2f5fb3", earrings:"#b0642f", pendants:"#7a3fa0" };
 
-/* ---------- canvas helpers (crisp on hi-dpi) ---------- */
+/*  SALES LINES — one flat model for every report */
+const CAT_PRICE = { necklace:3300, earrings:2100, pendant:2900 };   /* the sample generator's prices */
+function sampleLines(){
+  const out = [];
+  salesHistory().forEach(r=>{
+    const provTotal = r.provinces.reduce((s,p)=>s+p.units,0) || 1;
+    const date = new Date(r.month+"-15T12:00:00").getTime();
+    const start = out.length;
+    [["necklace", r.necklaces],["earrings", r.earrings],["pendant", r.pendants]].forEach(([cat, units])=>{
+      let assigned = 0;
+      const alloc = r.provinces.map(p=>{ const exact = units*p.units/provTotal, n = Math.floor(exact); assigned += n; return { province:p.province, n, rem:exact-n }; });
+      alloc.sort((a,b)=>b.rem-a.rem);
+      for(let i=0; assigned<units && i<alloc.length; i++, assigned++) alloc[i].n++;
+      alloc.forEach(a=>{ if(a.n>0) out.push({ month:r.month, date, category:cat, province:a.province, units:a.n,
+                                                revenue:a.n*CAT_PRICE[cat], pid:null, sample:true, ref:null, method:null }); });
+    });
+    /* the generator's odd remainder lands on the month's first line */
+    const extra = r.revenue - (r.necklaces*CAT_PRICE.necklace + r.earrings*CAT_PRICE.earrings + r.pendants*CAT_PRICE.pendant);
+    if(out.length > start) out[start].revenue += extra;
+  });
+  return out;
+}
+function liveLines(){
+  const out = [];
+  liveOrders.forEach(o=>{
+    const date = new Date(o.placedAt || o.placed).getTime();
+    const month = new Date(date).toISOString().slice(0,7);
+    const province = (o.address && o.address.province) || COLLECT;
+    (o.items||[]).forEach(it=>{
+      const p = findProduct(it.pid);
+      const q = it.qty || 1, gross = Number(it.price||0)*q;
+      const share = o.itemsTotal ? (o.discount||0)*gross/o.itemsTotal : 0;   /* the order's discount, pro rata */
+      out.push({ month, date, category: p ? p.category : "pendant", province, units:q, revenue:gross-share,
+                 pid:it.pid, name: p ? p.name : `Piece #${it.pid}`, sample:false, ref:o.ref, method:o.method, email:o.email });
+    });
+  });
+  return out;
+}
+
+/*filters*/
+const F = { period:"all", from:"", to:"", cat:"all", prov:"all", source:"all" };
+const monthStart = m => new Date(m+"-01T00:00:00").getTime();
+const monthEnd = m => { const [y,mo] = m.split("-").map(Number); return new Date(y, mo, 0, 23, 59, 59, 999).getTime(); };
+function periodRange(){
+  const now = Date.now();
+  if(F.period==="30d") return [now-30*DAY, now];
+  if(F.period==="90d") return [now-90*DAY, now];
+  if(F.period==="ytd") return [new Date(new Date().getFullYear(),0,1).getTime(), now];
+  if(F.period==="custom") return [F.from ? monthStart(F.from) : -Infinity, F.to ? monthEnd(F.to) : Infinity];
+  return [-Infinity, Infinity];
+}
+function periodLabel(){
+  return { all:"all time", "30d":"the last 30 days", "90d":"the last 90 days", ytd:"this year",
+           custom:`${F.from||"…"} to ${F.to||"…"}` }[F.period];
+}
+function passes(l, [a,b]){
+  return l.date>=a && l.date<=b
+    && (F.cat==="all" || l.category===F.cat)
+    && (F.prov==="all" || l.province===F.prov)
+    && (F.source==="all" || (F.source==="live") === !l.sample);
+}
+function filteredLines(){ const r = periodRange(); return [...sampleLines(), ...liveLines()].filter(l=>passes(l, r)); }
+
+/* province choices: the nine provinces + in-store collection */
+[...PROVINCES, COLLECT].forEach(p=>{ const o = document.createElement("option"); o.value = p; o.textContent = p; $("fProv").appendChild(o); });
+["fPeriod","fCat","fProv","fSource"].forEach(id => $(id).addEventListener("change", e=>{
+  F[{fPeriod:"period", fCat:"cat", fProv:"prov", fSource:"source"}[id]] = e.target.value;
+  $("fRange").classList.toggle("on", F.period==="custom");
+  renderDash();
+}));
+$("fFrom").addEventListener("change", e=>{ F.from = e.target.value; renderDash(); });
+$("fTo").addEventListener("change", e=>{ F.to = e.target.value; renderDash(); });
+$("fReset").addEventListener("click", ()=>{
+  Object.assign(F, { period:"all", from:"", to:"", cat:"all", prov:"all", source:"all" });
+  $("fPeriod").value = "all"; $("fCat").value = "all"; $("fProv").value = "all"; $("fSource").value = "all";
+  $("fFrom").value = ""; $("fTo").value = ""; $("fRange").classList.remove("on");
+  renderDash();
+});
+
+/*canvas helpers*/
 function ctx2d(id, h){
   const c = $(id), dpr = window.devicePixelRatio || 1;
-  const w = c.parentElement.clientWidth - 4;
+  const w = Math.max(120, c.parentElement.clientWidth - 4);
   c.width = w*dpr; c.height = h*dpr; c.style.height = h+"px";
   const x = c.getContext("2d");
   x.scale(dpr,dpr);
   x.font = "10px Jost, sans-serif";
   return [x, w, h];
 }
+function noData(x, w, h, msg){
+  x.fillStyle = "#9aa4af"; x.textAlign = "center"; x.font = "12px Jost, sans-serif";
+  x.fillText(msg, w/2, h/2);
+}
 
-function drawMonthly(rows){
+function drawMonthly(series){
   const [x,w,h] = ctx2d("chMonthly", 240);
-  const pad = {l:30, r:8, t:12, b:34};
+  if(!series.length) return noData(x,w,h,"No sales in this selection");
+  const pad = {l:34, r:8, t:12, b:34};
   const iw = w-pad.l-pad.r, ih = h-pad.t-pad.b;
-  const maxU = Math.max(...rows.map(r=>r.units)) * 1.15;
-  const maxR = Math.max(...rows.map(r=>r.revenue)) * 1.15;
-  const bw = iw/rows.length;
+  const maxU = Math.max(1, ...series.map(r=>r.sample+r.live)) * 1.15;
+  const maxR = Math.max(1, ...series.map(r=>r.revenue)) * 1.15;
+  const bw = iw/series.length;
   x.strokeStyle = "#dde2e8";
   for(let g=0; g<=4; g++){
     const gy = pad.t + ih - ih*g/4;
     x.beginPath(); x.moveTo(pad.l, gy); x.lineTo(w-pad.r, gy); x.stroke();
-    x.fillStyle = "#9aa4af";
+    x.fillStyle = "#9aa4af"; x.textAlign = "left";
     x.fillText(String(Math.round(maxU*g/4)), 4, gy+3);
   }
-  rows.forEach((r,i)=>{
-    const bh = ih * r.units/maxU;
+  const step = Math.max(1, Math.ceil(series.length/8));
+  series.forEach((r,i)=>{
     const bx = pad.l + i*bw;
-    x.fillStyle = r.sample===false ? "#b08c34" : "#31445a";
-    x.fillRect(bx + bw*0.18, pad.t+ih-bh, bw*0.64, bh);
-    if(i%3===0 || i===rows.length-1){
+    const hs = ih*r.sample/maxU, hl = ih*r.live/maxU;
+    x.fillStyle = "#31445a"; x.fillRect(bx + bw*0.18, pad.t+ih-hs, bw*0.64, hs);
+    x.fillStyle = "#b08c34"; x.fillRect(bx + bw*0.18, pad.t+ih-hs-hl, bw*0.64, hl);
+    if(i%step===0 || i===series.length-1){
       x.save(); x.translate(bx+bw/2, h-4); x.rotate(-0.6);
       x.fillStyle = "#66707d"; x.textAlign = "right";
       x.fillText(r.month, 0, 0); x.restore();
     }
   });
-  x.strokeStyle = "#b08c34"; x.lineWidth = 1.6; x.beginPath();
-  rows.forEach((r,i)=>{
-    const px = pad.l + i*bw + bw/2;
-    const py = pad.t + ih - ih*r.revenue/maxR;
+  x.strokeStyle = "#188a5e"; x.lineWidth = 1.6; x.beginPath();
+  series.forEach((r,i)=>{
+    const px = pad.l + i*bw + bw/2, py = pad.t + ih - ih*r.revenue/maxR;
     i ? x.lineTo(px,py) : x.moveTo(px,py);
   });
-  x.stroke();
-  x.lineWidth = 1;
+  x.stroke(); x.lineWidth = 1;
 }
 
 function drawPie(id, legendId, parts){
   const [x,w,h] = ctx2d(id, 240);
-  const total = parts.reduce((s,p)=>s+p.v,0) || 1;
+  const total = parts.reduce((s,p)=>s+p.v,0);
+  $(legendId).innerHTML = parts.map(p=>`<span><i style="background:${p.c}"></i>${esc(p.n)} · ${p.v.toLocaleString("en-ZA")}</span>`).join("");
+  if(!total) return noData(x,w,h,"Nothing to show");
   const cx = w/2, cy = h/2 - 6, R = Math.max(0, Math.min(w,h)/2 - 26);
-  /* on a very narrow canvas the radius can collapse to 0 — skip the arc
-     (which would throw) and just render the legend below */
   let a = -Math.PI/2;
-  if(R > 0)
-  parts.forEach(p=>{
+  if(R > 0) parts.forEach(p=>{
     const a2 = a + p.v/total*2*Math.PI;
     x.beginPath(); x.moveTo(cx,cy); x.arc(cx,cy,R,a,a2); x.closePath();
     x.fillStyle = p.c; x.fill();
@@ -373,133 +567,281 @@ function drawPie(id, legendId, parts){
     if(p.v/total > 0.07) x.fillText(Math.round(p.v/total*100)+"%", lx, ly+3);
     a = a2;
   });
-  $(legendId).innerHTML = parts.map(p=>`<span><i style="background:${p.c}"></i>${esc(p.n)} · ${p.v.toLocaleString("en-ZA")}</span>`).join("");
 }
 
-function drawProv(rows){
-  const totals = {};
-  rows.forEach(r=>r.provinces.forEach(p=>{ totals[p.province]=(totals[p.province]||0)+p.units; }));
-  const entries = Object.entries(totals).sort((a,b)=>b[1]-a[1]);
-  const [x,w] = ctx2d("chProv", 180);
+function drawBars(id, entries, color){
+  const H = 200;
+  const [x,w] = ctx2d(id, H);
+  if(!entries.length) return noData(x,w,H,"Nothing to show");
   const max = Math.max(...entries.map(e=>e[1])) || 1;
-  const rh = 160/entries.length;
-  entries.forEach(([prov,v],i)=>{
+  const rh = Math.min(26, (H-16)/entries.length);
+  entries.forEach(([label,v],i)=>{
     const y = 8 + i*rh;
     x.fillStyle = "#66707d"; x.textAlign = "left"; x.font = "10px Jost, sans-serif";
-    x.fillText(prov, 0, y+rh*0.55);
-    const bx = 110, bwMax = w-170;
-    x.fillStyle = "#31445a";
-    x.fillRect(bx, y+rh*0.18, bwMax*v/max, rh*0.55);
-    x.fillStyle = "#1d2733"; x.textAlign = "left";
-    x.fillText(String(v), bx + bwMax*v/max + 6, y+rh*0.55);
+    x.fillText(label, 0, y+rh*0.62);
+    const bx = 118, bwMax = w-178;
+    x.fillStyle = color;
+    x.fillRect(bx, y+rh*0.2, Math.max(2, bwMax*v/max), rh*0.6);
+    x.fillStyle = "#1d2733";
+    x.fillText(v.toLocaleString("en-ZA"), bx + Math.max(2, bwMax*v/max) + 6, y+rh*0.62);
   });
 }
 
-/* ---------- dashboard ---------- */
-function renderDash(){
-  const rows = mergedMonths();
-  const totalUnits = rows.reduce((s,r)=>s+r.units,0);
-  const totalRev = rows.reduce((s,r)=>s+r.revenue,0);
-  const liveOrders = store.get("opalera.orders", []).length;
-  const last3 = rows.slice(-3).reduce((s,r)=>s+r.units,0)/3;
-  const prev3 = rows.slice(-6,-3).reduce((s,r)=>s+r.units,0)/3 || 1;
-  const delta = Math.round((last3-prev3)/prev3*100);
-  const catalogue = allProducts().length;
-  const lowStock = allProducts().filter(p=>stockOf(p.id)<=3).length;
-  $("kpis").innerHTML = `
-    <div class="kpi"><div class="kl">Pieces sold (all time)</div><div class="kv">${totalUnits.toLocaleString("en-ZA")}</div>
-      <div class="kd ${delta>=0?"up":"down"}">${delta>=0?"▲":"▼"} ${Math.abs(delta)}% last 3 months vs prior — ${delta>=0?"the business is improving":"sales are declining"}</div></div>
-    <div class="kpi"><div class="kl">Revenue (all time)</div><div class="kv">${fmt(totalRev)}</div><div class="kd" style="color:var(--mut)">incl. sample history</div></div>
-    <div class="kpi"><div class="kl">Live orders (this browser)</div><div class="kv">${liveOrders}</div><div class="kd" style="color:var(--mut)">placed via the storefront</div></div>
-    <div class="kpi"><div class="kl">Catalogue</div><div class="kv">${catalogue}</div><div class="kd ${lowStock?"down":"up"}">${lowStock} piece${lowStock===1?"":"s"} low on stock</div></div>`;
-  drawMonthly(rows);
-  drawPie("chPie", "pieLegend", [
-    {n:"Necklaces", v:rows.reduce((s,r)=>s+r.necklaces,0), c:CATCOL.necklaces},
-    {n:"Earrings", v:rows.reduce((s,r)=>s+r.earrings,0), c:CATCOL.earrings},
-    {n:"Pendants", v:rows.reduce((s,r)=>s+r.pendants,0), c:CATCOL.pendants},
-  ]);
-  drawProv(rows);
+/* registered users per day*/
+const dayKey = ts => new Date(ts).toISOString().slice(0,10);
+const dayLabel = k => new Date(k+"T12:00:00").toLocaleDateString("en-ZA",{day:"numeric",month:"short"});
+function usersPerDay(){
+  const [a,b] = periodRange();
+  const counts = {};
+  patrons.forEach(u=>{
+    if(!u.createdAt) return;
+    const t = new Date(u.createdAt).getTime();
+    if(t<a || t>b) return;
+    const k = dayKey(t); counts[k] = (counts[k]||0)+1;
+  });
+  return Object.entries(counts).sort((p,q)=>p[0].localeCompare(q[0]));
 }
 
-/* ---------- engagement ---------- */
+/*REPORTS */
+function renderDash(){
+  if($("console").classList.contains("hidden")) return;
+  const lines = filteredLines();
+  const live = lines.filter(l=>!l.sample);
+
+  /* monthly series — every month from first to last sale in the selection */
+  const byMonth = {};
+  lines.forEach(l=>{ const m = byMonth[l.month] || (byMonth[l.month] = {month:l.month, sample:0, live:0, revenue:0});
+                     l.sample ? m.sample += l.units : m.live += l.units; m.revenue += l.revenue; });
+  const months = Object.keys(byMonth).sort();
+  const series = [];
+  if(months.length){
+    let [y,m] = months[0].split("-").map(Number); const last = months[months.length-1];
+    for(let k = months[0]; k <= last; ){ series.push(byMonth[k] || {month:k, sample:0, live:0, revenue:0}); m++; if(m>12){ m=1; y++; } k = `${y}-${String(m).padStart(2,"0")}`; }
+  }
+
+  const units = lines.reduce((s,l)=>s+l.units,0);
+  const revenue = Math.round(lines.reduce((s,l)=>s+l.revenue,0));
+  const orderRefs = new Set(live.map(l=>l.ref));
+  const liveRevenue = live.reduce((s,l)=>s+l.revenue,0);
+  const distinct = new Set(live.map(l=>l.pid));
+  const last3 = series.slice(-3).reduce((s,r)=>s+r.sample+r.live,0)/3;
+  const prev3 = series.slice(-6,-3).reduce((s,r)=>s+r.sample+r.live,0)/3;
+  const delta = prev3 ? Math.round((last3-prev3)/prev3*100) : null;
+
+  /* stock on hand for the selected collections */
+  const cat = allProducts().filter(p=>F.cat==="all" || p.category===F.cat);
+  const onHand = cat.reduce((s,p)=>s+stockOf(p.id),0);
+  const low = cat.filter(p=>stockOf(p.id)<=3).length;
+  const newUsers = usersPerDay().reduce((s,[,n])=>s+n,0);
+
+  /* the text-based control: how many different catalogue pieces were sold */
+  $("distinctSold").value = `${distinct.size} of ${allProducts().length} catalogued pieces`;
+  $("fSummary").textContent = `Showing ${periodLabel()} · ${F.cat==="all"?"all collections":CATNAME[F.cat]} · ${F.prov==="all"?"all provinces":F.prov} · ${ {all:"sample + live", live:"live orders", sample:"sample history"}[F.source] }`;
+  $("mSub").textContent = series.length ? `${series[0].month} → ${series[series.length-1].month}` : "";
+  $("uSub").textContent = periodLabel();
+
+  $("kpis").innerHTML = `
+    <div class="kpi"><div class="kl">Pieces sold</div><div class="kv">${units.toLocaleString("en-ZA")}</div>
+      <div class="kd ${delta===null?"":delta>=0?"up":"down"}">${delta===null ? "not enough months to compare" : `${delta>=0?"▲":"▼"} ${Math.abs(delta)}% last 3 months vs prior — ${delta>=0?"improving":"declining"}`}</div></div>
+    <div class="kpi"><div class="kl">Revenue</div><div class="kv">${fmt(revenue)}</div><div class="kd">VAT-inclusive, after discounts</div></div>
+    <div class="kpi"><div class="kl">Orders (live)</div><div class="kv">${orderRefs.size}</div><div class="kd">${orderRefs.size ? "avg. order " + fmt(Math.round(liveRevenue/orderRefs.size)) : "none in this selection"}</div></div>
+    <div class="kpi"><div class="kl">Different products sold</div><div class="kv">${distinct.size}</div><div class="kd">distinct pieces across live orders</div></div>
+    <div class="kpi"><div class="kl">Stock on hand</div><div class="kv">${onHand.toLocaleString("en-ZA")}</div><div class="kd ${low?"down":"up"}">${cat.length} live pieces · ${low} low or out</div></div>
+    <div class="kpi"><div class="kl">New patrons</div><div class="kv">${newUsers}</div><div class="kd">registered ${periodLabel()}</div></div>`;
+
+  drawMonthly(series);
+  drawPie("chPie", "pieLegend", CATS.map(c=>({ n:CATNAME[c], v:lines.filter(l=>l.category===c).reduce((s,l)=>s+l.units,0), c:CATCOL[c] })));
+
+  const prov = {};
+  lines.forEach(l=>{ prov[l.province] = (prov[l.province]||0) + l.units; });
+  const provEntries = Object.entries(prov).sort((a,b)=>b[1]-a[1]);
+  drawBars("chProv", provEntries, "#31445a");
+  $("provEmpty").classList.toggle("hidden", !!provEntries.length);
+
+  drawBars("chUsers", usersPerDay().map(([k,n])=>[dayLabel(k), n]), "#2f5fb3");
+
+  /* best sellers */
+  const top = {};
+  live.forEach(l=>{ const t = top[l.pid] || (top[l.pid] = {name:l.name, category:l.category, units:0, revenue:0}); t.units += l.units; t.revenue += l.revenue; });
+  const topList = Object.values(top).sort((a,b)=>b.units-a.units || b.revenue-a.revenue).slice(0,8);
+  $("topRows").innerHTML = topList.map(t=>`<tr><td>${esc(t.name)}</td><td><span class="chip ${t.category.slice(0,3)}">${t.category}</span></td><td class="num">${t.units}</td><td class="num">${fmt(Math.round(t.revenue))}</td></tr>`).join("");
+  $("topEmpty").classList.toggle("hidden", !!topList.length);
+
+  /* stock on hand by collection */
+  $("stockRows").innerHTML = CATS.filter(c=>F.cat==="all"||c===F.cat).map(c=>{
+    const ps = allProducts().filter(p=>p.category===c);
+    const u = ps.reduce((s,p)=>s+stockOf(p.id),0);
+    const lo = ps.filter(p=>stockOf(p.id)<=3).length;
+    const val = ps.reduce((s,p)=>s+stockOf(p.id)*p.price,0);
+    return `<tr><td><span class="chip ${c.slice(0,3)}">${CATNAME[c]}</span></td><td class="num">${ps.length}</td><td class="num">${u}</td><td class="num">${lo}</td><td class="num">${fmt(val)}</td></tr>`;
+  }).join("");
+}
+
+/* ENGAGEMENT */
 function renderEngage(){
-  const ranked = products.map(p=>({p, v:votesOf(p.id)})).sort((a,b)=>b.v.pct-a.v.pct || (b.v.up-a.v.up));
+  const list = allProducts();
+  const ranked = list.map(p=>({p, v:votesOf(p.id)})).sort((a,b)=>b.v.pct-a.v.pct || (b.v.up-a.v.up));
   $("likeRows").innerHTML = ranked.slice(0,12).map(({p,v})=>`
     <tr><td>${esc(p.name)}</td>
     <td><span class="chip ${p.category.slice(0,3)}">${p.category}</span></td>
     <td class="num">${v.up}</td><td class="num">${v.down}</td>
     <td><div class="pctbar" title="${v.pct}%"><i style="width:${v.pct}%"></i></div> <span style="font-size:.7rem">${v.pct}%</span></td></tr>`).join("");
-  const byCat = { necklace:{up:0,down:0}, earrings:{up:0,down:0}, pendant:{up:0,down:0} };
-  products.forEach(p=>{ const v = votesOf(p.id); byCat[p.category].up += v.up; byCat[p.category].down += v.down; });
-  drawPie("chLikePie", "likePieLegend", [
-    {n:"Necklaces 👍", v:byCat.necklace.up, c:CATCOL.necklaces},
-    {n:"Earrings 👍", v:byCat.earrings.up, c:CATCOL.earrings},
-    {n:"Pendants 👍", v:byCat.pendant.up, c:CATCOL.pendants},
-  ]);
+  const byCat = { necklace:0, earrings:0, pendant:0 };
+  list.forEach(p=>{ byCat[p.category] = (byCat[p.category]||0) + votesOf(p.id).up; });
+  drawPie("chLikePie", "likePieLegend", CATS.map(c=>({ n:CATNAME[c]+" 👍", v:byCat[c], c:CATCOL[c] })));
 }
 
-/* ---------- inventory ---------- */
+/* INVENTORY & PRODUCT MANAGEMENT */
+const INV = { q:"", cat:"all", status:"all" };
+$("invSearch").addEventListener("input", e=>{ INV.q = e.target.value.trim().toLowerCase(); renderInv(); });
+$("invCat").addEventListener("change", e=>{ INV.cat = e.target.value; renderInv(); });
+$("invStatus").addEventListener("change", e=>{ INV.status = e.target.value; renderInv(); });
+const statusOf = (p, hidden) => hidden ? "hidden" : stockOf(p.id)<=0 ? "out" : stockOf(p.id)<=3 ? "low" : "live";
+const STATUS_CHIP = { hidden:'<span class="chip hidden">retired</span>', out:'<span class="chip out">out of stock</span>',
+                      low:'<span class="chip low">low stock</span>', live:'<span class="chip live">live</span>' };
+
 function renderInv(){
   const hid = hiddenIds();
-  const list = [...products, ...customProducts()];
-  $("invCount").textContent = `${list.length - hid.size} live · ${hid.size} retired`;
+  const all = products.slice().sort((a,b)=>a.id-b.id);
+  $("invCount").textContent = `${all.length - hid.size} live · ${hid.size} retired`;
+  const rows = all.filter(p=>{
+    const st = statusOf(p, hid.has(p.id));
+    return (INV.cat==="all" || p.category===INV.cat)
+      && (INV.status==="all" || INV.status===st)
+      && (!INV.q || p.name.toLowerCase().includes(INV.q) || String(p.id)===INV.q.replace("#",""));
+  });
   $("invRows").innerHTML = "";
-  list.forEach(p=>{
-    const stock = stockOf(p.id);
-    const hidden = hid.has(p.id);
+  if(!rows.length){ $("invRows").innerHTML = '<tr><td colspan="7" class="empty">No pieces match.</td></tr>'; return; }
+  rows.forEach(p=>{
+    const hidden = hid.has(p.id), stock = stockOf(p.id);
     const tr = document.createElement("tr");
+    if(String(p.id) === $("pfId").value) tr.className = "editing";
     tr.innerHTML = `
       <td>${p.id}</td>
-      <td>${esc(p.name)}${p.custom ? ' <span class="chip live">new</span>' : ""}</td>
+      <td><span class="pname"><img class="thumb" src="${esc(p.img||"")}" alt="" loading="lazy" onerror="this.style.visibility='hidden'">${esc(p.name)}${p.custom ? ' <span class="chip live">new</span>' : ""}</span></td>
       <td><span class="chip ${p.category.slice(0,3)}">${p.category}</span></td>
       <td class="num">${fmt(p.price)}</td>
       <td class="num"><input class="stockin" type="number" min="0" value="${stock}" aria-label="Stock for ${esc(p.name)}"></td>
-      <td>${hidden ? '<span class="chip hidden">retired</span>' : stock<=0 ? '<span class="chip out">out of stock</span>' : stock<=3 ? '<span class="chip low">low stock</span>' : '<span class="chip live">live</span>'}</td>
-      <td><button class="mini-btn ${hidden?"good":"danger"}">${hidden ? "Restore" : "Retire"}</button></td>`;
+      <td>${STATUS_CHIP[statusOf(p, hidden)]}</td>
+      <td style="white-space:nowrap">
+        <button class="mini-btn act-edit">Edit</button>
+        <button class="mini-btn ${hidden?"good":"danger"} act-hide">${hidden ? "Restore" : "Retire"}</button>
+        <button class="mini-btn danger act-del" title="Remove this piece from the database">Delete</button>
+      </td>`;
     tr.querySelector(".stockin").addEventListener("change", e=>{
-      setStock(p.id, +e.target.value); renderInv(); renderDash();
+      e.target.disabled = true;
+      managerApi.updateProduct(p.id, { stock:+e.target.value })
+        .then(()=>{ renderInv(); renderDash(); })
+        .catch(err=>{ e.target.disabled = false; alert(err.message); });
     });
-    tr.querySelector(".mini-btn").addEventListener("click", ()=>{
-      setHidden(p.id, !hidden); renderInv();
+    tr.querySelector(".act-hide").addEventListener("click", ()=>
+      managerApi.updateProduct(p.id, { hidden:!hidden }).then(()=>{ renderInv(); renderDash(); renderEngage(); }).catch(err=>alert(err.message)));
+    tr.querySelector(".act-edit").addEventListener("click", ()=>startEdit(p));
+    tr.querySelector(".act-del").addEventListener("click", ()=>{
+      const note = p.custom ? "" : "\n\nThis is one of the maison's signature pieces — Retire hides it from the storefront while keeping its history. Delete removes it from the database.";
+      if(!confirm(`Delete "${p.name}" (#${p.id}) from the catalogue?${note}`)) return;
+      managerApi.deleteProduct(p.id).then(()=>{ if(String(p.id)===$("pfId").value) resetForm(); renderAll(); }).catch(err=>alert(err.message));
     });
     $("invRows").appendChild(tr);
   });
 }
-$("addForm").addEventListener("submit", e=>{
+
+function resetForm(){
+  $("pf").reset(); $("pfId").value = ""; $("npStock").value = 5;
+  $("pfTitle").textContent = "Add a new piece"; $("pfSave").textContent = "Add Piece";
+  $("pfCancel").classList.add("hidden"); $("npPreview").hidden = true;
+  document.querySelectorAll("#invRows tr.editing").forEach(t=>t.classList.remove("editing"));
+}
+function startEdit(p){
+  $("pfId").value = p.id;
+  $("npName").value = p.name; $("npCat").value = p.category; $("npPrice").value = p.price;
+  $("npStock").value = stockOf(p.id); $("npImg").value = p.img || ""; $("npDesc").value = p.desc || "";
+  $("pfTitle").textContent = `Edit piece #${p.id} — ${p.name}`; $("pfSave").textContent = "Save Changes";
+  $("pfCancel").classList.remove("hidden"); $("addMsg").textContent = "";
+  showPreview(p.img);
+  renderInv();
+  $("pfPanel").scrollIntoView({ behavior:"smooth", block:"start" });
+  $("npName").focus();
+}
+function showPreview(url){
+  const im = $("npPreview");
+  if(!url){ im.hidden = true; return; }
+  im.hidden = false; im.src = url; im.onerror = ()=>{ im.hidden = true; };
+}
+$("npImg").addEventListener("change", e=>showPreview(e.target.value.trim()));
+$("pfCancel").addEventListener("click", resetForm);
+$("pf").addEventListener("submit", async e=>{
   e.preventDefault();
-  const name = $("npName").value.trim(), price = +$("npPrice").value;
-  if(!name || !(price>0)){ $("addMsg").textContent = "A name and a positive price are required."; $("addMsg").style.color="var(--bad)"; return; }
-  const id = addCustomProduct({ name, category:$("npCat").value, price,
-    img:$("npImg").value.trim(), desc:$("npDesc").value.trim() });
-  setStock(id, 5);
-  $("addMsg").style.color = "var(--good)";
-  $("addMsg").textContent = `Added as piece #${id} with stock 5 — live on the storefront (customers see it after a refresh).`;
-  e.target.reset();
-  renderInv(); renderDash();
+  const id = $("pfId").value;
+  const fields = { name:$("npName").value.trim(), category:$("npCat").value, price:+$("npPrice").value,
+                   stock:+$("npStock").value, img:$("npImg").value.trim(), desc:$("npDesc").value.trim() };
+  const msg = $("addMsg");
+  if(!fields.name || !(fields.price>0)){ msg.style.color = "var(--bad)"; msg.textContent = "A name and a positive price are required."; return; }
+  $("pfSave").disabled = true;
+  try{
+    if(id){
+      const p = await managerApi.updateProduct(+id, fields);
+      msg.style.color = "var(--good)"; msg.textContent = `Saved — piece #${p.id} is updated on the storefront and its product page.`;
+      resetForm();
+    }else{
+      const p = await managerApi.addProduct(fields);
+      msg.style.color = "var(--good)"; msg.textContent = `Added as piece #${p.id} with stock ${p.stock} — live on the storefront now.`;
+      resetForm();
+    }
+    renderAll();
+  }catch(err){ msg.style.color = "var(--bad)"; msg.textContent = err.message; }
+  finally{ $("pfSave").disabled = false; }
 });
 
-/* ---------- orders ---------- */
+/* ORDERS  */
+const ORD = { q:"", method:"all" };
+$("ordSearch").addEventListener("input", e=>{ ORD.q = e.target.value.trim().toLowerCase(); renderOrders(); });
+$("ordMethod").addEventListener("change", e=>{ ORD.method = e.target.value; renderOrders(); });
+const METHOD = { card:"Card", eft:"Instant EFT", cod:"Pay at counter" };
 function renderOrders(){
-  const orders = store.get("opalera.orders", []).slice().reverse();
-  $("ordEmpty").hidden = !!orders.length;
-  $("ordRows").innerHTML = orders.map(o=>{
-    const d = new Date(o.placed);
-    const items = o.items.reduce((s,it)=>s+(it.qty||1),0);
+  const rows = liveOrders.filter(o => (ORD.method==="all" || o.method===ORD.method)
+    && (!ORD.q || (o.ref||"").toLowerCase().includes(ORD.q) || (o.email||"").toLowerCase().includes(ORD.q)));
+  $("ordCount").textContent = `${rows.length} of ${liveOrders.length} orders`;
+  $("ordEmpty").classList.toggle("hidden", !!rows.length);
+  $("ordRows").innerHTML = rows.map(o=>{
+    const d = new Date(o.placedAt || o.placed);
+    const items = (o.items||[]).reduce((s,it)=>s+(it.qty||1),0);
     return `<tr><td>${esc(o.ref)}</td>
       <td>${d.toLocaleDateString("en-ZA")}</td>
-      <td>${esc(o.user||"—")}</td>
-      <td>${o.address ? esc([o.address.city,o.address.province].filter(Boolean).join(", ")) : "—"}</td>
+      <td>${esc(o.email||o.user||"—")}</td>
+      <td>${o.address ? esc([o.address.city,o.address.province].filter(Boolean).join(", ")) : COLLECT}</td>
       <td class="num">${items}</td>
       <td class="num">${fmt(o.vat||0)}</td>
       <td class="num"><b>${fmt(o.total)}</b></td>
-      <td>${o.method==="card"?"Card":"EFT"}</td>
+      <td>${METHOD[o.method] || "—"}</td>
+      <td><span class="chip ${o.status==="paid"?"live":"low"}">${esc(o.status||"paid")}</span></td>
       <td><a href="invoice.html#ref=${esc(o.ref)}" target="_blank" rel="noopener" style="font-size:.7rem">invoice ↗</a></td></tr>`;
   }).join("");
 }
 
-function renderAll(){ renderDash(); renderEngage(); renderInv(); renderOrders(); }
+/*PATRONS*/
+function renderPatrons(){
+  const list = patrons.slice().sort((a,b)=>new Date(b.createdAt||0) - new Date(a.createdAt||0));
+  $("patCount").textContent = `${list.length} registered · ${list.filter(u=>u.role==="manager").length} manager`;
+  $("patRows").innerHTML = list.map(u=>`<tr>
+    <td>${esc(u.firstName)} ${esc(u.lastName)}</td><td>${esc(u.email)}</td>
+    <td><span class="chip ${u.role==="manager"?"mgr":"pat"}">${esc(u.role)}</span></td>
+    <td>${u.createdAt ? new Date(u.createdAt).toLocaleDateString("en-ZA",{day:"numeric",month:"short",year:"numeric"}) : "—"}</td>
+    <td class="num">${u.orders||0}</td></tr>`).join("");
+  const days = {};
+  patrons.forEach(u=>{ if(u.createdAt){ const k = dayKey(new Date(u.createdAt).getTime()); days[k] = (days[k]||0)+1; } });
+  $("dayRows").innerHTML = Object.entries(days).sort((a,b)=>b[0].localeCompare(a[0]))
+    .map(([k,n])=>`<tr><td>${new Date(k+"T12:00:00").toLocaleDateString("en-ZA",{weekday:"short",day:"numeric",month:"short",year:"numeric"})}</td><td class="num">${n}</td></tr>`).join("")
+    || '<tr><td colspan="2" class="empty">No sign-ups recorded.</td></tr>';
+}
+
+function renderAll(){ renderDash(); renderEngage(); renderInv(); renderOrders(); renderPatrons(); }
 window.addEventListener("resize", ()=>{ if(!$("console").classList.contains("hidden")) renderDash(); });
-window.addEventListener("storage", ()=>{ if(!$("console").classList.contains("hidden")) renderAll(); });
+
+/*  boot  */
+attachPasswordToggles();
+refreshGate();                  
+managerApi.me().then(u => { if(!!u !== !!mgr){ mgr = u; refreshGate(); } });  
 </script>
 </body>
 </html>

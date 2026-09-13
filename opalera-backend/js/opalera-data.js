@@ -636,8 +636,11 @@ const OPALERA = (() => {
       store.set("opalera.wishlist", mergedWish);
     }catch(e){ /* keep local state if the sync fails; nothing is lost */ }
   }
-  const pushBag = () => { if(currentUser()) api("/cart", {method:"PUT", body:{items: store.get("opalera.bag", [])}}).catch(()=>{}); };
-  const pushWishlist = () => { if(currentUser()) api("/wishlist", {method:"PUT", body:{pids: store.get("opalera.wishlist", [])}}).catch(()=>{}); };
+  /* a 401 here means the browser still remembers a patron the server has forgotten (expired
+     or cleared session) — drop the mirror so the page stops pushing and shows the guest state */
+  const staleSession = e => { if(e && e.status === 401) store.set("opalera.serverUser", null); };
+  const pushBag = () => { if(currentUser()) api("/cart", {method:"PUT", body:{items: store.get("opalera.bag", [])}}).catch(staleSession); };
+  const pushWishlist = () => { if(currentUser()) api("/wishlist", {method:"PUT", body:{pids: store.get("opalera.wishlist", [])}}).catch(staleSession); };
   /* pull all patron reviews from the server into the local mirror that
      ratingOf() and the review lists already read */
   async function pullReviews(){

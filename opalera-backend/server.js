@@ -15,7 +15,10 @@ const path = require("path");
 const { URL } = require("url");
 
 const PORT = process.env.PORT || 3000;
-const DB_FILE = path.join(__dirname, "data", "db.json");
+// DATA_DIR lets a host mount a persistent disk (e.g. Render) so orders survive redeploys
+const DATA_DIR = process.env.DATA_DIR || path.join(__dirname, "data");
+fs.mkdirSync(DATA_DIR, { recursive: true });
+const DB_FILE = path.join(DATA_DIR, "db.json");
 // Serve the full multi-page OPALÉRA site (storefront, product pages,
 // payment, invoices, account, manager console) when this backend sits
 // inside the jewellery folder. Deployed standalone (e.g. on Render),
@@ -502,6 +505,18 @@ route("GET", "/api/admin/orders", async (req, res, ctx) => {
   const orders = db.orders.slice().sort((a, b) => new Date(b.placedAt) - new Date(a.placedAt));
   send(res, 200, { orders });
 });
+// remove a patron account (never a manager); orders and reviews stay as records
+route("DELETE", "/api/admin/users/:email", async (req, res, ctx) => {
+  if (!requireManager(ctx, res)) return;
+  const email = String(ctx.params.email || "").toLowerCase();
+  const u = db.users[email];
+  if (!u) return send(res, 404, { error: "No such account." });
+  if (u.role === "manager") return send(res, 400, { error: "Manager accounts can't be removed here." });
+  delete db.users[email]; delete db.carts[email]; delete db.wishlists[email]; delete db.resets[email];
+  for (const [t, s] of Object.entries(db.sessions)) if (s.email === email) delete db.sessions[t];
+  saveDb();
+  send(res, 200, { removed: email });
+});
 route("GET", "/api/admin/users", async (req, res, ctx) => {
   if (!requireManager(ctx, res)) return;
   const users = Object.values(db.users).map(u => ({
@@ -544,6 +559,17 @@ route("POST", "/api/reviews", async (req, res, ctx) => {
   db.reviews.push(review);
   saveDb();
   send(res, 201, { review });
+});
+
+// a patron may remove their own review; a manager may remove any
+route("DELETE", "/api/reviews/:id", async (req, res, ctx) => {
+  const i = db.reviews.findIndex(r => r.id === ctx.params.id);
+  if (i === -1) return send(res, 404, { error: "No such review." });
+  const mgr = ctx.manager && db.users[ctx.manager] && db.users[ctx.manager].role === "manager";
+  if (!mgr && db.reviews[i].email !== ctx.email) return send(res, ctx.email ? 403 : 401, { error: "You can only remove your own review." });
+  const [removed] = db.reviews.splice(i, 1);
+  saveDb();
+  send(res, 200, { removed: { id: removed.id, pid: removed.pid } });
 });
 
 /* ---- Orders / checkout ---- */

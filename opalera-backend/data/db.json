@@ -9,33 +9,6 @@
       "createdAt": "2026-09-02T21:55:54.079Z",
       "role": "patron"
     },
-    "testrun@example.com": {
-      "firstName": "Test",
-      "lastName": "Runner",
-      "email": "testrun@example.com",
-      "salt": "b6b10afff123dd7f4515ae4590d14be7",
-      "hash": "b9042e4e01a6f34b4425c58f49f457a1eeb31da32b13762bb83e7ec2e1ccbdbf903e5b18bad1191460fcb90a586f217e3c70779469aa0a0e10b48c3e449a333c",
-      "createdAt": "2026-09-02T23:10:39.305Z",
-      "role": "patron"
-    },
-    "khuthadzokhuthi789@gmail.com": {
-      "firstName": "Khuthadzo",
-      "lastName": "Thedzisani",
-      "email": "khuthadzokhuthi789@gmail.com",
-      "salt": "67a2f0c1914dd4c9b7c947160afc23b4",
-      "hash": "359129c74176d7451f68e5e2fd81034c7ad98ac49c834e17aafdf9c9552fc93036b6245b005b69274c25bc14c584bba60e3c156d57bea4b3e860877755117f1d",
-      "createdAt": "2026-09-03T11:54:05.334Z",
-      "role": "patron"
-    },
-    "resettest@example.com": {
-      "firstName": "Reset",
-      "lastName": "Test",
-      "email": "resettest@example.com",
-      "salt": "8adb46d8fc28da4fb8e34e62b9347075",
-      "hash": "2a044683ecc82e7c62f6dc0db5a1ce0345548e4440abd95e3a3f9cf0d43af6ee994f511c7ff618de0e3a89053224720d4378c028c0ea0c6a53c6b269bc3f01ba",
-      "createdAt": "2026-09-05T20:16:46.011Z",
-      "role": "patron"
-    },
     "manager@opalera.co.za": {
       "firstName": "Ompha",
       "lastName": "Manager",
@@ -46,64 +19,7 @@
       "createdAt": "2026-09-09T11:19:30.386Z"
     }
   },
-  "sessions": {
-    "ad0c89bc005c251b43b344159113d3b0abbf2f7a1b4ee15d905d594961290bb2": {
-      "email": "demo@example.com",
-      "expires": 1790978154079
-    },
-    "74065858c37ff0d52c131c979f4ec4c69b026aa9378dba7466b32f92a7f05021": {
-      "email": "testrun@example.com",
-      "expires": 1791028153316
-    },
-    "68d027d2e677a9318c56de934112daa0191fc03c6da717b3cee86b5f3db80a90": {
-      "email": "testrun@example.com",
-      "expires": 1791028153808
-    },
-    "4bfa4443e4a05d4b6a8f6343a368bad9bc3893d2c9a713d43a24cc8f2de1f238": {
-      "email": "khuthadzokhuthi789@gmail.com",
-      "expires": 1791028835461
-    },
-    "38c992aaa11be9bc730d0d862bdbc9c59704b9bd862f93dc9174b4299177051d": {
-      "email": "demo@example.com",
-      "expires": 1791029508044
-    },
-    "44df283ceb6249880d56bb21b2c2507771bd78f1b3541aed76e53f202f182d4e": {
-      "email": "demo@example.com",
-      "expires": 1791229987560
-    },
-    "1b24e4137c785e6cd57c57d827678dbe810c52270f70c5eadf56b0a62099ade4": {
-      "email": "demo@example.com",
-      "expires": 1791230496547
-    },
-    "a990acb923fe82f1ac495fa70897b9ee450de94c4ab6f9a418177e048419ceaa": {
-      "email": "demo@example.com",
-      "expires": 1791231405246
-    },
-    "c0570f9ce847640f62a61778ec81fd05bf1d70664945c138bddb3af95490e8c7": {
-      "email": "resettest@example.com",
-      "expires": 1791231406792
-    },
-    "42a164db249342b3f10d19ac56982a965361cc3592a6a3e5857fadc388787cf5": {
-      "email": "resettest@example.com",
-      "expires": 1791231407166
-    },
-    "55ea7720d89adec5576ddd1fbb6bf73e55c91636fcfdd13f6f40d06e5e780650": {
-      "email": "demo@example.com",
-      "expires": 1791232641281
-    },
-    "69e8c84a8f245178461f59e9d682f2d9cc32db854a995baa2072f4e70f504ff0": {
-      "email": "demo@example.com",
-      "expires": 1791542323066
-    },
-    "df6a772d1dafeda7e846e60437e1ad5fe6ee4319486a72e41072ad414111332d": {
-      "email": "demo@example.com",
-      "expires": 1791544956894
-    },
-    "4dd748510196bf1db400a815dd16667352328c19d5c1a8b0a3eee3b7da315ff4": {
-      "email": "manager@opalera.co.za",
-      "expires": 1791545267913
-    }
-  },
+  "sessions": {},
   "orders": [
     {
       "id": "fb1f4619-5d17-4503-9c4b-88333f9dd76a",
@@ -205,38 +121,6 @@
       "placedAt": "2026-09-02T23:01:30.674Z"
     },
     {
-      "id": "fd70c43c-a3e1-4163-908c-ede0fc0ac5ba",
-      "ref": "OP-MTKPM23K",
-      "email": "testrun@example.com",
-      "items": [
-        {
-          "pid": 5,
-          "custom": null,
-          "price": 1399,
-          "qty": 3
-        }
-      ],
-      "itemsTotal": 4197,
-      "promo": "GEM10",
-      "discount": 420,
-      "vat": 493,
-      "total": 3777,
-      "gift": {
-        "message": "testing"
-      },
-      "address": {
-        "name": "Test Runner",
-        "street": "9 Quantum St",
-        "city": "Johannesburg",
-        "postal": "2001",
-        "province": "Gauteng",
-        "phone": "071 000 0000"
-      },
-      "method": "card",
-      "status": "paid",
-      "placedAt": "2026-09-02T23:10:40.928Z"
-    },
-    {
       "id": "26dc85b5-bd6c-4b94-8b43-31292170c737",
       "ref": "OP-MTKQ48FP",
       "email": "demo@example.com",
@@ -264,108 +148,6 @@
       "method": "eft",
       "status": "paid",
       "placedAt": "2026-09-02T23:24:48.949Z"
-    },
-    {
-      "id": "72e88b40-e311-4b23-a78b-33475a79deb4",
-      "ref": "OP-MTLFZS6X",
-      "email": "testrun@example.com",
-      "items": [
-        {
-          "pid": 20,
-          "custom": null,
-          "price": 1039,
-          "qty": 2
-        },
-        {
-          "pid": 45,
-          "custom": null,
-          "price": 1119,
-          "qty": 1
-        }
-      ],
-      "itemsTotal": 3197,
-      "promo": null,
-      "discount": 0,
-      "vat": 417,
-      "total": 3197,
-      "gift": null,
-      "address": {
-        "name": "Test Runner",
-        "street": "9 Quantum St",
-        "city": "Pretoria",
-        "postal": "0002",
-        "province": "Gauteng",
-        "phone": ""
-      },
-      "method": "cod",
-      "status": "reserved",
-      "placedAt": "2026-09-03T11:29:11.289Z"
-    },
-    {
-      "id": "e24531b4-38a9-4d3b-ac0d-a0d7fe276dfe",
-      "ref": "OP-MTLH5CR0",
-      "email": "khuthadzokhuthi789@gmail.com",
-      "items": [
-        {
-          "pid": 3,
-          "custom": null,
-          "price": 2119,
-          "qty": 1
-        },
-        {
-          "pid": 23,
-          "custom": null,
-          "price": 2119,
-          "qty": 1
-        }
-      ],
-      "itemsTotal": 4238,
-      "promo": null,
-      "discount": 0,
-      "vat": 553,
-      "total": 4238,
-      "gift": null,
-      "address": {
-        "name": "Khuthadzo Thedzisani",
-        "street": "12 rosebank avenue",
-        "city": "johannesburg",
-        "postal": "0001",
-        "province": "Gauteng",
-        "phone": "0817877907"
-      },
-      "method": "eft",
-      "status": "paid",
-      "placedAt": "2026-09-03T12:01:30.828Z"
-    },
-    {
-      "id": "93b44ff2-2b88-4227-9223-91da18d76d07",
-      "ref": "OP-MTLH8SBK",
-      "email": "khuthadzokhuthi789@gmail.com",
-      "items": [
-        {
-          "pid": 22,
-          "custom": null,
-          "price": 1759,
-          "qty": 1
-        }
-      ],
-      "itemsTotal": 1759,
-      "promo": null,
-      "discount": 0,
-      "vat": 229,
-      "total": 1759,
-      "gift": null,
-      "address": {
-        "name": "Khuthadzo Thedzisani",
-        "street": "12 rosebank avenue",
-        "city": "johannesburg",
-        "postal": "0001",
-        "province": "Gauteng",
-        "phone": "0817877907"
-      },
-      "method": "card",
-      "status": "paid",
-      "placedAt": "2026-09-03T12:04:10.977Z"
     },
     {
       "id": "8e478845-c197-4680-a452-f9587d13609d",
@@ -470,94 +252,105 @@
       "method": "eft",
       "status": "paid",
       "placedAt": "2026-09-09T11:22:38.838Z"
+    },
+    {
+      "id": "7c0d91e8-b593-4cc6-8117-ae8326166611",
+      "ref": "OP-MTYQDBA3",
+      "email": "demo@example.com",
+      "items": [
+        {
+          "pid": 5,
+          "price": 1399,
+          "qty": 2,
+          "custom": null
+        }
+      ],
+      "itemsTotal": 2798,
+      "promo": "WELCOME10",
+      "discount": 280,
+      "vat": 328,
+      "total": 2518,
+      "gift": {
+        "message": "Test run"
+      },
+      "address": {
+        "name": "Demo Patron",
+        "street": "1 Test Rd",
+        "city": "Cape Town",
+        "postal": "8001",
+        "province": "Western Cape",
+        "phone": "0210000000"
+      },
+      "method": "card",
+      "status": "paid",
+      "placedAt": "2026-09-12T18:40:39.003Z"
+    },
+    {
+      "id": "270bb708-9261-42fa-bba5-8997d4a442f8",
+      "ref": "OP-MTZPNIBN",
+      "email": "demo@example.com",
+      "items": [
+        {
+          "pid": 5,
+          "price": 1399,
+          "qty": 2,
+          "custom": null
+        }
+      ],
+      "itemsTotal": 2798,
+      "promo": "WELCOME10",
+      "discount": 280,
+      "vat": 328,
+      "total": 2518,
+      "gift": {
+        "message": "Test run"
+      },
+      "address": {
+        "name": "Demo Patron",
+        "street": "1 Test Rd",
+        "city": "Cape Town",
+        "postal": "8001",
+        "province": "Western Cape",
+        "phone": "0210000000"
+      },
+      "method": "card",
+      "status": "paid",
+      "placedAt": "2026-09-13T11:08:21.251Z"
     }
   ],
   "reviews": [
     {
-      "id": "9805faf1-fb84-44c1-a2ae-3b351d09ad1e",
+      "id": "seed-review-1",
       "pid": 1,
       "stars": 5,
-      "text": "The maison delivers — tested end to end.",
+      "text": "Arrived in two days, beautifully boxed — the sapphire is deeper in person than in the photos.",
       "email": "demo@example.com",
       "name": "Demo P.",
       "verified": true,
-      "createdAt": "2026-09-02T21:55:54.520Z"
+      "createdAt": "2026-09-04T09:12:00.000Z"
     },
     {
-      "id": "b5e533d1-5dcd-4e1a-81b8-c2b5d11dd2ca",
+      "id": "seed-review-2",
       "pid": 5,
-      "stars": 5,
-      "text": "test run review",
-      "email": "testrun@example.com",
-      "name": "Test R.",
-      "verified": true,
-      "createdAt": "2026-09-02T23:10:42.669Z"
-    },
-    {
-      "id": "2f36892d-c285-41b9-b9ef-c5549b8b2dcb",
-      "pid": 77,
       "stars": 4,
-      "text": "not bought",
-      "email": "testrun@example.com",
-      "name": "Test R.",
-      "verified": false,
-      "createdAt": "2026-09-02T23:10:42.964Z"
-    },
-    {
-      "id": "a72d66fe-6a1a-4685-b7c9-12feb8ef156c",
-      "pid": 45,
-      "stars": 5,
-      "text": "final test pass",
-      "email": "testrun@example.com",
-      "name": "Test R.",
-      "verified": true,
-      "createdAt": "2026-09-03T11:29:12.414Z"
-    },
-    {
-      "id": "cfd389fa-7c0a-4848-b0e4-d865582ed545",
-      "pid": 1,
-      "stars": 5,
-      "text": "teammate version works",
+      "text": "Delicate and light; I wear it daily. The clasp took a day to get used to.",
       "email": "demo@example.com",
       "name": "Demo P.",
       "verified": true,
-      "createdAt": "2026-09-05T19:53:07.948Z"
-    },
-    {
-      "id": "7e5acf43-d969-4026-b539-89c329ef072e",
-      "pid": 1,
-      "stars": 5,
-      "text": "final run",
-      "email": "demo@example.com",
-      "name": "Demo P.",
-      "verified": true,
-      "createdAt": "2026-09-05T20:16:48.774Z"
+      "createdAt": "2026-09-10T16:40:00.000Z"
     }
   ],
   "wishlists": {
     "demo@example.com": [
-      1,
-      9,
-      42
-    ],
-    "testrun@example.com": [
-      20,
-      45,
-      62
+      3,
+      7,
+      9
     ]
   },
   "carts": {
-    "demo@example.com": [],
-    "testrun@example.com": [],
-    "khuthadzokhuthi789@gmail.com": []
+    "demo@example.com": []
   },
-  "resets": {
-    "demo@example.com": {
-      "code": "440578",
-      "expires": 1788640211230,
-      "attempts": 0
-    }
-  },
+  "resets": {},
   "products": [
     {
       "id": 1,
@@ -568,7 +361,8 @@
       "desc": "",
       "stock": 18,
       "hidden": false,
-      "custom": false
+      "custom": false,
+      "updatedAt": "2026-09-12T12:35:20.749Z"
     },
     {
       "id": 2,
@@ -580,7 +374,7 @@
       "stock": 16,
       "hidden": false,
       "custom": false,
-      "updatedAt": "2026-09-09T11:27:42.826Z"
+      "updatedAt": "2026-09-12T17:26:53.489Z"
     },
     {
       "id": 3,
@@ -611,7 +405,7 @@
       "price": 1399,
       "img": "https://images.pexels.com/photos/7541803/pexels-photo-7541803.jpeg?auto=compress&cs=tinysrgb&w=1200",
       "desc": "",
-      "stock": 7,
+      "stock": 3,
       "hidden": false,
       "custom": false
     },

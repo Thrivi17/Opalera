@@ -54,6 +54,14 @@ Pages link to styles and scripts with root-absolute paths (`/css/…`,
 - **Order tracking timeline** — every order has a live Placed → Paid → Packed → Shipped → Delivered timeline (a collection path for pay-at-counter orders) at `pages/tracking.html`, with status chips on the account page
 - **QR code on invoices** — each invoice carries a scannable QR code (and a status strip) that opens that order's tracking page
 
+### Data & deployment notes
+
+- `opalera-backend/data/db.json` is the whole database. Set the environment variable `DATA_DIR` to keep it
+  somewhere else — on Render, mount a persistent disk and point `DATA_DIR` at it so orders and accounts
+  survive redeploys (on the free tier the disk is ephemeral and the database restarts from the repo's copy).
+- Managers can remove a patron account (`DELETE /api/admin/users/:email`); patrons can remove their own
+  reviews and managers any review (`DELETE /api/reviews/:id`).
+
 Product photography hotlinks to Pexels (free stock-photo library) at 1200px.
 Delete `opalera-backend/data/db.json` to reset all demo accounts, orders and
 reviews (the catalogue re-seeds automatically on the next run).

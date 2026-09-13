@@ -1,0 +1,8 @@
+# duplicates created by the cloud-sync tool on team PCs
+*-MsKhuthadzo.*
+# local tooling
+node_modules/
+*.log
+.claude/
+.DS_Store
+Thumbs.db

@@ -574,13 +574,23 @@ $("fForm").addEventListener("submit", async e=>{
 });
 /* ---------- tabs ---------- */
 document.querySelectorAll(".tabbtn").forEach(b=>b.addEventListener("click", ()=>{
-  document.querySelectorAll(".tabbtn").forEach(x=>{ const on = x===b; x.classList.toggle("active", on); x.setAttribute("aria-selected", on); });
+  document.querySelectorAll(".tabbtn").forEach(x=>{ const on = x===b; x.classList.toggle("active", on); x.setAttribute("aria-selected", on); x.tabIndex = on ? 0 : -1; });
   document.querySelectorAll(".view").forEach(v=>v.classList.toggle("active", v.id === "v-"+b.dataset.v));
   moveInk();
   if(b.dataset.v === "dash") renderDash();     /* canvases size to a visible panel */
   if(b.dataset.v === "engage") renderEngage();
 }));
 window.addEventListener("resize", moveInk);
+/* WAI-ARIA tabs: one tab stop, arrow keys / Home / End move between tabs */
+document.querySelectorAll(".tabbtn").forEach(x=>{ x.tabIndex = x.classList.contains("active") ? 0 : -1; });
+document.querySelector(".tabsbar").addEventListener("keydown", e=>{
+  const tabs = [...document.querySelectorAll(".tabbtn")], i = tabs.indexOf(document.activeElement);
+  if(i < 0) return;
+  const n = e.key === "ArrowRight" ? (i+1) % tabs.length : e.key === "ArrowLeft" ? (i-1+tabs.length) % tabs.length
+          : e.key === "Home" ? 0 : e.key === "End" ? tabs.length-1 : null;
+  if(n === null) return;
+  e.preventDefault(); tabs[n].focus(); tabs[n].click();
+});
 if(document.fonts && document.fonts.ready) document.fonts.ready.then(moveInk);
 
 /* ---------- load everything the console shows ---------- */

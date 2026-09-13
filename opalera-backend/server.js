@@ -586,6 +586,16 @@ route("POST", "/api/orders", async (req, res, ctx) => {
   const method = ["card", "eft", "cod"].includes(body.method) ? body.method : "card";
   if (!items.length) return send(res, 400, { error: "Your bag is empty." });
 
+  // business rule: you cannot buy more of a piece than the vault holds
+  // (made-to-order customisations are exempt — they are crafted on demand)
+  for (const it of items) {
+    const p = db.products.find(x => x.id === Number(it.pid));
+    if (!p) return send(res, 400, { error: "One of the pieces in your bag no longer exists." });
+    if (p.hidden) return send(res, 400, { error: `${p.name} is no longer available.` });
+    const qty = Number(it.qty) || 1, stock = typeof p.stock === "number" ? p.stock : stockSeed(p.id);
+    if (!it.custom && qty > stock) return send(res, 400, { error: stock ? `Only ${stock} of ${p.name} left in the vault.` : `${p.name} is out of stock.` });
+  }
+
   // NOTE: this is where a real payment gateway call (Stripe / Paystack /
   // PayFast) would happen for "card" and "eft". Card details are
   // deliberately NOT accepted or stored here — only used client-side for

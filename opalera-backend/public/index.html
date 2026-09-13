@@ -1070,7 +1070,8 @@
 (async function(){
 /* Product catalogue now lives in the database (server.js/data/db.json)
    — fetched here instead of being hardcoded into the page. */
-const { products } = await api("/products");
+const { products: catalogue } = await api("/products");
+const products = catalogue.filter(p=>!p.hidden);   /* pieces the manager retired stay off the storefront */
 const byId = new Map(products.map(p=>[p.id,p]));
 
 /* Product photography hotlinks directly to Pexels (a free-to-use stock

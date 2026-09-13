@@ -15,7 +15,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
-<!-- Product photography hotlinks to Pexels  -->
+<!-- Product photography hotlinks to Pexels (images.pexels.com), a free
+     stock-photo library, requested at 1200px wide so it stays sharp at
+     every size it's shown at across the site. -->
 <style>
   :root{
     --bg:#0b0a10;
@@ -50,7 +52,7 @@
   :focus-visible{outline:2px solid var(--gold);outline-offset:2px}
   .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 
-  /* ANIMATED BACKGROUND */
+  /* ============ ANIMATED BACKGROUND ============ */
   .aurora{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
   .aurora span{
     position:absolute;border-radius:50%;filter:blur(60px);opacity:.28;
@@ -124,7 +126,7 @@
     #menuBtn{display:grid}
   }
 
-  /* HERO */
+  /* ============ HERO ============ */
   header{
     min-height:100vh;min-height:100svh;
     display:flex;flex-direction:column;justify-content:center;align-items:center;
@@ -170,14 +172,14 @@
   .float-gem{position:absolute;opacity:.6;animation:floatGem 9s ease-in-out infinite}
   @keyframes floatGem{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-26px) rotate(12deg)}}
 
-  /* SECTIONS */
+  /* ============ SECTIONS ============ */
   section{padding:6rem 6vw;max-width:1500px;margin:0 auto}
   .sec-head{display:flex;align-items:baseline;gap:1.4rem;margin-bottom:.8rem}
   .sec-num{font-family:var(--font-label);color:var(--gold);font-size:.8rem;letter-spacing:.3em}
   h2{font-size:clamp(2rem,4vw,3.1rem);font-weight:500;letter-spacing:.08em}
   .sec-sub{color:var(--muted);font-style:italic;margin-bottom:3rem;max-width:640px;line-height:1.7}
 
-  /* DATA / STATS */
+  /* ============ DATA / STATS ============ */
   .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
   .stat{background:var(--bg-2);padding:2.2rem 1.8rem;text-align:center;transition:background .4s}
   .stat:hover{background:#1b1828}
@@ -198,7 +200,7 @@
   .bar-val{text-align:right;color:var(--champagne)}
   .noscript-note{border:1px solid var(--line);background:var(--bg-2);padding:1.4rem;margin-bottom:2rem;color:var(--champagne);font-style:italic}
 
-  /* TOOLBAR */
+  /* ============ TOOLBAR ============ */
   .toolbar{
     display:flex;flex-wrap:wrap;gap:.9rem;align-items:center;justify-content:space-between;
     margin-bottom:1.2rem;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:1rem 0;
@@ -235,7 +237,7 @@
     .tab{padding:.85rem 1.2rem}
   }
 
-  /* PRODUCT GRID */
+  /* ============ PRODUCT GRID ============ */
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:1.8rem}
   @media(max-width:560px){.grid{grid-template-columns:repeat(2,1fr);gap:1rem}}
   .card{
@@ -255,6 +257,7 @@
   @keyframes shimmer{to{background-position:-220% 0}}
   .card .imgbox.ok{animation:none;background:#211e2e}
   .card img{width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .6s,transform .8s cubic-bezier(.22,1,.36,1);
+    /* HD presentation: full-brightness, enriched colour, sharpened downscale */
     filter:brightness(1.03) saturate(1.14) contrast(1.06);image-rendering:-webkit-optimize-contrast}
   .card .imgbox.ok img{opacity:1}
   .card:hover img{transform:scale(1.09)}
@@ -401,7 +404,7 @@
   .stu-summary .srow{display:flex;justify-content:space-between;gap:1rem}
   .stu-summary .srow span:last-child{color:var(--champagne);white-space:nowrap}
 
-  /* RATINGS, TRUST & PROMISE */
+  /* ============ RATINGS, TRUST & PROMISE ============ */
   .stars{font-size:.9rem;letter-spacing:.12em;color:var(--gold);white-space:nowrap}
   .stars .dim{color:rgba(216,180,90,.25)}
   .stars small{font-family:var(--font-label);font-size:.66rem;letter-spacing:.08em;color:var(--muted);margin-left:.45rem}
@@ -461,6 +464,7 @@
   .promise h3{font-size:1.25rem;font-weight:500;letter-spacing:.06em;margin-bottom:.6rem;color:var(--champagne)}
   .promise p{font-size:.92rem;line-height:1.8;color:var(--muted)}
 
+  /* ============ MODAL / DIALOGS ============ */
   .modal{
     position:fixed;inset:0;z-index:100;display:none;align-items:center;justify-content:center;padding:4vw;
     background:rgba(8,7,12,.82);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
@@ -530,7 +534,8 @@
     .sheet{grid-template-columns:1fr}
     .close{position:fixed;top:calc(4vw + .5rem);right:calc(4vw + .5rem);width:44px;height:44px}
   }
-     
+
+  /* auth modal */
   .authsheet{
     position:relative;background:var(--bg-2);border:1px solid var(--line);width:min(430px,100%);
     padding:2.6rem 2.4rem;animation:rise .5s cubic-bezier(.22,1,.36,1);max-height:88vh;max-height:88dvh;overflow:auto;
@@ -556,7 +561,7 @@
     color:var(--muted);transition:color .3s;text-align:center}
   .authlink:hover{color:var(--gold-light)}
 
-  /* payment portal */
+  /* payment portal modal */
   .paysheet{
     position:relative;background:var(--bg-2);border:1px solid var(--line);width:min(480px,100%);
     padding:2.6rem 2.4rem;animation:rise .5s cubic-bezier(.22,1,.36,1);max-height:90vh;max-height:90dvh;overflow:auto;
@@ -633,6 +638,7 @@
   #bagFoot .btot{display:flex;justify-content:space-between;font-family:var(--font-display);font-size:1.35rem;color:var(--gold-light);margin-bottom:1rem}
   #bagFoot .bnote{font-family:var(--font-label);font-size:.6rem;letter-spacing:.14em;color:var(--muted);line-height:1.9;margin-top:.9rem}
 
+  /* toast + toTop */
   #toast{
     position:fixed;left:50%;bottom:2rem;transform:translate(-50%,20px);z-index:200;
     background:var(--bg-2);border:1px solid var(--gold);color:var(--champagne);
@@ -648,7 +654,7 @@
   #toTop.show{opacity:1;pointer-events:auto;transform:none}
   #toTop:hover{border-color:var(--gold)}
 
-  /*FOOTER*/
+  /* ============ FOOTER ============ */
   footer{
     border-top:1px solid var(--line);padding:3.6rem 6vw 3rem;text-align:center;color:var(--muted);
     position:relative;z-index:2;background:rgba(11,10,16,.7);
@@ -741,7 +747,7 @@
   <div class="scroll-hint" aria-hidden="true">Scroll to Explore ↓</div>
 </header>
 
-<!--DATA OVERVIEW-->
+<!-- ============ DATA OVERVIEW ============ -->
 <section id="atelier">
   <div class="sec-head"><span class="sec-num">01</span><h2>The Atelier, in Numbers</h2></div>
   <p class="sec-sub">A graphical portrait of the OPALÉRA dataset — every piece, every category, every price point in the maison's archive.</p>
@@ -765,7 +771,7 @@
   </div>
 </section>
 
-<!--COLLECTION-->
+<!-- ============ COLLECTION ============ -->
 <section id="collection">
   <div class="sec-head"><span class="sec-num">02</span><h2>The Collection</h2></div>
   <p class="sec-sub">Filter the archive, search by name, arrange by price — or step into The Studio and shape a piece around your own story.</p>
@@ -852,7 +858,7 @@
   </div>
 </section>
 
-<!-- THE PROMISE-->
+<!-- ============ THE PROMISE ============ -->
 <section id="promise">
   <div class="sec-head"><span class="sec-num">03</span><h2>The OPALÉRA Promise</h2></div>
   <p class="sec-sub">Jewellery should never be a gamble. Every promise from the maison's proposal, kept on the page — so you buy with your heart, not with your fingers crossed.</p>
@@ -913,7 +919,9 @@
 
 </div>
 
-<!-- AUTH MODAL-->
+<!-- Product details now live on their own page: product.html?id=N -->
+
+<!-- ============ AUTH MODAL ============ -->
 <div class="modal" id="authModal" role="dialog" aria-modal="true" aria-labelledby="authTitle">
   <div class="authsheet">
     <button class="close" id="authClose" aria-label="Close sign in">✕</button>
@@ -987,7 +995,9 @@
   </div>
 </div>
 
-<!--BAG PANEL-->
+<!-- Payment now lives on its own page: payment.html -->
+
+<!-- ============ BAG PANEL ============ -->
 <aside id="bagPanel" role="dialog" aria-modal="true" aria-label="Shopping bag">
   <div class="bhead">
     <h3>Your Bag</h3>
@@ -1001,7 +1011,7 @@
   </div>
 </aside>
 
-<!--COMPARE: floating bar + side-by-side panel -->
+<!-- ============ COMPARE: floating bar + side-by-side panel ============ -->
 <div id="cmpBar" aria-live="polite">
   <div class="thumbs" id="cmpThumbs"></div>
   <span class="lbl" id="cmpLbl">Compare 0 pieces</span>
@@ -1022,7 +1032,9 @@
 
 <script src="/opalera-backend/js/opalera-data.js"></script>
 <script>
-/*DATASET (from Jewellery_Dataset.csv) */
+/* ================= DATASET (from Jewellery_Dataset.csv) =================
+   Per-piece descriptions and specs live in opalera-data.js (each piece
+   has its own hand-written text, shown on its product page). */
 const P = [
 [1,"necklace","Sapphire Necklace",1759,"https://images.pexels.com/photos/32988651/pexels-photo-32988651.jpeg?auto=compress&cs=tinysrgb&w=1200"],
 [2,"necklace","Cyan Necklace",3199,"https://images.pexels.com/photos/10215179/pexels-photo-10215179.jpeg?auto=compress&cs=tinysrgb&w=1200"],
@@ -1108,10 +1120,14 @@ const P = [
 const products = P.map(([id,category,name,price,img])=>({id,category,name,price,img}));
 const byId = new Map(products.map(p=>[p.id,p]));
 
+/* Manager overlays from the admin console (admin.html): pieces the manager
+   added join the archive; retired pieces are filtered out of the grid. */
 OPALERA.customProducts().forEach(cp=>{ products.push(cp); byId.set(cp.id, cp); });
 const HIDDEN = OPALERA.hiddenIds();
 
-/* Product photography hotlinks directly to Pexels */
+/* Product photography hotlinks directly to Pexels (a free-to-use stock
+   photo library) at a resolution well above the largest box it's shown
+   in, so it stays sharp instead of being stretched up from a thumbnail. */
 function wireImg(img, box, p){
   img.onload = ()=>box.classList.add("ok");
   img.onerror = ()=>{
@@ -1127,8 +1143,10 @@ const fmt = n => "R " + n.toLocaleString("en-ZA");
 const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const reduceMQ = matchMedia("(prefers-reduced-motion: reduce)");
 
-/*CUSTOMISATION RULES*/
-/* The most expensive pieces are signature pieces: inscription only */
+/* ================= CUSTOMISATION RULES ================= */
+/* The most expensive pieces are signature pieces: inscription only.
+   Everything priced at or above the tenth-highest price is included,
+   so ties at the cutoff (e.g. Spiral Pink Necklace) are locked too. */
 const SIG_PRICES = [...products].map(p=>p.price).sort((a,b)=>b-a);
 const SIG_CUT = SIG_PRICES.length >= 10 ? SIG_PRICES[9] : Infinity;
 const isSignature = p => p.price >= SIG_CUT;
@@ -1148,19 +1166,26 @@ function stoneOf(p){
   return {necklace:"Onyx & Diamond", earrings:"Mother-of-Pearl & Diamond", pendant:"Diamond Pavé"}[p.category];
 }
 
-/* PERSISTENT STATE : Wishlist and bag are cached in this browser  */
+/* ================= PERSISTENT STATE =================
+   Wishlist and bag are cached in this browser for instant UI, and kept
+   in sync with the patron's account on the maison's server once signed
+   in, so they follow the patron to another device. Orders and reviews
+   live on the server (reviews are mirrored locally for the star maths). */
 const store = {
   get(k,d){ try{ const v = JSON.parse(localStorage.getItem(k)); return v===null||v===undefined ? d : v; }catch(e){ return d; } },
   set(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
 };
 let wishlist = new Set(store.get("opalera.wishlist", []));
-let bag = store.get("opalera.bag", []);      
-let compare = new Set(store.get("opalera.compare", [])); 
-let session = null;                               
-let currentUserObj = null;                       
-let userReviews = store.get("opalera.reviews", []); 
+let bag = store.get("opalera.bag", []);            /* [{pid, custom|null, price, qty}] */
+let compare = new Set(store.get("opalera.compare", []));  /* up to three pieces to compare side by side */
+let session = null;                                /* signed-in patron's email (server session) */
+let currentUserObj = null;                         /* {email, fn, ln} once verified with the server */
+let userReviews = store.get("opalera.reviews", []); /* local mirror of the server's reviews */
 
-/*RATINGS & REVIEWS*/
+/* ================= RATINGS & REVIEWS =================
+   SAMPLE seed data, generated deterministically per piece so it never changes
+   between visits. The back-end team replaces these seeds with real stored
+   reviews; the user-submitted reviews below already persist per browser. */
 function h32(n){ n=(n^61)^(n>>>16); n=n+(n<<3); n=n^(n>>>4); n=Math.imul(n,0x27d4eb2d); return (n^(n>>>15))>>>0; }
 const REV_NAMES=["Naledi M.","Sipho K.","Aisha P.","Lerato D.","Thandi N.","Pieter V.","Zanele S.","Kagiso R.","Anele B.","Megan J.","Tebogo L.","Farhana I."];
 const REV_TEXTS=[
@@ -1179,8 +1204,8 @@ const REV_TEXTS=[
 ];
 function makeSeed(p){
   const h = h32(p.id*2654435761 % 4294967296);
-  const rating = 4.2 + (h % 9)/10;                
-  const count = 8 + ((h>>>4) % 33);                 
+  const rating = 4.2 + (h % 9)/10;                   /* 4.2 – 5.0 */
+  const count = 8 + ((h>>>4) % 33);                  /* 8 – 40 */
   const n = 2 + (h % 2);
   const revs = Array.from({length:n},(_,i)=>({
     stars: 4 + (((h>>>(6+i*3)) % 10) > 3 ? 1 : 0),
@@ -1203,17 +1228,18 @@ function starStr(avg){
   const f = Math.round(avg);
   return "★".repeat(f) + `<span class="dim">${"★".repeat(5-f)}</span>`;
 }
-
+/* the six most-loved pieces earn a chip on their card */
 const MOST_LOVED = new Set([...products]
   .sort((a,b)=>{ const A=seedOf.get(a.id),B=seedOf.get(b.id); return B.rating-A.rating || B.count-A.count; })
   .slice(0,6).map(p=>p.id));
-     
+/* value framing: comparable boutique estimate (SAMPLE data — the back-end
+   team replaces this with live market comparisons) */
 function boutiqueEst(p){
   const h = h32(p.id*97);
   return Math.round(p.price*(1.9 + (h%6)/10)/50)*50;
 }
 
-/* I STATE */
+/* ================= UI STATE ================= */
 let filter="all", query="", sortBy="default", band="all";
 let currentList = [];      /* products visible in the grid, in display order */
 const CATS=[["all","All Pieces"],["necklace","Necklaces"],["earrings","Earrings"],["pendant","Pendants"],["wishlist","Wishlist"],["studio","The Studio"]];
@@ -1221,7 +1247,7 @@ const CATS=[["all","All Pieces"],["necklace","Necklaces"],["earrings","Earrings"
 const $ = id => document.getElementById(id);
 const grid = $("grid"), tabsEl = $("tabs"), studio = $("studio");
 
-/*HASH DEEP-LINKS*/
+/* ================= HASH DEEP-LINKS ================= */
 function readHash(){
   const h = location.hash.replace(/^#/,"");
   const q = new URLSearchParams(h.includes("=") ? h.replace(/^collection\??/,"") : "");
@@ -1238,7 +1264,7 @@ function updateHash(){
   try{ history.replaceState(null,"", s ? "#"+s : location.pathname.split("/").pop() || "#"); }catch(e){}
 }
 
-/*BUILD CARDS ONCE*/
+/* ================= BUILD CARDS ONCE ================= */
 const cardOf = new Map();
 function makeCard(p){
   const c = document.createElement("article");
@@ -1284,7 +1310,7 @@ function makeCard(p){
 }
 products.forEach(makeCard);
 
-/*TABS*/
+/* ================= TABS ================= */
 CATS.forEach(([key,label])=>{
   const b = document.createElement("button");
   b.className = "tab";
@@ -1317,7 +1343,7 @@ function setFilter(key){
   render();
 }
 
-/*RENDER*/
+/* ================= RENDER ================= */
 let firstRender = true;
 function render(){
   const inStudio = filter==="studio";
@@ -1361,6 +1387,7 @@ function render(){
   updateHash();
 }
 
+/* search (debounced) / band / sort */
 let debT;
 $("search").addEventListener("input", e=>{
   clearTimeout(debT);
@@ -1369,6 +1396,7 @@ $("search").addEventListener("input", e=>{
 $("band").addEventListener("change", e=>{ band=e.target.value; render(); });
 $("sort").addEventListener("change", e=>{ sortBy=e.target.value; render(); });
 
+/* nav + footer + hero filter links, mobile menu */
 document.querySelectorAll("[data-filter]").forEach(a=>{
   a.addEventListener("click", ()=>{
     setFilter(a.dataset.filter);
@@ -1382,7 +1410,7 @@ $("menuBtn").addEventListener("click", ()=>{
   $("menuBtn").setAttribute("aria-expanded", nav.classList.contains("open"));
 });
 
-/*WISHLIST*/
+/* ================= WISHLIST ================= */
 function syncHearts(p){
   const on = wishlist.has(p.id);
   const hb = cardOf.get(p.id).querySelector(".heart");
@@ -1395,11 +1423,14 @@ function toggleWish(p){
   OPALERA.pushWishlist();   /* keep the account's wishlist in sync on the server */
   syncHearts(p);
   toast(wishlist.has(p.id) ? `${p.name} saved to your wishlist` : `${p.name} removed from your wishlist`);
-  if(filter==="wishlist") render(); else render();  
+  if(filter==="wishlist") render(); else render();  /* refresh counts */
 }
 $("wishBtn").addEventListener("click", ()=>{ setFilter("wishlist"); location.hash="#tab=wishlist"; $("collection").scrollIntoView(); });
 
-/*COMPARE (up to three pieces side by side) */
+/* Product detail, gallery, certificate and reviews now live on
+   product.html?id=N — cards link straight there. */
+
+/* ================= COMPARE (up to three pieces side by side) ================= */
 const cmpBar = $("cmpBar"), cmpPanel = $("cmpPanel");
 function persistCompare(){ store.set("opalera.compare", [...compare]); }
 function toggleCompare(p){
@@ -1467,7 +1498,11 @@ cmpPanel.addEventListener("click", e=>{ if(e.target===cmpPanel) closeCompare(); 
 cmpPanel.addEventListener("keydown", e=>{ if(e.key==="Tab") trapFocus(cmpPanel,e); });
 renderCmpBar();
 
-/* LIVE CATALOGUE */
+/* ================= LIVE CATALOGUE (database → service → grid) =================
+   The grid paints instantly from the bundled catalogue, then the live one is
+   fetched from the database through GET /api/products and patched in place:
+   prices, names, photos and stock the manager has edited, pieces retired or
+   deleted, and pieces newly added in the console. */
 function updateCardDom(p){
   const c = cardOf.get(p.id); if(!c) return;
   c.querySelector("h3").textContent = p.name;
@@ -1502,11 +1537,11 @@ function applyServerCatalogue(list){
     }
     sp.hidden ? HIDDEN.add(sp.id) : HIDDEN.delete(sp.id);
   });
-  products.forEach(p => { if(!seen.has(p.id)) HIDDEN.add(p.id); });  
+  products.forEach(p => { if(!seen.has(p.id)) HIDDEN.add(p.id); });   /* deleted by the manager */
   refreshAggregate(); render(); renderBag(); renderCmpBar();
 }
 
-/*AGGREGATE RATING */
+/* ================= AGGREGATE RATING (hero & promise strip) ================= */
 function refreshAggregate(){
   let sum=0, total=0;
   products.forEach(p=>{ const r = ratingOf(p); sum += r.avg*r.count; total += r.count; });
@@ -1516,6 +1551,7 @@ function refreshAggregate(){
   $("psReviews").textContent = (Math.floor(total/100)*100).toLocaleString("en-ZA");
 }
 refreshAggregate();
+/* focus trap util */
 function trapFocus(container, e){
   const f = [...container.querySelectorAll("button,[href],input,select,textarea,[tabindex]:not([tabindex='-1'])")]
     .filter(el=>!el.disabled && el.offsetParent!==null);
@@ -1527,7 +1563,9 @@ function trapFocus(container, e){
 
 /* ================= INSCRIPTION CONTENT FILTER =================
    Hand-engraving is permanent, so inscriptions are screened for profanity
-   and hate speech before they can be added to the bag. */
+   and hate speech before they can be added to the bag. This is a
+   client-side word-list filter; the back-end team should re-check on the
+   server too, since a front-end filter alone can be bypassed. */
 const BLOCKED_TERMS = [
   "fuck","shit","bitch","asshole","bastard","cunt","dick","piss","cock","pussy",
   "slut","whore","douche","fag","faggot","retard","nigger","nigga","chink","spic",
@@ -1552,7 +1590,7 @@ function findBlockedTerm(text){
   return null;
 }
 
-/* THE STUDIO */
+/* ================= THE STUDIO ================= */
 const stu = { p:null, pattern:0, removed:new Set(), insc:"", pendant:0 };
 
 /* picker */
@@ -1634,6 +1672,7 @@ function openStudio(p, scroll=true){
     });
     rm.appendChild(row);
   });
+  /* the stone is shown as permanently locked */
   const stoneRow = document.createElement("label");
   stoneRow.className = "chkrow locked";
   stoneRow.innerHTML = `<input type="checkbox" disabled> Remove ${esc(stoneOf(p))} stone — never`;
@@ -1769,13 +1808,15 @@ $("bagBtn").addEventListener("click", openBag);
 $("bagClose").addEventListener("click", closeBag);
 bagPanel.addEventListener("keydown", e=>{ if(e.key==="Tab") trapFocus(bagPanel,e); });
 
-/* CHECKOUT → PAYMENT PAGE  */
+/* ================= CHECKOUT → PAYMENT PAGE ================= */
+/* "Proceed to Payment" hands over to payment.html, which shows the order
+   summary, gates on sign-in, and runs the simulated payment. */
 $("checkoutBtn").addEventListener("click", ()=>{
   if(!bag.length){ toast("Your bag is empty."); return; }
   location.href = "payment.html";
 });
 
-/*AUTH (real accounts on the maison's server) */
+/* ================= AUTH (real accounts on the maison's server) ================= */
 const authModal = $("authModal");
 function openAuth(msg){
   authModal.classList.add("open");
@@ -1802,7 +1843,7 @@ function switchAuth(showSignup){
   (showSignup ? $("suFirst") : $("liEmail")).focus();
 }
 
-/*forgotten password: request a code, then set a new password */
+/* ---- forgotten password: request a code, then set a new password ---- */
 let resetStage = 1;
 function showReset(){
   $("loginForm").hidden = true; $("signupForm").hidden = true;
@@ -1812,7 +1853,7 @@ function showReset(){
   $("resetStep2").hidden = true;
   $("rsSubmit").textContent = "Send Reset Code";
   $("authMsg3").textContent = "";
-  $("rsEmail").value = $("liEmail").value; 
+  $("rsEmail").value = $("liEmail").value;   /* carry over what they typed */
   $("rsEmail").focus();
 }
 $("forgotLink").addEventListener("click", showReset);
@@ -1856,6 +1897,8 @@ $("authClose").addEventListener("click", closeAuth);
 authModal.addEventListener("click", e=>{ if(e.target===authModal) closeAuth(); });
 authModal.addEventListener("keydown", e=>{ if(e.key==="Tab") trapFocus(authModal,e); });
 
+/* after signing in, merge this browser's guest bag/wishlist into the
+   account on the server, then re-read the merged state and re-render */
 async function adoptAccount(u){
   session = u.email; currentUserObj = u;
   await OPALERA.adoptAccount();
@@ -1921,7 +1964,7 @@ $("acctBtn").addEventListener("click", ()=>{
 $("signOutBtn").addEventListener("click", async ()=>{
   await OPALERA.authApi.logout();
   session = null; currentUserObj = null;
-  bag = []; wishlist = new Set();    
+  bag = []; wishlist = new Set();          /* a shared device forgets the account's bag */
   store.set("opalera.bag", bag); store.set("opalera.wishlist", []);
   syncAccount(); renderBag(); render();
   toast("Signed out. À bientôt.");
@@ -1930,7 +1973,7 @@ document.addEventListener("click", e=>{
   if(!$("acctMenu").contains(e.target) && e.target!==$("acctBtn")) $("acctMenu").classList.remove("open");
 });
 
-/*GLOBAL KEYS*/
+/* ================= GLOBAL KEYS ================= */
 document.addEventListener("keydown", e=>{
   if(e.key!=="Escape") return;
   if(authModal.classList.contains("open")) return closeAuth();
@@ -1939,7 +1982,7 @@ document.addEventListener("keydown", e=>{
   if($("acctMenu").classList.contains("open")) return $("acctMenu").classList.remove("open");
 });
 
-/*TOAST & TO-TOP*/
+/* ================= TOAST & TO-TOP ================= */
 let toastT;
 function toast(t){
   const el = $("toast");
@@ -1953,7 +1996,7 @@ addEventListener("scroll", ()=>{
 },{passive:true});
 $("toTop").addEventListener("click", ()=>scrollTo({top:0,behavior: reduceMQ.matches ? "auto" : "smooth"}));
 
-/*CHARTS & COUNTERS*/
+/* ================= CHARTS & COUNTERS ================= */
 function bars(elId, rows, cls, fmtVal){
   const vals = rows.map(r=>r[1]).filter(v=>isFinite(v));
   const max = vals.length ? Math.max(...vals) : 1;
@@ -1972,6 +2015,7 @@ const avg = a => a.length ? Math.round(a.reduce((s,p)=>s+p.price,0)/a.length) : 
 bars("chartCount",[["Necklaces",byCat("necklace").length],["Earrings",byCat("earrings").length],["Pendants",byCat("pendant").length]],["gold","sapphire","rose"],v=>v);
 bars("chartPrice",[["Necklaces",avg(byCat("necklace"))],["Earrings",avg(byCat("earrings"))],["Pendants",avg(byCat("pendant"))]],["gold","sapphire","rose"],v=>"R "+v.toLocaleString("en-ZA"));
 
+/* keep stats honest whatever the dataset holds */
 $("statPieces").dataset.count = products.length;
 $("statColl").dataset.count = new Set(products.map(p=>p.category)).size;
 $("statAvg").dataset.count = avg(products);
@@ -1997,7 +2041,7 @@ const io = new IntersectionObserver(entries=>{
 },{threshold:.3});
 document.querySelectorAll("#atelier .stats,#atelier .chart-card").forEach(el=>io.observe(el));
 
-/*SPARKLE CANVAS*/
+/* ================= SPARKLE CANVAS ================= */
 const cv = $("sparkles"), ctx = cv.getContext("2d");
 const HUES = ["hsl(46,70%,72%)","hsl(215,70%,72%)","hsl(330,70%,72%)","hsl(160,70%,72%)"];
 let W,H,stars=[],lastW=0;
@@ -2012,7 +2056,7 @@ function seedStars(){
 }
 function sizeCanvas(){
   W = cv.width = innerWidth; H = cv.height = innerHeight;
-  if(innerWidth!==lastW){ lastW = innerWidth; seedStars(); }  
+  if(innerWidth!==lastW){ lastW = innerWidth; seedStars(); }  /* ignore URL-bar height changes */
   if(reduceMQ.matches) drawFrame();
 }
 function drawFrame(){
@@ -2036,13 +2080,13 @@ addEventListener("resize", sizeCanvas);
 })();
 reduceMQ.addEventListener?.("change", ()=>{ if(!reduceMQ.matches) requestAnimationFrame(function again(){ drawFrame(); if(!reduceMQ.matches) requestAnimationFrame(again); }); });
 
-/*  BOOT: hash, account, bag */
+/* ================= BOOT: hash, account, bag ================= */
 syncAccount();
 renderBag();
 $("wishCount").textContent = wishlist.size || "";
 (function boot(){
-  const wantAtelier = location.hash === "#atelier"; 
-  const wantForgot = location.hash === "#forgot";   
+  const wantAtelier = location.hash === "#atelier";   /* read before updateHash rewrites it */
+  const wantForgot = location.hash === "#forgot";     /* ditto — forgot-password deep link */
   const q = readHash();
   if(q.get("q")){ query = q.get("q").toLowerCase(); $("search").value = q.get("q"); }
   if(q.get("sort")){ sortBy = q.get("sort"); $("sort").value = sortBy; }
@@ -2052,14 +2096,20 @@ $("wishCount").textContent = wishlist.size || "";
   if(tab==="studio" && pickId && byId.get(pickId)){ openStudio(byId.get(pickId), false); }
   else if(tab && CATS.some(c=>c[0]===tab)) setFilter(tab);
   else setFilter("all");
+  /* arriving on a deep-link (e.g. "Customise" from a product page) should land
+     the visitor on the studio / collection, not the top of the hero */
   if(tab === "studio") setTimeout(()=>studio.scrollIntoView({behavior:"instant", block:"start"}), 60);
   else if(tab) setTimeout(()=>$("collection").scrollIntoView({behavior:"instant", block:"start"}), 60);
   else if(wantAtelier) setTimeout(()=>$("atelier").scrollIntoView({behavior:"instant", block:"start"}), 60);
   const piece = +q.get("piece");
-  if(piece && byId.get(piece)) location.replace("product.html?id=" + piece); 
+  if(piece && byId.get(piece)) location.replace("product.html?id=" + piece); /* legacy deep-links */
+  /* deep link from other pages' "Forgot password?" links */
   if(wantForgot){ openAuth(); showReset(); }
 })();
 
+/* restore a signed-in session (via the httpOnly cookie) and pull the
+   account's bag/wishlist and the latest patron reviews from the server;
+   runs in the background so the page is interactive right away */
 (async function restoreFromServer(){
   /* the catalogue is retrieved from the database through the web service */
   OPALERA.syncCatalogue().then(list => { if(list) applyServerCatalogue(list); });

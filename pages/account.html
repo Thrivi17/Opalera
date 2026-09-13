@@ -87,7 +87,7 @@
 
 <script src="/opalera-backend/js/opalera-data.js"></script>
 <script>
-const { findProduct, fmt, esc, store, webSrc, pageOf, api, authApi } = OPALERA;
+const { findProduct, fmt, esc, store, webSrc, pageOf, api, authApi, orderTracking } = OPALERA;
 const $ = id => document.getElementById(id);
 
 (async function(){
@@ -121,13 +121,15 @@ const $ = id => document.getElementById(id);
       const p = findProduct(it.pid);
       return `${p ? p.name : "Piece"}${(it.qty||1)>1 ? " ×"+it.qty : ""}${it.custom ? " (customised)" : ""}`;
     }).join(" · ");
-    const status = o.status === "reserved" ? "Reserved · pay at counter" : "Paid · awaiting dispatch";
+    /* live delivery status from the order's tracking timeline */
+    const t = orderTracking(o);
     const div = document.createElement("div");
     div.className = "ord";
     div.innerHTML = `
-      <div class="oh"><span class="ref">${esc(o.ref)}</span><span class="st">${status}</span></div>
-      <div class="oi">${esc(d.toLocaleDateString("en-ZA",{year:"numeric",month:"long",day:"numeric"}))} — ${esc(names)}${o.address ? "<br>To: "+esc([o.address.city,o.address.province].filter(Boolean).join(", ")) : ""}</div>
-      <div class="ot"><span class="tot">${fmt(o.total)}</span><a href="invoice.html#ref=${esc(o.ref)}">View invoice →</a></div>`;
+      <div class="oh"><span class="ref">${esc(o.ref)}</span><span class="st"${t.complete ? "" : ' style="border-color:var(--gold);color:var(--gold-light)"'}>${esc(t.current.label)}</span></div>
+      <div class="oi">${esc(d.toLocaleDateString("en-ZA",{year:"numeric",month:"long",day:"numeric"}))} — ${esc(names)}${o.address ? "<br>To: "+esc([o.address.city,o.address.province].filter(Boolean).join(", ")) : ""}${t.complete ? "" : "<br>" + esc(t.etaText)}</div>
+      <div class="ot"><span class="tot">${fmt(o.total)}</span>
+        <span style="display:flex;gap:1.3rem;flex-wrap:wrap"><a href="tracking.html#ref=${esc(o.ref)}">Track order →</a><a href="invoice.html#ref=${esc(o.ref)}">View invoice →</a></span></div>`;
     ol.appendChild(div);
   });
 

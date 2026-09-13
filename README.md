@@ -54,7 +54,7 @@ Pages link to styles and scripts with root-absolute paths (`/css/…`,
 - **Order tracking timeline** — every order has a live Placed → Paid → Packed → Shipped → Delivered timeline (a collection path for pay-at-counter orders) at `pages/tracking.html`, with status chips on the account page
 - **QR code on invoices** — each invoice carries a scannable QR code (and a status strip) that opens that order's tracking page
 
-Product photography hotlinks to Pexels at 1200px.
+Product photography hotlinks to Pexels (free stock-photo library) at 1200px.
 Delete `opalera-backend/data/db.json` to reset all demo accounts, orders and
 reviews (the catalogue re-seeds automatically on the next run).
 

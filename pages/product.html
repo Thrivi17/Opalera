@@ -157,6 +157,9 @@
 
 <script src="/opalera-backend/js/opalera-data.js"></script>
 <script>
+/* This template serves pieces the manager added in the console, which live
+   only in the database. If this browser hasn't mirrored the catalogue yet,
+   fetch it through the products service before the page logic runs. */
 (async () => {
   const id = parseInt(new URLSearchParams(location.search).get("id") || location.hash.replace(/\D/g, ""), 10);
   if (id && !OPALERA.findProduct(id)) await OPALERA.syncCatalogue();

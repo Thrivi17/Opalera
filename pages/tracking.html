@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OPALÉRA — Track Order</title>
+<meta name="theme-color" content="#0b0a10">
+<link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect x="7" y="7" width="10" height="10" transform="rotate(45 12 12)" fill="none" stroke="%23d8b45a" stroke-width="1.4"/><rect x="9.5" y="9.5" width="5" height="5" transform="rotate(45 12 12)" fill="%23d8b45a"/></svg>'>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/product-style.css">
+<style>
+  main{max-width:900px}
+  .eyebrow{font-family:var(--font-label);font-size:.66rem;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);margin-bottom:.6rem}
+  h1.trk{font-size:clamp(2rem,4.5vw,3rem);font-weight:500;letter-spacing:.06em;margin-bottom:.4rem}
+  .sub{color:var(--muted);font-style:italic;line-height:1.7;margin-bottom:2rem}
+  .panel{border:1px solid var(--line);background:rgba(23,21,34,.85);padding:2rem;margin-bottom:1.6rem}
+  .panel h2{font-size:1.25rem;font-weight:500;letter-spacing:.08em;margin-bottom:1rem;color:var(--champagne)}
+  .ohead{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;align-items:flex-start;margin-bottom:.6rem}
+  .ref{font-family:var(--font-label);font-size:.78rem;letter-spacing:.16em;color:var(--gold-light);line-height:1.8}
+  .eta{color:var(--muted);font-style:italic;margin-top:.2rem}
+  .chip{font-family:var(--font-label);font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;border:1px solid var(--emerald);color:var(--emerald);padding:.3rem .65rem;white-space:nowrap}
+  .chip.pending{border-color:var(--gold);color:var(--gold-light)}
+
+  /* the timeline */
+  .tl{list-style:none;margin:1.8rem 0 .2rem;padding:0}
+  .tl li{position:relative;padding:0 0 1.7rem 2.8rem}
+  .tl li::before{content:"";position:absolute;left:11px;top:26px;bottom:-2px;width:2px;background:rgba(255,255,255,.1)}
+  .tl li:last-child::before{display:none}
+  .tl li.done::before{background:var(--emerald)}
+  .tl .dot{position:absolute;left:0;top:2px;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;
+    border:1px solid var(--line);background:var(--bg-2);color:var(--muted);font-size:.72rem;font-weight:700}
+  .tl li.done .dot{border-color:var(--emerald);background:var(--emerald);color:#0b0a10}
+  .tl li.current .dot{border-color:var(--gold);background:var(--gold);color:#14101a;animation:pulse 1.8s ease-in-out infinite}
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 4px rgba(216,180,90,.22)}50%{box-shadow:0 0 0 11px rgba(216,180,90,.04)}}
+  .tl .lab{font-family:var(--font-display);font-size:1.15rem;letter-spacing:.03em}
+  .tl li.pending .lab{color:var(--muted)}
+  .tl .when{font-family:var(--font-label);font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:.25rem}
+  .tl li.current .when{color:var(--gold-light)}
+
+  .items{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:1rem}
+  .item{display:flex;gap:.8rem;align-items:center}
+  .item img{width:58px;height:58px;object-fit:cover;border:1px solid var(--line);
+    filter:brightness(1.03) saturate(1.12) contrast(1.05)}
+  .item .n{font-family:var(--font-display);font-size:1rem;line-height:1.3}
+  .item .q{font-family:var(--font-label);font-size:.64rem;letter-spacing:.12em;color:var(--muted);margin-top:.15rem}
+  .addr{font-size:.92rem;line-height:1.8;color:#d5cfe0}
+  .acts{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1.3rem}
+  .missing{color:var(--muted);font-style:italic;text-align:center;padding:2rem 0}
+  .missing a{color:var(--gold-light)}
+</style>
+</head>
+<body>
+<div class="aurora" aria-hidden="true"><span class="a1"></span><span class="a2"></span></div>
+<div class="wrap">
+
+<nav>
+  <a class="brand" href="jewellery_Html.html">
+    <span class="mark" aria-hidden="true"><i></i></span>
+    <span><b>OPALÉRA</b><small>The House of Every Gem</small></span>
+  </a>
+  <a class="crumb" href="account.html" style="text-decoration:none">← My Orders</a>
+</nav>
+
+<main>
+  <div class="eyebrow">Order Tracking</div>
+  <h1 class="trk">Track Your Order</h1>
+  <p class="sub">Follow your pieces from the atelier to your door. Scanning the QR code on your invoice brings you straight here.</p>
+
+  <div id="trackWrap" hidden>
+    <div class="panel">
+      <div class="ohead">
+        <div>
+          <div class="ref" id="tRef"></div>
+          <div class="eta" id="tEta"></div>
+        </div>
+        <span class="chip" id="tChip"></span>
+      </div>
+      <ol class="tl" id="tl"></ol>
+    </div>
+
+    <div class="panel">
+      <h2>In this order</h2>
+      <div class="items" id="tItems"></div>
+    </div>
+
+    <div class="panel">
+      <h2 id="addrTitle">Delivering to</h2>
+      <div class="addr" id="tAddr"></div>
+      <div class="acts">
+        <a class="btn solid" id="invLink" href="#">View Invoice</a>
+        <a class="btn ghost" href="jewellery_Html.html#tab=all">Continue Shopping</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel missing" id="missing" hidden>
+    No matching order was found. Sign in with the account that placed it, then open the link again.<br>
+    <a href="account.html">My orders</a> · <a href="jewellery_Html.html">Return to the collection</a>
+  </div>
+</main>
+
+<footer>
+  OPALÉRA · The House of Every Gem<br>
+  <a href="jewellery_Html.html">Collection</a> · <a href="account.html">My Account</a> · <a href="contact.html">Contact</a> · <a href="delivery.html">Delivery</a> · <a href="returns.html">Returns</a>
+</footer>
+</div>
+
+<script src="/opalera-backend/js/opalera-data.js"></script>
+<script>
+const { findProduct, fmt, esc, store, api, orderTracking } = OPALERA;
+const $ = id => document.getElementById(id);
+
+(async function(){
+  /* the order reference comes from the invoice QR / links (#ref=…) or ?ref=… */
+  const hm = location.hash.match(/ref=([A-Z0-9-]+)/i);
+  const ref = (hm && hm[1]) || new URLSearchParams(location.search).get("ref") || null;
+
+  /* real orders live on the maison's server; this browser's copy is the
+     fallback (offline, or an order placed before sign-in) */
+  let serverOrders = [];
+  try{ serverOrders = (await api("/orders")).orders; }catch(e){}
+  const local = store.get("opalera.orders", []).map(o => ({ ...o, placedAt: o.placed, email: o.user }));
+  const all = serverOrders.concat(local.filter(l => !serverOrders.some(s => s.ref === l.ref)))
+    .sort((a, b) => new Date(b.placedAt) - new Date(a.placedAt));
+  const order = ref ? all.find(o => o.ref === ref) : all[0];
+
+  if(!order){ $("missing").hidden = false; return; }
+
+  const t = orderTracking(order);
+  $("trackWrap").hidden = false;
+  document.title = `OPALÉRA — Track ${order.ref}`;
+
+  $("tRef").textContent = `Order ${order.ref} · placed ${new Date(order.placedAt).toLocaleDateString("en-ZA", { day:"numeric", month:"long", year:"numeric" })}`;
+  $("tChip").textContent = t.current.label;
+  $("tChip").classList.toggle("pending", !t.complete);
+  $("tEta").textContent = t.complete
+    ? (order.method === "cod" ? "Collected — thank you for visiting the maison." : "Delivered — we hope it brings you joy.")
+    : t.etaText + (order.method === "cod" ? " · collect at the counter" : "");
+
+  $("tl").innerHTML = t.stages.map(s => `
+    <li class="${s.state}">
+      <span class="dot" aria-hidden="true">${s.done ? "✓" : ""}</span>
+      <div class="lab">${esc(s.label)}</div>
+      <div class="when">${s.done ? s.when : "Expected " + s.when}</div>
+    </li>`).join("");
+
+  $("tItems").innerHTML = order.items.map(it => {
+    const p = findProduct(it.pid), q = it.qty || 1;
+    return `<div class="item">
+      <img src="${p ? esc(p.img) : ""}" alt="">
+      <div><div class="n">${esc(p ? p.name : "Piece")}</div>
+      <div class="q">Qty ${q} · ${fmt(it.price * q)}${it.custom ? " · customised" : ""}</div></div>
+    </div>`;
+  }).join("");
+
+  const a = order.address || {};
+  if(order.method === "cod"){
+    $("addrTitle").textContent = "Collecting from";
+    $("tAddr").innerHTML = "The OPALÉRA counter — The Atelier, 12 Gemstone Lane, Johannesburg, Gauteng.<br>Bring your order reference; payment is settled on collection.";
+  }else{
+    $("tAddr").innerHTML = [a.name, a.street, [a.city, a.postal].filter(Boolean).join(" "), a.province, a.phone]
+      .filter(Boolean).map(esc).join("<br>") || "Address on file with the maison.";
+  }
+  $("invLink").href = "invoice.html#ref=" + order.ref;
+})();
+
+/* opening a different order's link while on this page should re-render */
+addEventListener("hashchange", () => location.reload());
+</script>
+</body>
+</html>
